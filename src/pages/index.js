@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Splash() {
   return (
     <>
       <Head>
@@ -17,7 +17,7 @@ export default function Home() {
         <main>
           <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
           <br></br><br></br>
-          <h2>To track your vacations, <Link href='/login'>login</Link> or <Link href='/signup'>sign up</Link>!</h2>
+          <h2>To track your vacations, <Link href='/trips'>login</Link> or <Link href='/signup'>sign up</Link>!</h2>
         </main>
       </div>
     </>
