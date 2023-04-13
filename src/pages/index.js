@@ -13,13 +13,22 @@ export default function Splash() {
         <title>Welcome!</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className={styles.mainDiv}>
-        <main>
-          <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
-          <br></br><br></br>
-          <h2>To track your vacations, <Link href='/trips'>login</Link> or <Link href='/signup'>sign up</Link>!</h2>
-        </main>
-      </div>
+      <style jsx global>{`
+        body {
+          background-color: aliceblue;
+        }
+      `}</style>
+      {/* <body className={styles.body}> */}
+      {/* <div className={styles.bodyDiv}> */}
+        <div className={styles.mainDiv}>
+          <main>
+            <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
+            <br></br><br></br>
+            <h2>To track your vacations, <Link href='/trips'>login</Link> or <Link href='/signup'>sign up</Link>!</h2>
+          </main>
+        </div>
+      {/* </div> */}
+      {/* </body> */}
     </>
     // <h1>This is The Internet Explorers' app</h1>
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">
