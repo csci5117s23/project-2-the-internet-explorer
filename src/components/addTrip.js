@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function AddTrip( {group}) {
+export default function AddTrip() {
     const [tripName, setTripName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
