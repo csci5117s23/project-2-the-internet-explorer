@@ -5,5 +5,5 @@ export default function Trips() {
 
   // TODO: Add a list of trip "folders".
 
-  return <h1>This is the Trips page.</h1>
+  return <h1>Your Trips</h1>
 }
