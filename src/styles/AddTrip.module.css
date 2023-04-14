@@ -1,0 +1,16 @@
+.addTripContainer {
+    top: 25%;
+    left: 25%;
+    margin: auto;
+    width: 50%;
+    margin: auto;
+    position: absolute;
+    border:1px solid black;
+    border-radius: 10px;
+}
+
+.createTripHeader {
+    position: absolute;
+    top: 18%;
+    left: 25%;
+}
