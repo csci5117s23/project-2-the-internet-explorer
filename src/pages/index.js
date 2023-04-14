@@ -7,6 +7,8 @@ import Link from 'next/link';
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Splash() {
+  //!!!! URGENT: UPDATE <LINK> COMPONENTS HREF BEFORE HOSTING ON NETFLIY !!!!//
+
   return (
     <>
       <Head>

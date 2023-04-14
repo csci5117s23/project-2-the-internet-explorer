@@ -1,4 +1,16 @@
-.headerBar {
+.headerDiv {
+  background-color: skyblue;
+}
+
+.headerTitle {
+  font-size: 2em;
+  font-weight: 500;
+  margin-left: 1em;
+  /* text-align: center; */
+}
+
+.headerUser {
   font-size: 1.5em;
-  text-align: center;
+  margin-right: 1em;
+  float: right;
 }

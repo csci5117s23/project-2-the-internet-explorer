@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.cl-userButton-root {
+  float: right;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  height: 100%;
+}
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;
