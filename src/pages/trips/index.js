@@ -1,3 +1,5 @@
+import Header from "@/components/Header";
+import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 
 
 export default function Trips() {
@@ -5,5 +7,14 @@ export default function Trips() {
 
   // TODO: Add a list of trip "folders".
 
-  return <h1>Your Trips</h1>
+  return (
+    <>
+      <SignedIn>
+        <Header></Header>
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn></RedirectToSignIn>
+      </SignedOut>
+    </>
+  )
 }

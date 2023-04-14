@@ -18,17 +18,13 @@ export default function Splash() {
           background-color: aliceblue;
         }
       `}</style>
-      {/* <body className={styles.body}> */}
-      {/* <div className={styles.bodyDiv}> */}
-        <div className={styles.mainDiv}>
-          <main>
-            <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
-            <br></br><br></br>
-            <h2>To track your vacations, <Link href='/trips'>login</Link> or <Link href='/signup'>sign up</Link>!</h2>
-          </main>
-        </div>
-      {/* </div> */}
-      {/* </body> */}
+      <div className={styles.mainDiv}>
+        <main>
+          <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
+          <br></br><br></br>
+          <h2>To track your vacations, <Link href='https://grown-locust-7.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>login</Link> or <Link href='https://grown-locust-7.accounts.dev/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>sign up</Link>!</h2>
+        </main>
+      </div>
     </>
     // <h1>This is The Internet Explorers' app</h1>
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">
