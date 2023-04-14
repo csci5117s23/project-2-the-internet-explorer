@@ -14,3 +14,8 @@
     top: 18%;
     left: 25%;
 }
+
+.calendarDiv {
+    display: inline-block;
+    width: fit-content;
+}
