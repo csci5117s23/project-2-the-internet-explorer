@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import AddTrip from "./AddTrip";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 Modal.setAppElement("body");
 
@@ -18,11 +20,11 @@ export default function AddTripWrapper() {
   return (
     <>
       <button
-        className="ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm"
+        className="absolute right-12 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm"
         id="addTrip"
         onClick={openModal}
       >
-        Add Trip
+        <FontAwesomeIcon icon={faPlus} />Add Trip
       </button>
       <Modal
         isOpen={modalIsOpen}
