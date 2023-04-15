@@ -19,6 +19,7 @@ const tripFolderYup = object({
   startDate: string().required(),
   endDate: string().required(),
   description: string(),
+  user: string().required(),
 });
 
 // Use Crudlify to create a REST API for any collection
