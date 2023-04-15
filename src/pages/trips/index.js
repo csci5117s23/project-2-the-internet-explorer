@@ -12,7 +12,9 @@ export default function Trips() {
   return (
     <>
       <SignedIn>
-        <Header></Header>
+        <Header
+          title={"Your Trips"}
+        />
         <TripsWrapper></TripsWrapper>
         <AddTripWrapper></AddTripWrapper>
       </SignedIn>
