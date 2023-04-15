@@ -1,3 +1,4 @@
+import AddTripWrapper from "@/components/AddTripWrapper";
 import Header from "@/components/Header";
 import TripsWrapper from "@/components/TripsWrapper";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
@@ -13,6 +14,7 @@ export default function Trips() {
       <SignedIn>
         <Header></Header>
         <TripsWrapper></TripsWrapper>
+        <AddTripWrapper></AddTripWrapper>
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn></RedirectToSignIn>

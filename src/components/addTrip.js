@@ -57,7 +57,7 @@ export default function AddTrip() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-        }, []);
+    }, []);
     
 
     return (
