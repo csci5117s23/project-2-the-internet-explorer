@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import AddTrip from "./AddTrip";
 
-Modal.setAppElement("body"); // Replace #root with the id of your app's root element
+Modal.setAppElement("body");
 
 export default function AddTripWrapper() {
   const [modalIsOpen, setIsOpen] = useState(false);
