@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <div className={`${styles.headerDiv} grid grid-cols-6 gap-4`}>
       <h1 className={`${styles.headerTitle} col-span-5`}>Your Trips</h1>
-      <h1><UserButton /></h1>
+      <h1 className={`${styles.headerUser}`} ><UserButton appearance={{elements: {rootBox: 'scale-150'}}}/></h1>
     </div>
   );
 }

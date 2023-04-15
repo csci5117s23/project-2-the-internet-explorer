@@ -116,7 +116,7 @@ export default function AddTrip() {
                 ></input>
             </div>
 
-            <button className="ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
+            <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
         </div>
         </>
     );
