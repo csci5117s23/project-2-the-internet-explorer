@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google'
 import styles from '../styles/Main.module.css';
 import Head from 'next/head';
 import Link from 'next/link';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
+import Trips from './trips';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,22 +13,28 @@ export default function Splash() {
 
   return (
     <>
-      <Head>
-        <title>Welcome!</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <style jsx global>{`
-        body {
-          background-color: aliceblue;
-        }
-      `}</style>
-      <div className={styles.mainDiv}>
-        <main>
-          <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
-          <br></br><br></br>
-          <h2>To track your vacations, <Link href='https://grown-locust-7.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>login</Link> or <Link href='https://grown-locust-7.accounts.dev/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>sign up</Link>!</h2>
-        </main>
-      </div>
+      <SignedOut>
+        <Head>
+          <title>Welcome!</title>
+          <link rel='icon' href='/favicon.ico' />
+        </Head>
+        <style jsx global>{`
+          body {
+            background-color: aliceblue;
+          }
+        `}</style>
+        <div className={styles.mainDiv}>
+          <main>
+            <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
+            <br></br><br></br>
+            {/* <h2>To track your vacations, <Link href='/trips'>login</Link></h2> */}
+            <h2>To track your vacations, <Link href='https://grown-locust-7.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>login</Link> or <Link href='https://grown-locust-7.accounts.dev/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>sign up</Link>!</h2>
+          </main>
+        </div>
+      </SignedOut>
+      <SignedIn>
+        <Trips></Trips>
+      </SignedIn>
     </>
     // <h1>This is The Internet Explorers' app</h1>
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">

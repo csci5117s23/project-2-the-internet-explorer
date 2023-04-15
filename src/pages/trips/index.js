@@ -14,6 +14,9 @@ export default function Trips() {
         <Header></Header>
         <TripsWrapper></TripsWrapper>
       </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn></RedirectToSignIn>
+      </SignedOut>
     </>
   )
 }
