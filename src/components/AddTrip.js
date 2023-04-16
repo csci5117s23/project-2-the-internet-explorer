@@ -67,7 +67,7 @@ export default function AddTrip() {
             <div className="p-4">
                 <h4 className="text-l font-bold" id="createTripHeader">Trip Name</h4>
                 <input 
-                    className="border-2 border-slate-600"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="Trip Name"
                     value={tripName}
                     onChange={(e) => setTripName(e.target.value)}
@@ -77,7 +77,7 @@ export default function AddTrip() {
                 <h4 className="text-l font-bold" id="createTripHeader">Start Date</h4>
                 <input
                     ref={startDateInputRef} 
-                    className="border-2 border-slate-600"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="Start Date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
@@ -93,7 +93,7 @@ export default function AddTrip() {
                 <h4 className="text-l font-bold" id="createTripHeader">End Date</h4>
                 <input 
                     ref={endDateInputRef}
-                    className="border-2 border-slate-600"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="End Date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
