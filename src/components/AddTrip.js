@@ -108,12 +108,12 @@ export default function AddTrip() {
             </div>
             <div className="p-4">
                 <h4 className="text-l font-bold" id="createTripHeader">Brief Description</h4>
-                <input 
+                <textarea 
                     className="border-2 border-slate-600 w-full h-20"
                     placeholder="Brief Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                ></input>
+                ></textarea>
             </div>
 
             <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
