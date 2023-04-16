@@ -8,3 +8,20 @@
     border:1px solid black;
     border-radius: 10px;
 }
+
+.tripMemoryHeader {
+    position: absolute;
+    top: 18%;
+    left: 25%;
+}
+
+.calendarDiv {
+    display: inline-block;
+    width: fit-content;
+}
+
+.photoButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* optional: align items in center vertically */
+  }

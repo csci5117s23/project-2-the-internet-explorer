@@ -15,16 +15,21 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@mapbox/search-js-react": "^1.0.0-beta.15",
     "autoprefixer": "10.4.14",
     "codehooks-crudlify": "^1.0.8",
     "codehooks-js": "^1.0.11",
     "jwt-decode": "^3.1.2",
+    "mapbox-gl": "^2.14.1",
     "next": "^13.3.0",
     "postcss": "8.4.21",
     "react": "18.2.0",
     "react-calendar": "^4.2.1",
     "react-dom": "18.2.0",
+    "react-map-gl": "^7.0.23",
     "react-modal": "^3.16.1",
+    "react-webcam": "^7.0.1",
     "tailwindcss": "3.3.1"
   }
 }
