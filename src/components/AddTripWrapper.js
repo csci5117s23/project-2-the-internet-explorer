@@ -57,11 +57,12 @@ export default function AddTripWrapper({ setUploadedTrip }) {
   return (
     <>
       <button
-        className="absolute right-12 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
+        className="float-right right-4 sticky bottom-4 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         id="addTrip"
         onClick={openModal}
+        style={{fontSize: "large"}}
       >
-        <FontAwesomeIcon icon={faPlus} />Add Trip
+        <FontAwesomeIcon icon={faPlus} /> Add Trip
       </button>
       <Modal
         isOpen={modalIsOpen}
