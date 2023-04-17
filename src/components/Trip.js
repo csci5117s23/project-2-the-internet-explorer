@@ -25,7 +25,7 @@ export default function Trip({ title, startDate, endDate, index }) {
 
   // TODO make edit/delete buttons little circles w/ icons inside that only appear on hover
   return (
-    <div className={styles.tripDiv} style={{backgroundColor: colors[index]}}>
+    <div className={styles.tripDiv} style={{backgroundColor: colors[index % colors.length]}}>
 
 
       
