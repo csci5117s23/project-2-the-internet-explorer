@@ -12,8 +12,8 @@ export default function Trips() {
     <>
       <SignedIn>
         <Header
-          title={"Your Trips"}
-        />
+          title='Your Trips'
+        ></Header>
         <TripsWrapper
           uploadedTrip={uploadedTrip}
         ></TripsWrapper>
