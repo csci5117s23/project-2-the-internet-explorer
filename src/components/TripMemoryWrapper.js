@@ -20,7 +20,7 @@ export default function TripMemoryWrapper() {
   return (
     <>
       <button
-        className="absolute right-12 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm"
+        className="absolute right-12 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         id="addTrip"
         onClick={openModal}
       >

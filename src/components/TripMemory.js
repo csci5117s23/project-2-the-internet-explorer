@@ -95,12 +95,13 @@ export default function TripMemory() {
                     id="mapbox-autofill"
                     />
                 </AddressAutofill>
-                <div id="minimap-container" className="w-full h-80" style={{ display: showMinimap ? 'block' : 'none' }}>
+                <div id="minimap-container" className="w-full h-60" style={{ display: showMinimap ? 'block' : 'none' }}>
                     <AddressMinimap
                         accessToken={"pk.eyJ1IjoibmF0MDEiLCJhIjoiY2xnMTNmZ3c3MWQxbDNkbWsybHNwcmloZSJ9.iVf2PxUsEathxWTmiKGO7w"}
                         satelliteToggle={true}
                         feature={feature}
                         show={showMinimap}
+                        
                     />
                 </div>
             </div>
@@ -122,7 +123,7 @@ export default function TripMemory() {
                 </select>
             </div>
             <div className={styles.photoButtons}>
-                <button className="block w-40 ml-3 px-2 py-1.5 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm" 
+                <button className="block w-40 ml-3 px-2 py-1.5 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" 
                     id="takePic" 
                     onClick={handleButtonClick}
                 >Take Pic</button>
@@ -131,8 +132,7 @@ export default function TripMemory() {
                 file:mr-4 file:py-2 file:px-4
                 file:rounded-full file:border-0
                 file:text-sm file:font-semibold
-                file:bg-cyan-500 file:text-white
-                hover:file:bg-cyan-600
+                file:bg-custom-blue file:text-white
                 "/>
             </div>
             {showWebCamera && <Webcam />}
@@ -145,7 +145,7 @@ export default function TripMemory() {
                     onChange={(e) => setDescription(e.target.value)}
                 ></textarea>
             </div>
-            <button className="ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
+            <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
         </div>
         </>
       )
