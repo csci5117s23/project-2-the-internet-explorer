@@ -8,12 +8,13 @@ export default function Trip({ title, startDate, endDate, index }) {
   // todo used img as background instead of color if one is present
   const colors = [
     "#1ABC9D", "#52D88B", "#2C97DE", "#9B56B8", "#34485E",
-    "#EDC110", "#E77D23", "E74B3D", "#95A4A6"
-  ]
+    "#EDC110", "#E77D23", "#E74B3D", "#95A4A6"
+  ];
+  index = index % colors.length;
 
-  while (index > colors.length) {
-    index = index - colors.length
-  }
+  // while (index > colors.length) {
+  //   index = index - colors.length
+  // }
 
   // show only month and year of start date
   const date = new Date(startDate);
@@ -25,7 +26,7 @@ export default function Trip({ title, startDate, endDate, index }) {
 
   // TODO make edit/delete buttons little circles w/ icons inside that only appear on hover
   return (
-    <div className={styles.tripDiv} style={{backgroundColor: colors[index % colors.length]}}>
+    <div className={styles.tripDiv} style={{backgroundColor: colors[index]}}>
 
 
       

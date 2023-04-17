@@ -54,6 +54,7 @@ export default function TripsWrapper({ uploadedTrip }) {
           });
 
           const data = await response.json();
+          console.log('all data: ', data);
           setAllTrips(data);
           setLoadingTrips(false);
         } catch (error) {

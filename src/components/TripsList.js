@@ -15,6 +15,8 @@ export default function TripsList({ trips }) {
     )
   );
 
+  console.log('trips list: ', tripsList);
+
   return (
     <div className="flex flex-wrap justify-around space-y-5 mx-4" style={{paddingTop: "0.2em"}}>
       {tripsList}
