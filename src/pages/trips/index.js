@@ -2,19 +2,22 @@ import AddTripWrapper from "@/components/AddTripWrapper";
 import Header from "@/components/Header";
 import TripsWrapper from "@/components/TripsWrapper";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import { useState } from "react";
 
 
 export default function Trips() {
-  // TODO: Have a header component that has hamburger menu, info about what page you are viewing and Clerk's <UserButton>
-
-  // TODO: Add a list of trip "folders".
+  const [uploadedTrip, setUploadedTrip] = useState(null);
 
   return (
     <>
       <SignedIn>
         <Header></Header>
-        <TripsWrapper></TripsWrapper>
-        <AddTripWrapper></AddTripWrapper>
+        <TripsWrapper
+          uploadedTrip={uploadedTrip}
+        ></TripsWrapper>
+        <AddTripWrapper
+          setUploadedTrip={setUploadedTrip}
+        ></AddTripWrapper>
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn></RedirectToSignIn>

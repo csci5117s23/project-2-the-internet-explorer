@@ -19,7 +19,6 @@ const tripFolderYup = object({
   startDate: date().required(),       // The start date of the trip.
   endDate: date().required(),         // The end date of the trip.
   description: string(),              // An optional description of the trip.
-  folderColor: string(),              // The color for the trip folder.
   user: string().required(),          // The user that created the trip.
 });
 
@@ -46,9 +45,9 @@ async function getAllTrips(req, res) {
     filter: query,
     sort: {"startDate": 1}
   };
-  conn.getMany('tripFolder', options).json(res);
+  conn.getMany('tripFolders', options).json(res);
 }
-app.get('/tripFolder', getAllTrips);
+app.get('/tripFolders', getAllTrips);
 
 // Retrieve the memories of a specified category of a specified trip.
 async function getMemories(req, res) {
@@ -84,10 +83,10 @@ const userAuth = async (req, res, next) => {
 }
 app.use(userAuth);
 
-// Some extra logic for making a POST and GET request from the tripFolder 
+// Some extra logic for making a POST and GET request from the tripFolders 
 // collection. Retrieve the userId and store it in the body or query, 
 // respectively.
-app.use('/tripFolder', (req, res, next) => {
+app.use('/tripFolders', (req, res, next) => {
   if (req.method === "POST") {
     req.body.user = req.user_token.sub;
   } else if (req.method === "GET") {
@@ -109,7 +108,7 @@ app.use('/tripMemories', (req, res, next) => {
 })
 
 // Use Crudlify to create a REST API for any collection
-crudlify(app, {tripFolder: tripFolderYup, tripMemories: tripMemoriesYup});
+crudlify(app, {tripFolders: tripFolderYup, tripMemories: tripMemoriesYup});
 
 // bind to serverless runtime
 export default app.init();
