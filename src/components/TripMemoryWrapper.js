@@ -21,7 +21,7 @@ export default function TripMemoryWrapper() {
   return (
     <>
       <button
-        className="bottom-5 float-right sticky right-12 mt-6 mb-2 ml-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
+        className="bottom-5 float-right sticky right-12 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         onClick={openModal}
       >
         <span className={styles.plusIcon}><FontAwesomeIcon icon={faPlus} /></span>
