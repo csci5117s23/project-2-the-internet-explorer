@@ -1,8 +1,10 @@
 import CategoryButton from "@/components/buttons/CategoryButton";
 import Header from "@/components/Header";
+import TripMemoryWrapper from "@/components/TripMemoryWrapper";
 import { useRouter } from "next/router";
 import styles from '../../styles/TripView.module.css'
 import DayViewButton from "@/components/buttons/DayViewButton";
+
 
 const TripView = () => {
 
@@ -47,8 +49,92 @@ const TripView = () => {
                 title={"June 4"}
                 color={"bg-violet-500"}
             />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
+            <DayViewButton
+                title={"June 4"}
+                color={"bg-violet-500"}
+            />
         </div>
-        
+        <TripMemoryWrapper></TripMemoryWrapper>
         </>
     )
 }

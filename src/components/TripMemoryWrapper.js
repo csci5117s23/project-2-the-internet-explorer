@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import TripMemory from "./TripMemory";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styles from '../styles/TripMemory.module.css';
 
 Modal.setAppElement("body");
 
@@ -20,11 +21,10 @@ export default function TripMemoryWrapper() {
   return (
     <>
       <button
-        className="absolute right-12 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
-        id="addTrip"
+        className="bottom-5 float-right sticky right-12 mt-6 mb-2 ml-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         onClick={openModal}
       >
-        <FontAwesomeIcon icon={faPlus} />Add Memory
+        <span className={styles.plusIcon}><FontAwesomeIcon icon={faPlus} /></span>
       </button>
       <Modal
         isOpen={modalIsOpen}

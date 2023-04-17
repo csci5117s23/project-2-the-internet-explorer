@@ -24,4 +24,8 @@
     display: flex;
     flex-direction: row;
     align-items: center; /* optional: align items in center vertically */
-  }
+}
+
+.plusIcon {
+    font-size: x-large;
+}
