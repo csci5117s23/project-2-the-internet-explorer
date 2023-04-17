@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from '../styles/TripMemory.module.css';
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
 import 'mapbox-gl/dist/mapbox-gl.css'; 
 import Webcam from "react-webcam";
 import dynamic from 'next/dynamic';
@@ -10,18 +8,13 @@ export default function TripMemory() {
     const [memoryTitle, setMemoryTitle] = useState("");
     const [date, setDate] = useState("");
     const [description, setDescription] = useState("");
-    const [showDateCalendar, setShowDateCalendar] = useState(false);
     const [memoryType, setMemoryType] = useState("");
     const [location, setLocation] = useState("");
     const [showLocation, setShowLocation] = useState(false);
     const [showWebCamera, setShowWebCamera] = useState(false);
 
-
     const [showMinimap, setShowMinimap] = useState(false);
     const [feature, setFeature] = useState();
-   
-    const dateInputRef = useRef();
-    const dateCalendarRef = useRef();
 
     const AddressAutofill = dynamic(
         () => import("@mapbox/search-js-react").then((mod) => mod.AddressAutofill),
@@ -52,32 +45,10 @@ export default function TripMemory() {
         },
         [setFeature, setShowMinimap]
     ); 
- 
-    const handleDateChange = (date) => {
-        // Format the selected date as a string (e.g., "YYYY-MM-DD")
-        const formattedDate = date.toISOString().split("T")[0];
-        setDate(formattedDate);
-    };
 
     const handleMemoryTypeChange = (e) => {
         setMemoryType(e.target.value);
     };
-
-    const handleClickOutside = (e) => {
-        if (
-          !dateInputRef.current.contains(e.target) &&
-          !dateCalendarRef.current?.contains(e.target)
-        ) {
-          setShowDateCalendar(false);
-        }
-    };
-
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
 
     return (
         <>
@@ -86,7 +57,7 @@ export default function TripMemory() {
             <div className="p-4">
                 <h4 className="text-l font-bold">Title</h4>
                 <input 
-                    className="border-2 border-slate-600"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="Title"
                     value={memoryTitle}
                     onChange={(e) => setMemoryTitle(e.target.value)}
@@ -95,25 +66,19 @@ export default function TripMemory() {
             <div className="p-4">
                 <h4 className="text-l font-bold">Date</h4>
                 <input
-                    ref={dateInputRef} 
-                    className="border-2 border-slate-600"
+                    type="date"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="Date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    onFocus={() => setShowDateCalendar(true)}
                 ></input>
-                {showDateCalendar && (
-                    <div className= "calendarDiv" ref={dateCalendarRef}>
-                        <Calendar onChange={handleDateChange} />
-                    </div>
-                )}
             </div>
             <div className="p-4">
                 <h4 className="text-l font-bold">Location</h4>
                 <div>
                     {showLocation && (
                     <input
-                        className="border-2 border-slate-600 mb-6"
+                        className="border-2 border-slate-600 mb-6 w-full"
                         placeholder="Location"
                         value={location}
                     ></input>
@@ -124,7 +89,7 @@ export default function TripMemory() {
                     onRetrieve={handleRetrieve}
                 >
                     <input
-                    className="border-2 border-slate-600"
+                    className="border-2 border-slate-600 w-full"
                     placeholder="Search address..."
                     autoComplete="address-line1"
                     id="mapbox-autofill"
@@ -142,7 +107,7 @@ export default function TripMemory() {
             <div className="p-4">
                 <h4 className="text-l font-bold">What kind of memory is this?</h4>
                 <select 
-                    className="inline-flex w-1/2 justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
+                    className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
                     name="folders" 
                     id="folders"
                     value={memoryType}
@@ -173,12 +138,12 @@ export default function TripMemory() {
             {showWebCamera && <Webcam />}
             <div className="p-4">
                 <h4 className="text-l font-bold">Brief Description</h4>
-                <input 
+                <textarea 
                     className="border-2 border-slate-600 w-full h-20"
                     placeholder="Brief Description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                ></input>
+                ></textarea>
             </div>
             <button className="ml-3 px-2 py-2 font-semibold text-m bg-cyan-500 text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
         </div>
