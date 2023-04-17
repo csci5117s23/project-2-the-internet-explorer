@@ -4,14 +4,17 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 
 ## App Info:
 
-* Team Name: TODO
-* App Name: TODO
+* Team Name: The Internet Explorers
+* App Name: The Trip Tracker
 * App Link: <https://TODO.com/>
 
 ### Students
 
-* First Last, x500@umn.edu
-* ...
+* Zachary Champlin champ169
+* Ryan Exner exner014
+* Yiling Tan tan00250
+* Cedric Tan tan00205
+* Nico Paredes pared055
 
 
 ## Key Features
