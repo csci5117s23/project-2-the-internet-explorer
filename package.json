@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.1",
     "@mapbox/search-js-react": "^1.0.0-beta.15",
+    "@react-google-maps/api": "^2.18.1",
     "autoprefixer": "10.4.14",
     "codehooks-crudlify": "^1.0.8",
     "codehooks-js": "^1.0.11",

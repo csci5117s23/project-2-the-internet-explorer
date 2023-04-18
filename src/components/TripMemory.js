@@ -1,50 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styles from '../styles/TripMemory.module.css';
-import 'mapbox-gl/dist/mapbox-gl.css'; 
+import Map from "./Map";
 import Webcam from "react-webcam";
-import dynamic from 'next/dynamic';
 
 export default function TripMemory() {
     const [memoryTitle, setMemoryTitle] = useState("");
     const [date, setDate] = useState("");
     const [description, setDescription] = useState("");
     const [memoryType, setMemoryType] = useState("");
-    const [location, setLocation] = useState("");
-    const [showLocation, setShowLocation] = useState(false);
     const [showWebCamera, setShowWebCamera] = useState(false);
-
-    const [showMinimap, setShowMinimap] = useState(false);
-    const [feature, setFeature] = useState();
-
-    const AddressAutofill = dynamic(
-        () => import("@mapbox/search-js-react").then((mod) => mod.AddressAutofill),
-        { ssr: false }
-    );
-
-    const AddressMinimap = dynamic(
-        () => import("@mapbox/search-js-react").then((mod) => mod.AddressMinimap),
-        { ssr: false }
-    );
 
     const handleButtonClick = () => {
         setShowWebCamera(!showWebCamera);
-      };
-
-    const handleRetrieve = useCallback(
-        (res) => {
-        const feature = res.features[0];
-        console.log("this is feature: " + JSON.stringify(feature))
-        // const coordinates = feature.geometry.coordinates;
-        // console.log("Coordinates: " + coordinates)
-        const place_name = feature.properties.place_name;
-        console.log("Place Name: " + place_name)
-        setLocation(feature.properties.place_name);
-        setShowLocation(true);
-        setFeature(feature);
-        setShowMinimap(true);
-        },
-        [setFeature, setShowMinimap]
-    ); 
+    };
 
     const handleMemoryTypeChange = (e) => {
         setMemoryType(e.target.value);
@@ -73,38 +41,7 @@ export default function TripMemory() {
                     onChange={(e) => setDate(e.target.value)}
                 ></input>
             </div>
-            <div className="p-4">
-                <h4 className="text-l font-bold">Location</h4>
-                <div>
-                    {showLocation && (
-                    <input
-                        className="border-2 border-slate-600 mb-6 w-full"
-                        placeholder="Location"
-                        value={location}
-                    ></input>
-                    )}
-                </div>
-                <AddressAutofill 
-                    accessToken={"pk.eyJ1IjoibmF0MDEiLCJhIjoiY2xnMTNmZ3c3MWQxbDNkbWsybHNwcmloZSJ9.iVf2PxUsEathxWTmiKGO7w"} 
-                    onRetrieve={handleRetrieve}
-                >
-                    <input
-                    className="border-2 border-slate-600 w-full"
-                    placeholder="Search address..."
-                    autoComplete="address-line1"
-                    id="mapbox-autofill"
-                    />
-                </AddressAutofill>
-                <div id="minimap-container" className="w-full h-60" style={{ display: showMinimap ? 'block' : 'none' }}>
-                    <AddressMinimap
-                        accessToken={"pk.eyJ1IjoibmF0MDEiLCJhIjoiY2xnMTNmZ3c3MWQxbDNkbWsybHNwcmloZSJ9.iVf2PxUsEathxWTmiKGO7w"}
-                        satelliteToggle={true}
-                        feature={feature}
-                        show={showMinimap}
-                        
-                    />
-                </div>
-            </div>
+            <Map></Map>
             <div className="p-4">
                 <h4 className="text-l font-bold">What kind of memory is this?</h4>
                 <select 
