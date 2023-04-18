@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+const libraries = ["places"];
 
 export default function Map() { 
     const [location, setLocation] = useState("");
@@ -42,11 +43,12 @@ export default function Map() {
                         className="border-2 border-slate-600 mb-6 w-full"
                         placeholder="Location"
                         value={location}
+                        readOnly
                     ></input>
                     )}
                 </div>
                 <LoadScript
-                    libraries={["places"]}
+                    libraries={libraries}
                     googleMapsApiKey="AIzaSyAkEL1AN_a39czxEWTrYv0gamecdTS3iN8"
                 >
                 <GoogleMap
