@@ -35,7 +35,7 @@ export default function Map() {
             setCoordinates(userPosition);
         }
       
-      }, [userPosition]);
+    }, [userPosition]);
 
     const onPlacesChanged =() => {
         const place = searchBox.getPlaces()[0];
@@ -47,7 +47,6 @@ export default function Map() {
         setCoordinates(coordinates);
         mapInstance.panTo(coordinates);
         console.log(place);
-
     }
 
     return (
