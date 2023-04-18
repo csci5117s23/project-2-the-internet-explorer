@@ -8,8 +8,8 @@ export default function Trip({ id, title, startDate, endDate, index }) {
 
   // todo used img as background instead of color if one is present
   const colors = [
-    "#1ABC9D", "#52D88B", "#2C97DE", "#9B56B8", "#34485E",
-    "#EDC110", "#E77D23", "#E74B3D", "#95A4A6"
+    "bg-emerald-400", "bg-sky-400", "bg-fuchsia-400", "bg-indigo-400", "bg-green-400", 
+    "bg-yellow-400", "bg-orange-400", "bg-red-400", "bg-slate-400"
   ];
   index = index % colors.length;
 
@@ -25,16 +25,26 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   }
   const date_format = date.toLocaleDateString("en", options).split(' ')
 
+  function getHover() {
+    if (index >= 0) {
+      return "hover:bg-black"
+    }
+    else {
+      return ""
+    }
+  }
+
   // TODO make edit/delete buttons little circles w/ icons inside that only appear on hover
   return (
-    <div className={styles.tripDiv} style={{backgroundColor: colors[index]}}>
-
-
-      
+    <>
+    <Link href={`/trips/${id}`}>
+    <div className={styles.tripDiv + " " + colors[index] + " " + getHover()}>
       {/* <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span>Edit</span> | <span>Delete</span></span></div><br></br> */}
       <div className={styles.dateDiv}><span>{date_format[0] + " " + date_format[1]}</span></div><br></br>
-      <div className={styles.title}><Link href={`/trips/${id}`}><span>{title}</span></Link></div>
+      <div className={styles.title}><span>{title}</span></div>
    
     </div>
+    </Link>
+    </>
   );
 }

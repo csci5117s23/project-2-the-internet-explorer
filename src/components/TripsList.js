@@ -33,7 +33,7 @@ export default function TripsList({ trips }) {
   }
 
   return (
-    <div className="flex flex-wrap justify-center space-y-5 space-x-5 mx-10" style={{paddingTop: "0.2em"}}>
+    <div className="flex flex-wrap justify-center space-y-1 space-x-5 mx-5" style={{paddingTop: "0.2em"}}>
       <br></br>
       {tripsList}
       <BlankTrip></BlankTrip>
