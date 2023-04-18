@@ -64,7 +64,6 @@ export default function Map() {
                 </div>
                 <LoadScript
                     libraries={libraries}
-                    googleMapsApiKey={"AIzaSyAkEL1AN_a39czxEWTrYv0gamecdTS3iN8"}
                 >
                 <GoogleMap
                     id="searchbox-example"
