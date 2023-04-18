@@ -1,32 +1,49 @@
+
 import React, { useState, useEffect, useCallback } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 const libraries = ["places"];
+const mapContainerStyle = {
+    height: "300px",
+    width: "100%"
+};
 
 export default function Map() { 
-    const [location, setLocation] = useState("");
-    const [showLocation, setShowLocation] = useState(false);
+    const [location, setLocation] = useState("Loading...");
     const [searchBox, setSearchBox] = useState(null);
     const [coordinates, setCoordinates] = useState(null);
     const [mapInstance, setMapInstance] = useState(null);
+    const [userPosition, setUserPosition] = useState(null);
 
     const onLoad = (ref) => setSearchBox(ref);
 
-    const mapContainerStyle = {
-        height: "300px",
-        width: "100%"
-    };
+    useEffect(() => {
+        
+        if (!userPosition) {
+          // Get the user's current location
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              setUserPosition({ lat: latitude, lng: longitude });
+              setLocation("Current Location");
+            },
+            (error) => {
+              console.error("Error getting user location:", error);
+            },
+            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+          );
+        } else {
+            setCoordinates(userPosition);
+        }
       
-    const center = {
-        lat: 38.685,
-        lng: -115.234
-    };
+      }, [userPosition]);
 
     const onPlacesChanged =() => {
-        setShowLocation(true);
         const place = searchBox.getPlaces()[0];
         setLocation(place.name);
-        const coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
-        console.log("this are coordinates: " + JSON.stringify(coordinates))
+        let coordinates = { 
+            lat: place.geometry.location.lat(), 
+            lng: place.geometry.location.lng() 
+        };
         setCoordinates(coordinates);
         mapInstance.panTo(coordinates);
         console.log(place);
@@ -38,24 +55,22 @@ export default function Map() {
         <div className="p-4">
                 <h4 className="text-l font-bold">Location</h4>
                 <div>
-                    {showLocation && (
-                    <input
-                        className="border-2 border-slate-600 mb-6 w-full"
-                        placeholder="Location"
-                        value={location}
-                        readOnly
-                    ></input>
-                    )}
+                <input
+                    className="border-2 border-slate-600 mb-6 w-full"
+                    placeholder="Location"
+                    value={location}
+                    readOnly
+                ></input>
                 </div>
                 <LoadScript
                     libraries={libraries}
-                    googleMapsApiKey="AIzaSyAkEL1AN_a39czxEWTrYv0gamecdTS3iN8"
+                    googleMapsApiKey={"AIzaSyAkEL1AN_a39czxEWTrYv0gamecdTS3iN8"}
                 >
                 <GoogleMap
                     id="searchbox-example"
                     mapContainerStyle={mapContainerStyle}
-                    zoom={2.5}
-                    center={center}
+                    zoom={12}
+                    center={userPosition}
                     onLoad={setMapInstance}
                 >
                     {coordinates && (
