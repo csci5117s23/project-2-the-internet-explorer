@@ -26,7 +26,8 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   const date_format = date.toLocaleDateString("en", options).split(' ')
 
   function getHover() {
-    if (index) {
+    console.log(index)
+    if (index >= 0) {
       return "hover:bg-black"
     }
     else {
