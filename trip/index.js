@@ -28,7 +28,8 @@ const tripMemoriesYup = object({
   title: string().required(),         // The title of the memory
   description: string(),              // An optional description of the memory.
   date: date().required,              // The date of the memory.
-  address: string().required,         // The address/location of the memory.
+  location: string().required,        // The location name of the memory.
+  coordinates: string().required,     // The coordinates of a memory location.
   category: string().required,        // The category of the memory.
   image: string().required,           // An image of the memory.
   user: string().required,            // The user that created the memory.
@@ -48,20 +49,6 @@ async function getAllTrips(req, res) {
   conn.getMany('tripFolders', options).json(res);
 }
 app.get('/getAllTrips', getAllTrips);
-
-
-
-async function getIndividualTrip(req, res) {
-  const userId = req.user_token.sub;
-
-  const conn = await Datastore.open();
-  const query = {"user": userId};
-
-  const options = {
-    filter: query
-  }
-  conn.getOne('tripFolders')
-}
 
 // Retrieve the memories of a specified category of a specified trip.
 async function getMemories(req, res) {

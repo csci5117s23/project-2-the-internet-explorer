@@ -8,10 +8,10 @@ const mapContainerStyle = {
     width: "100%"
 };
 
-export default function Map() { 
-    const [location, setLocation] = useState("Loading...");
+export default function Map({ location, setLocation, coordinates, setCoordinates }) { 
+    // const [location, setLocation] = useState("Loading...");
     const [searchBox, setSearchBox] = useState(null);
-    const [coordinates, setCoordinates] = useState(null);
+    // const [coordinates, setCoordinates] = useState(null);
     const [mapInstance, setMapInstance] = useState(null);
     const [userPosition, setUserPosition] = useState(null);
 

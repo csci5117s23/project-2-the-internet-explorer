@@ -14,7 +14,7 @@ const TripView = () => {
     const [curTrip, setCurTrip] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
-    // let { tripId } = router.query;
+    let { tripID } = router.query;
     // const tripId = router.query.tripID
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -23,33 +23,30 @@ const TripView = () => {
 
     useEffect(() => {
         const getIndividualTrip = async () => {
-            if (router.isReady) {
-                const tripId = router.query.tripID;
-                try {
-                    if (userId) {
-                        const token = await getToken({ template: "codehooks" });
+            try {
+                if (userId) {
+                    const token = await getToken({ template: "codehooks" });
 
-                        const response = await fetch(backend_base + `/tripFolders/${tripId}`, {
-                            'method': 'GET',
-                            'headers': {
-                                'Authorization': 'Bearer ' + token
-                            }
-                        });
-                        if (!response.ok) {
-                            router.push('/404');
-                            return;
+                    const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
+                        'method': 'GET',
+                        'headers': {
+                            'Authorization': 'Bearer ' + token
                         }
-                        const data = await response.json();
-                        setCurTrip(data);
-                        setIsLoading(false);
+                    });
+                    if (!response.ok) {
+                        router.push('/404');
+                        return;
                     }
-                } catch (error) {
-                    console.error('Error: ', error);
+                    const data = await response.json();
+                    setCurTrip(data);
+                    setIsLoading(false);
                 }
+            } catch (error) {
+                console.error('Error: ', error);
             }
         }
         getIndividualTrip();
-    }, [isLoaded, router.isReady]);
+    }, [isLoaded, router]);
 
     return (isLoading ? (
         <h1>LOADING TRIP...</h1>
@@ -108,7 +105,7 @@ const TripView = () => {
                 color={"bg-violet-500"}
             />
         </div>
-        <TripMemoryWrapper></TripMemoryWrapper>
+        <TripMemoryWrapper parentId={tripID}></TripMemoryWrapper>
         </>
     ))
 
