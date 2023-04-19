@@ -65,7 +65,15 @@ async function getMemories(req, res) {
   }
   conn.getMany('tripMemories', options).json(res);
 }
-app.get('/tripMemories', getMemories);
+app.get('/getTripMemories', getMemories);
+
+async function addMemory(req, res) {
+  const conn = await Datastore.open();
+  const doc = await conn.insertOne('tripMemories', req.body);
+
+  res.status(201).json(doc);
+}
+app.post('/addMemory', addMemory);
 
 // Retrieves the user token from the request headers and stores it in 
 // the request. This happens prior to any database access.
@@ -79,7 +87,10 @@ const userAuth = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.status(400);
+    res.json(error).end();
+    // next(error);
   }
 }
 app.use(userAuth);
@@ -97,6 +108,20 @@ app.use('/tripFolders', (req, res, next) => {
 })
 
 app.use('/getAllTrips', (req, res, next) => {
+  if (req.method === "GET") {
+    req.query.user = req.user_token.sub;
+  }
+  next();
+});
+
+app.use('/addMemory', (req, res, next) => {
+  if (req.method === "POST") {
+    req.body.user = req.user_token.sub;
+  }
+  next();
+});
+
+app.use('/getTripMemories', (req, res, next) => {
   if (req.method === "GET") {
     req.query.user = req.user_token.sub;
   }
