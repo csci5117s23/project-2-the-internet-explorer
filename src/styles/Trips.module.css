@@ -25,8 +25,8 @@
 } */
 
 .tripDiv {
-  width: 35em;
-  /* width: 80vw; */
+  /* width: 35em; */
+  width: 80vw;
   margin-top: 1.25em;
   border-radius: 0.5em;
   /* box-shadow: 0 0 0.5em; */

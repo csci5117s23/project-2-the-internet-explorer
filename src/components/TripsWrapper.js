@@ -8,34 +8,7 @@ import LoadingCircle from "./LoadingCircle";
 
 export default function TripsWrapper({ uploadedTrip }) {
   // This is the wrapper for the trips list.
-
-  // TODO: Add the trips list component here.
-
-  // This would probably be where our database request is to get the trips.
-  // We'll just hardcode them for now.
-  // let sampleTrips = [
-  //   {
-  //     tripName: "Sample Trip 1",
-  //     startDate: "4/13/2023",
-  //     endDate: "4/23/2023"
-  //   },
-  //   {
-  //     tripName: "Sample Trip 2",
-  //     startDate: "4/13/2023",
-  //     endDate: "4/23/2023"
-  //   },
-  //   {
-  //     tripName: "Sample Trip 3",
-  //     startDate: "4/13/2023",
-  //     endDate: "4/23/2023"
-  //   },
-  //   {
-  //     tripName: "Sample Trip 4",
-  //     startDate: "4/13/2023",
-  //     endDate: "4/23/2023"
-  //   }
-  // ];
-
+  
   const [allTrips, setAllTrips] = useState([]);
   const [loadingTrips, setLoadingTrips] = useState(true);
 
