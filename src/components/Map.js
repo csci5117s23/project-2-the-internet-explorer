@@ -84,7 +84,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
                   style={{
                     boxSizing: `border-box`,
                     border: `1px solid transparent`,
-                    width: `240px`,
+                    width: `40vw`,
                     height: `32px`,
                     padding: `0 12px`,
                     borderRadius: `3px`,
@@ -94,7 +94,9 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
                     textOverflow: `ellipses`,
                     position: "absolute",
                     left: "50%",
-                    marginLeft: "-120px",
+                    marginLeft: "-25vw",
+                    marginRight: "25vw",
+                    marginTop: "250px"
                   }}
                 />
               </StandaloneSearchBox>
