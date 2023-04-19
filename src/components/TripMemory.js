@@ -2,19 +2,18 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import styles from '../styles/TripMemory.module.css';
 import Map from "./Map";
 import Webcam from "react-webcam";
+import Resizer from 'react-image-file-resizer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function TripMemory({ addMemory, closeModal, parentId }) {
-    const [memoryTitle, setMemoryTitle] = useState("");
-    const [date, setDate] = useState("");
-    const [description, setDescription] = useState("");
-    const [memoryType, setMemoryType] = useState("");
+export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl }) {
     const [showWebCamera, setShowWebCamera] = useState(false);
     const [camera, setCamera] = useState(false); // front is false. back is true.
     const [image, setImage] = useState('');
+    const [resizedImage, setResizedImage] = useState(null);
     const [location, setLocation] = useState("Loading...");
     const [coordinates, setCoordinates] = useState(null);
+    const webcamRef = useRef(null);
 
     const frontCamera = useCallback(() => {
         setCamera(false);
@@ -27,22 +26,20 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
     let videoConstraints;
     if (camera) {
         videoConstraints = {
-            width: 200,
+            width: 300,
             height: 200,
             facingMode: "environment"
         };
     } else {
         videoConstraints = {
-            width: 200,
+            width: 300,
             height: 200,
             facingMode: "user"
         };
     }
 
-    const webcamRef = useRef(null);
     const capture = useCallback(() => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        console.log('image: ', imageSrc);
+        const imageSrc = webcamRef.current.getScreenshot({width: 300, height: 200});
         setImage(imageSrc);
     }, [webcamRef]);
 
@@ -50,9 +47,36 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
         setShowWebCamera(!showWebCamera);
     };
 
-    const handleMemoryTypeChange = (e) => {
-        setMemoryType(e.target.value);
+    const cancelCamera = () => {
+        setShowWebCamera(!showWebCamera);
+        setImage('');
+    }
+
+    function handleImageChange(e) {
+        const file = e.target.files[0];
+
+        Resizer.imageFileResizer(
+            file,
+            300, // width
+            200, // height
+            "JPEG",
+            100,
+            0,
+            (resizedFile) => {
+                setResizedImage(resizedFile);
+            },
+            "file"
+        );
     };
+
+    function base64EncodeImage() {
+        const uploadedImage = resizedImage;
+        let reader = new FileReader();
+        reader.onloadend = function() {
+            setDataUrl(reader.result);
+        }
+        reader.readAsDataURL(uploadedImage);
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -62,24 +86,16 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
 
         const formJson = Object.fromEntries(formData.entries());
 
-        let memoryImage;
         if (formJson.uploadImage.name != '') {
-            console.log('image was uploaded: ', formJson.uploadImage);
-            // TODO: Resize the uploaded image and base64 encode it.
-
-            alert('Unsupported file transfer. Currently we can only accept taken images. Refresh the page. This message will self destruct in five seconds (JK)');
-            return;
-            memoryImage = formJson.uploadImage;
+            base64EncodeImage();
         } else if (image) {
-            console.log('image was taken');
-            memoryImage = image; // This is already base64 encoded.
+            setDataUrl(image);
         } else {
             alert('Please upload or take an image');
-            console.log('no image');
             return;
         }
 
-        if (!location || !coordinates) {
+        if (location === "Loading..." || location === "Current Location" || !coordinates) {
             alert('Please select a location');
             return;
         }
@@ -90,15 +106,12 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
             parentTripId: parentId,
             title: formJson.title,
             description: formJson.description,
-            date: newDate,
+            date: newDate.toISOString(),
             location: location,
             latitude: coordinates.lat,
             longitude: coordinates.lng,
             category: formJson.folders,
-            image: memoryImage
         }
-
-        console.log('new memory: ', newMemory);
 
         addMemory(newMemory);
         e.target.reset();
@@ -117,8 +130,7 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                         placeholder="Title"
                         id="title"
                         name="title"
-                        // value={memoryTitle}
-                        // onChange={(e) => setMemoryTitle(e.target.value)}
+                        required
                     ></input>
                 </div>
                 <div className="p-4">
@@ -129,8 +141,7 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                         placeholder="Date"
                         id="date"
                         name="date"
-                        // value={date}
-                        // onChange={(e) => setDate(e.target.value)}
+                        required
                     ></input>
                 </div>
                 <Map
@@ -145,8 +156,7 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                         className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
                         name="folders" 
                         id="folders"
-                        value={memoryType}
-                        onChange={handleMemoryTypeChange}
+                        required
                     >
                         <option value="" disabled>Select an option</option>
                         <option value="place">Place</option>
@@ -160,7 +170,7 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                     {showWebCamera ? (
                         <button className="w-20 ml-3 px-2 py-1.5 font-semibold text-m bg-gray-300 text-red-500 hover:bg-red-500 hover:text-white border border-red-500 rounded-full shadow-sm"
                             id="takePic"
-                            onClick={handleButtonClick}
+                            onClick={cancelCamera}
                             type='button'
                         >Cancel</button>
                     ) : (
@@ -172,7 +182,7 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                     )}
                     
                     <span> or </span>
-                    <input type="file" id="uploadImage" name="uploadImage" 
+                    <input type="file" onChange={handleImageChange} id="uploadImage" name="uploadImage" 
                         className="text-sm text-slate-500
                         file:mr-4 file:py-2 file:px-4
                         file:rounded-full file:border-0
@@ -181,27 +191,35 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                     />
                 </div>
                 {showWebCamera ? (
-                    <>
-                        <Webcam
-                            className={styles.webcam}
-                            mirrored={false}
-                            ref={webcamRef}
-                            screenshotFormat="image/jpeg"
-                            videoConstraints={videoConstraints}
-                        />
-                        <div className={styles.cameraButtons}>
-                            {camera ? (
-                                <button onClick={frontCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
-                            ) : (
-                                <button onClick={backCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
-                            )}
-                            <button onClick={(e) =>{e.preventDefault(); capture();}} className={`${styles.captureImage} bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`}><FontAwesomeIcon icon={faCamera}></FontAwesomeIcon></button>
-                        </div>
-                    </>
+                    (image ? (
+                        <>
+                            <img className={styles.webcam} src={image} alt="Your Image"></img>
+                            <div className={styles.cameraButtons}>
+                                <button onClick={() => {setImage('')}} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Retake</button>
+                            </div>
+                        </>
+                    ) : (
+                       <>
+                            <Webcam
+                                className={styles.webcam}
+                                mirrored={false}
+                                ref={webcamRef}
+                                screenshotFormat="image/jpeg"
+                                videoConstraints={videoConstraints}
+                            />
+                            <div className={styles.cameraButtons}>
+                                {camera ? (
+                                    <button type='button' onClick={frontCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
+                                ) : (
+                                    <button type='button' onClick={backCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
+                                )}
+                                <button onClick={(e) =>{e.preventDefault(); capture();}} className={`${styles.captureImage} bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`}><FontAwesomeIcon icon={faCamera}></FontAwesomeIcon></button>
+                            </div>
+                        </> 
+                    ))
                 ) : (
                     <></>
                 )}
-                {/* {showWebCamera && <Webcam />} */}
                 <div className="p-4">
                     <h4 className="text-l font-bold">Brief Description</h4>
                     <textarea 
@@ -209,8 +227,6 @@ export default function TripMemory({ addMemory, closeModal, parentId }) {
                         placeholder="Brief Description"
                         id="description"
                         name="description"
-                        // value={description}
-                        // onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                 </div>
                 <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>

@@ -18,6 +18,7 @@ export default function TripMemoryWrapper({ parentId }) {
   
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newMemory, setNewMemory] = useState(null);
+  const [dataUrl, setDataUrl] = useState("");
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -31,22 +32,27 @@ export default function TripMemoryWrapper({ parentId }) {
 
   useEffect(() => {
     const addNewMemory = async () => {
-      if (newMemory) { // Only run if newMemory is defined.
+      if (newMemory && dataUrl) { // Only run if newMemory and dataUrl are defined.
         if (userId) {
           try {
+            let updatedMemory = newMemory;
+            updatedMemory["image"] = dataUrl;
+            console.log('updated memory: ', updatedMemory);
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + '/tripMemories', {
+            const response = await fetch(backend_base + '/addMemory', {
               'method': 'POST',
               'headers': {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
               },
-              'body': JSON.stringify(newMemory)
+              'body': JSON.stringify(updatedMemory)
             });
 
             const result = await response.json();
             console.log('Success: ', result);
+            setNewMemory(null);
+            setDataUrl("");
 
             // TODO: Update a state variable to possibly update the day-by-day view
             // TODO: in real time.
@@ -57,7 +63,7 @@ export default function TripMemoryWrapper({ parentId }) {
       }
     }
     addNewMemory();
-  }, [isLoaded, newMemory]);
+  }, [isLoaded, newMemory, dataUrl]);
 
   return (
     <>
@@ -81,6 +87,7 @@ export default function TripMemoryWrapper({ parentId }) {
           addMemory={setNewMemory}
           closeModal={closeModal}
           parentId={parentId}
+          setDataUrl={setDataUrl}
         />
         
         <button onClick={closeModal}>Close</button>
