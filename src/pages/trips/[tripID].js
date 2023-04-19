@@ -6,14 +6,10 @@ import TripMemoryWrapper from "@/components/TripMemoryWrapper";
 import { useRouter } from "next/router";
 import styles from '../../styles/TripView.module.css'
 import DayViewButton from "@/components/buttons/DayViewButton";
-<<<<<<< HEAD
 import EditTripButton from "@/components/buttons/EditTripButton";
 import DeleteTripButton from "@/components/buttons/DeleteFileButton";
-=======
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-
->>>>>>> 1c2f8f310837b719c407a5a725e1ada5c105a018
 
 const TripView = () => {
     const [curTrip, setCurTrip] = useState(null);
