@@ -46,7 +46,7 @@ export default function AddTripWrapper({ setUploadedTrip }) {
             // Set a state variable so we can update the trip folders in real time.
             setUploadedTrip(result);
           } catch (error) {
-          console.error('Error: ', error);
+            console.error('Error: ', error);
           } 
         }
       }
