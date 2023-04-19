@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 
 const TripView = () => {
+    const [tripMemories, setTripMemories] = useState(null);
+    const [loadingTripDays, setLoadingTripDays] = useState(true);
     const [curTrip, setCurTrip] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
@@ -50,7 +52,8 @@ const TripView = () => {
     }, [isLoaded, router]);
 
     return (isLoading ? (
-        <h1>LOADING TRIP...</h1>
+        <></>
+        // <h1>LOADING TRIP...</h1>
     ) : (
         <>
         <Header
