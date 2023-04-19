@@ -46,7 +46,7 @@ export default function TripsWrapper({ uploadedTrip }) {
         try {
           const token = await getToken({ template: "codehooks" });
 
-          const response = await fetch(backend_base + '/tripFolders', {
+          const response = await fetch(backend_base + '/getAllTrips', {
             'method': 'GET',
             'headers': {
               'Authorization': 'Bearer ' + token
