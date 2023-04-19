@@ -3,10 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 const BackButton = () => {
   const router = useRouter();
+  const handleBackClick = (event) => {
+    event.preventDefault();
+    console.log("back!");
+    router.back();
+  };
   return (
-    <button type="button">
+    <button type="button" onClick={handleBackClick}>
       <FontAwesomeIcon
-        onClick={() => router.back()}
         className="text-4xl"
         style={{ color: "#c6d2ec" }}
         icon={faChevronLeft}

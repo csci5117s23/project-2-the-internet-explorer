@@ -68,7 +68,7 @@ export default function MemoryView({}) {
     <h1>LOADING Memory...</h1>
   ) : (
     <>
-      <Header title={"memory title"} />
+      <Header title={"memory title"} back={true} />
       <div className="grid gap-1 place-items-center m-8">
         <div style={{ width: "400px" }} className="p-2">
           <img src="https://project50017.s3.us-east-2.amazonaws.com/winter.jpeg" />
