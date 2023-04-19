@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import { useRouter } from "next/router";
 import styles from '../../styles/TripView.module.css'
 import DayViewButton from "@/components/buttons/DayViewButton";
+import EditTripButton from "@/components/buttons/EditTripButton";
+import DeleteTripButton from "@/components/buttons/DeleteFileButton";
 
 const TripView = () => {
 
