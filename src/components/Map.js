@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
-const MAP_API = process.env.NEXT_PUBLIC_MAP_API;
+const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
     height: "300px",
@@ -53,51 +53,59 @@ export default function Map() {
     return (
       <>
         <div className="p-4">
-          <h4 className="text-l font-bold">Location</h4>
-          <div>
-            <input
-              className="border-2 border-slate-600 mb-6 w-full"
-              placeholder="Location"
-              value={location}
-              readOnly
-            ></input>
-          </div>
-          <LoadScript libraries={libraries} googleMapsApiKey={MAP_API}>
-            <GoogleMap
-              id="searchbox-example"
-              mapContainerStyle={mapContainerStyle}
-              zoom={12}
-              center={userPosition}
-              onLoad={setMapInstance}
-            >
-              {coordinates && <Marker position={coordinates} />}
-              <StandaloneSearchBox
-                onLoad={onLoad}
-                onPlacesChanged={onPlacesChanged}
-              >
+                <h4 className="text-l font-bold">Location</h4>
+                <div>
                 <input
-                  type="text"
-                  placeholder="Begin typing location..."
-                  style={{
-                    boxSizing: `border-box`,
-                    border: `1px solid transparent`,
-                    width: `240px`,
-                    height: `32px`,
-                    padding: `0 12px`,
-                    borderRadius: `3px`,
-                    boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                    fontSize: `14px`,
-                    outline: `none`,
-                    textOverflow: `ellipses`,
-                    position: "absolute",
-                    left: "50%",
-                    marginLeft: "-120px",
-                  }}
-                />
-              </StandaloneSearchBox>
-            </GoogleMap>
-          </LoadScript>
-        </div>
-      </>
-    );
+                    className="border-2 border-slate-600 mb-6 w-full"
+                    placeholder="Location"
+                    value={location}
+                    readOnly
+                ></input>
+                </div>
+                <LoadScript
+                    libraries={libraries}
+                >
+                <GoogleMap
+                    id="searchbox-example"
+                    mapContainerStyle={mapContainerStyle}
+                    zoom={12}
+                    center={userPosition}
+                    onLoad={setMapInstance}
+                >
+                    {coordinates && (
+                     <Marker
+                        position={coordinates}
+                        />
+                    )}
+                    <StandaloneSearchBox
+                    onLoad={onLoad}
+                    onPlacesChanged={
+                        onPlacesChanged
+                    }
+                    >
+                    <input
+                        type="text"
+                        placeholder="Begin typing location..."
+                        style={{
+                        boxSizing: `border-box`,
+                        border: `1px solid transparent`,
+                        width: `240px`,
+                        height: `32px`,
+                        padding: `0 12px`,
+                        borderRadius: `3px`,
+                        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                        fontSize: `14px`,
+                        outline: `none`,
+                        textOverflow: `ellipses`,
+                        position: "absolute",
+                        left: "50%",
+                        marginLeft: "-120px"
+                        }}
+                    />
+                    </StandaloneSearchBox>
+                </GoogleMap>
+                </LoadScript>
+            </div>
+        </>
+    )
 }
