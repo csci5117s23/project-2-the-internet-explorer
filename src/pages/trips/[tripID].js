@@ -55,6 +55,7 @@ const TripView = () => {
         <>
         <Header
             title={curTrip.tripName}
+            back={true}
         />
         <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
             <br></br>

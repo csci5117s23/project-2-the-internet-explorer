@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import TripMemoryWrapper from "@/components/TripMemoryWrapper";
 import DayViewButton from "@/components/buttons/DayViewButton";
 import Link from "next/link";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 
 export default function MemoryView({}) {
   const router = useRouter();
@@ -64,26 +64,15 @@ export default function MemoryView({}) {
   //     });
   // }, []);
 
-
-  //   parentTripId: string().required(),  // The id of the parent trip
-  // title: string().required(),         // The title of the memory
-  // description: string(),              // An optional description of the memory.
-  // date: date().required,              // The date of the memory.
-  // address: string().required,         // The address/location of the memory.
-  // category: string().required,        // The category of the memory.
-  // image: string().required,           // An image of the memory.
-  // user: string().required,  
-
   return isLoading ? (
     <h1>LOADING Memory...</h1>
   ) : (
     <>
-      <Header title={"memory title"} />
+      <Header title={"memory title"} back={true} />
       <div className="grid gap-1 place-items-center m-8">
         <div style={{ width: "400px" }} className="p-2">
           <img src="https://project50017.s3.us-east-2.amazonaws.com/winter.jpeg" />
         </div>
-        {/* <DayViewButton title={"June 1"} color={"bg-custom-blue"} /> */}
         <div className="flex p-2">
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
             <Link href="/">
@@ -106,13 +95,25 @@ export default function MemoryView({}) {
               zoom={10}
               mapContainerStyle={{ height: "400px", width: "400px" }}
             >
-              {center && <Marker position={center} />}
+              {center && <MarkerF position={center} />}
             </GoogleMap>
           </LoadScript>
         </div>
         <div>description:</div>
-        <div className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mb-4">
+        <div
+          className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mb-4"
+          style={{ width: "400px" }}
+        >
           MN: wdym summer?
+        </div>
+        <div>
+          {/* edit and delete buttons here */}
+          <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm">
+            Delete
+          </button>
+          <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm">
+            Edit
+          </button>
         </div>
       </div>
     </>

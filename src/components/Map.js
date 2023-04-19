@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
-import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, StandaloneSearchBox, MarkerF } from '@react-google-maps/api';
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -69,7 +69,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             center={userPosition}
             onLoad={setMapInstance}
           >
-            {coordinates && <Marker position={coordinates} />}
+            {coordinates && <MarkerF position={coordinates} />}
             <StandaloneSearchBox
               onLoad={onLoad}
               onPlacesChanged={onPlacesChanged}

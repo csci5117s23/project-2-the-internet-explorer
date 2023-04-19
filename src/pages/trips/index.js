@@ -13,6 +13,7 @@ export default function Trips() {
       <SignedIn>
         <Header
           title='Your Trips'
+          back={false}
         ></Header>
         <TripsWrapper
           uploadedTrip={uploadedTrip}
