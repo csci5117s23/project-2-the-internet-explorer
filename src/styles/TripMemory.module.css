@@ -21,7 +21,26 @@
 }
 
 .photoButtons {
-    display: flex;
-    flex-direction: row;
-    align-items: center; /* optional: align items in center vertically */
-  }
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; optional: align items in center vertically */
+    text-align: center;
+    margin-bottom: 0.5em;
+    /* justify-content: center; */
+}
+
+.plusIcon {
+    font-size: x-large;
+}
+
+.cameraButtons {
+    text-align: center;
+}
+
+.captureImage {
+    margin-left: 1em;
+}
+
+.webcam {
+    margin: 0 auto 0.5em auto;
+}

@@ -28,7 +28,8 @@ const tripMemoriesYup = object({
   title: string().required(),         // The title of the memory
   description: string(),              // An optional description of the memory.
   date: date().required,              // The date of the memory.
-  address: string().required,         // The address/location of the memory.
+  location: string().required,        // The location name of the memory.
+  coordinates: string().required,     // The coordinates of a memory location.
   category: string().required,        // The category of the memory.
   image: string().required,           // An image of the memory.
   user: string().required,            // The user that created the memory.
@@ -47,7 +48,7 @@ async function getAllTrips(req, res) {
   };
   conn.getMany('tripFolders', options).json(res);
 }
-app.get('/tripFolders', getAllTrips);
+app.get('/getAllTrips', getAllTrips);
 
 // Retrieve the memories of a specified category of a specified trip.
 async function getMemories(req, res) {
@@ -95,6 +96,13 @@ app.use('/tripFolders', (req, res, next) => {
   next();
 })
 
+app.use('/getAllTrips', (req, res, next) => {
+  if (req.method === "GET") {
+    req.query.user = req.user_token.sub;
+  }
+  next();
+})
+
 // Some extra logic for making a POST and GET request from the tripMemories
 // collection. Retrieve the userId and store it in the body or query,
 // respectively.
@@ -105,7 +113,27 @@ app.use('/tripMemories', (req, res, next) => {
     req.query.user = req.user_token.sub;
   }
   next();
-})
+});
+
+app.use('/tripFolders/:id', async (req, res, next) => {
+  const id = req.params.ID;
+  const userId = req.user_token.sub;
+
+  const conn = await Datastore.open();
+  try {
+    const trip = await conn.getOne('tripFolders', id);
+    if (trip.user != userId) {
+      res.status(403).end();
+      return;
+    }
+  } catch (e) {
+    console.error('Error: ', e);
+    res.status(404).end(e);
+    return;
+  }
+
+  next();
+});
 
 // Use Crudlify to create a REST API for any collection
 crudlify(app, {tripFolders: tripFolderYup, tripMemories: tripMemoriesYup});

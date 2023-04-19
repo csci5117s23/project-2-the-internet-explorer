@@ -3,6 +3,7 @@ const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 import { useEffect, useState } from "react";
 import TripsList from "./TripsList";
 import { useAuth } from "@clerk/clerk-react";
+import LoadingCircle from "./LoadingCircle";
 
 
 export default function TripsWrapper({ uploadedTrip }) {
@@ -46,7 +47,7 @@ export default function TripsWrapper({ uploadedTrip }) {
         try {
           const token = await getToken({ template: "codehooks" });
 
-          const response = await fetch(backend_base + '/tripFolders', {
+          const response = await fetch(backend_base + '/getAllTrips', {
             'method': 'GET',
             'headers': {
               'Authorization': 'Bearer ' + token
@@ -89,7 +90,7 @@ export default function TripsWrapper({ uploadedTrip }) {
   console.log('loading: ', loadingTrips);
 
   return (loadingTrips ? (
-    <h1>LOADING TRIPS...</h1>
+    <LoadingCircle></LoadingCircle>
   ) : (
     <TripsList trips={allTrips}></TripsList>
   ));
