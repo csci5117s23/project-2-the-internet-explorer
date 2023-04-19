@@ -10,7 +10,8 @@ const TripView = () => {
 
     const router = useRouter();
     const title = router.query.tripID
-
+    //get all memories related to the trip
+    //get a day memory filter and display all dayview button
     return (
         <>
         <Header
