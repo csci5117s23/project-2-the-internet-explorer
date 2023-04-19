@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
+import DeleteTripButton from './buttons/DeleteFileButton';
 
 export default function Trip({ id, title, startDate, endDate, index }) {
   // This is the component for an individual trip.
@@ -42,7 +43,6 @@ export default function Trip({ id, title, startDate, endDate, index }) {
       {/* <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span>Edit</span> | <span>Delete</span></span></div><br></br> */}
       <div className={styles.dateDiv}><span>{date_format[0] + " " + date_format[1]}</span></div><br></br>
       <div className={styles.title}><span>{title}</span></div>
-   
     </div>
     </Link>
     </>
