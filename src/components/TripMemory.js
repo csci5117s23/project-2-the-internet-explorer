@@ -11,7 +11,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     const [camera, setCamera] = useState(false); // front is false. back is true.
     const [image, setImage] = useState('');
     const [resizedImage, setResizedImage] = useState(null);
-    const [location, setLocation] = useState("Loading...");
+    const [location, setLocation] = useState("");
     const [coordinates, setCoordinates] = useState(null);
     const webcamRef = useRef(null);
 

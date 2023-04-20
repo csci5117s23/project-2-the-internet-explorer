@@ -9,7 +9,6 @@ const mapContainerStyle = {
 };
 
 export default function Map({ location, setLocation, coordinates, setCoordinates }) { 
-    // const [location, setLocation] = useState("Loading...");
     const [searchBox, setSearchBox] = useState(null);
     // const [coordinates, setCoordinates] = useState(null);
     const [mapInstance, setMapInstance] = useState(null);
@@ -25,7 +24,6 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             (position) => {
               const { latitude, longitude } = position.coords;
               setUserPosition({ lat: latitude, lng: longitude });
-              setLocation("Current Location");
             },
             (error) => {
               console.error("Error getting user location:", error);
@@ -57,7 +55,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           <div>
             <input
               className="border-2 border-slate-600 mb-6 w-full"
-              placeholder="Location"
+              placeholder="Current Location"
               value={location}
               readOnly
             ></input>
