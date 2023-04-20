@@ -183,8 +183,8 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                         required
                     >
                         <option value="" disabled>Select an option</option>
-                        <option value="place">Place</option>
-                        <option value="event">Event</option>
+                        <option value="places">Place</option>
+                        <option value="events">Event</option>
                         <option value="food">Food</option>
                         <option value="souvenirs">Souvenirs</option>
                         <option value="people">People</option>
