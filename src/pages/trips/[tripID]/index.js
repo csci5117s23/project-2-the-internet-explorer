@@ -125,16 +125,19 @@ const TripView = () => {
         <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
             <br></br>
             <CategoryButton
-                name={"Places"}
+              name={"Places"}
             />
             <CategoryButton
-                name={"People"}
+              name={"Events"}
             />
             <CategoryButton
-                name={"Events"}
+              name={"Food"}
             />
             <CategoryButton
-                name={"Souvenirs"}
+              name={"Souvenirs"}
+            />
+            <CategoryButton
+              name={"People"}
             />
         </div>
         <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
