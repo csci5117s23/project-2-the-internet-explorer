@@ -50,8 +50,24 @@ async function getAllTrips(req, res) {
 }
 app.get('/getAllTrips', getAllTrips);
 
+async function getTripMemories(req, res) {
+  const userId = req.user_token.sub;
+  const tripId = req.query.trip;
+
+  const conn = await Datastore.open();
+  const query = {$and: [{"user": userId}, {"parentTripId": tripId}]};
+
+  const options = {
+    filter: query,
+    sort: {"date": 1},
+    hints: {$fields: {date: 1, image: 1}}
+  }
+  conn.getMany('tripMemories', options).json(res);
+}
+app.get('/getTripMemories', getTripMemories);
+
 // Retrieve the memories of a specified category of a specified trip.
-async function getMemories(req, res) {
+async function getCategoryMemories(req, res) {
   const userId = req.user_token.sub;
   const tripId = req.query.trip;
   const category = req.query.category;
@@ -65,7 +81,7 @@ async function getMemories(req, res) {
   }
   conn.getMany('tripMemories', options).json(res);
 }
-app.get('/getTripMemories', getMemories);
+app.get('/getCategoryMemories', getCategoryMemories);
 
 async function addMemory(req, res) {
   const conn = await Datastore.open();

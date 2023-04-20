@@ -13,16 +13,16 @@ import { useAuth } from "@clerk/nextjs";
 
 const TripView = () => {
     const [tripMemories, setTripMemories] = useState(null);
-    const [loadingTripDays, setLoadingTripDays] = useState(true);
+    const [loadingTripMemories, setLoadingTripMemories] = useState(true);
+    const [tripDays, setTripDays] = useState({});
     const [curTrip, setCurTrip] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
     let { tripID } = router.query;
-    // const tripId = router.query.tripID
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-    // console.log('backend url: ', backend_base + `/tripFolders/${tripId}`);
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     useEffect(() => {
         const getIndividualTrip = async () => {
@@ -51,9 +51,63 @@ const TripView = () => {
         getIndividualTrip();
     }, [isLoaded, router]);
 
+    useEffect(() => {
+        const getTripMemories = async () => {
+            try {
+                if (userId) {
+                    const token = await getToken({ template: "codehooks" });
+
+                    const response = await fetch(backend_base + `/getTripMemories?trip=${tripID}`, {
+                        'method': 'GET',
+                        'headers': {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    });
+                    if (!response.ok) {
+                        router.push('/404');
+                        return;
+                    }
+                    const data = await response.json();
+                    setTripMemories(data);
+                    setLoadingTripMemories(false);
+                }
+            } catch (error) {
+                console.error('Error: ', error);
+            }
+        }
+        getTripMemories();
+    }, [isLoaded, router]);
+
+    let daysList = [];
+    if (!loadingTripMemories) {
+        for (let memory of tripMemories) {
+            if (tripDays[memory.date]) {
+                continue;
+            } else {
+                let currentMemories = tripDays;
+                currentMemories[memory.date] = memory;
+                setTripDays(currentMemories);
+            }
+        }
+        for (const [date, memory] of Object.entries(tripDays)) {
+            // console.log(memory);
+            let curDate = new Date(date);
+            let month = curDate.getMonth();
+            let day = curDate.getDate();
+            let curDateStr = `${months[month]} ${day}`;
+            let curView = (
+                <DayViewButton 
+                    title={curDateStr}
+                    color={"bg-custom-blue"}
+                ></DayViewButton>
+            )
+
+            daysList = daysList.concat(curView);
+        }
+    }
+
     return (isLoading ? (
-        <></>
-        // <h1>LOADING TRIP...</h1>
+        <h1>LOADING TRIP...</h1>
     ) : (
         <>
         <Header
@@ -77,7 +131,10 @@ const TripView = () => {
         </div>
         <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
             <br></br>
-            <DayViewButton
+            <>
+                {daysList}
+            </>
+            {/* <DayViewButton
                 title={"June 1"}
                 color={"bg-custom-blue"}
             />
@@ -108,7 +165,7 @@ const TripView = () => {
             <DayViewButton
                 title={"June 4"}
                 color={"bg-violet-500"}
-            />
+            /> */}
         </div>
         <TripMemoryWrapper parentId={tripID}></TripMemoryWrapper>
         </>
