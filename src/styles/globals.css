@@ -9,6 +9,10 @@
   height: 100%;
 }
 
+.space-x-5 > :not([hidden]) ~ :not([hidden]) {
+  margin: 0;
+}
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;

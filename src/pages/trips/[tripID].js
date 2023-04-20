@@ -72,6 +72,7 @@ const TripView = () => {
                         return;
                     }
                     const data = await response.json();
+                    console.log('data: ', data);
                     setTripMemories(data);
                     setLoadingTripMemories(false);
                 }
