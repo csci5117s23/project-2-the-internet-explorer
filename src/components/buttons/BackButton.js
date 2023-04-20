@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-const BackButton = () => {
+
+const BackButton = ({ prevUrl }) => {
   const router = useRouter();
   const handleBackClick = (event) => {
     event.preventDefault();
@@ -9,13 +11,15 @@ const BackButton = () => {
     router.back();
   };
   return (
-    <button type="button" onClick={handleBackClick}>
-      <FontAwesomeIcon
-        className="text-4xl"
-        style={{ color: "#c6d2ec" }}
-        icon={faChevronLeft}
-      />
-    </button>
+    <Link href={prevUrl}><FontAwesomeIcon className="text-4xl" style={{ color: "#c6d2ec" }} icon={faChevronLeft}/></Link>
+    // <button type="button" onClick={handleBackClick}>
+    //   <Link href={prevUrl}><FontAwesomeIcon className="text-4xl" style={{ color: "#c6d2ec" }} icon={faChevronLeft}/></Link>
+    //   <FontAwesomeIcon
+    //     className="text-4xl"
+    //     style={{ color: "#c6d2ec" }}
+    //     icon={faChevronLeft}
+    //   />
+    // </button>
   );
 };
 export default BackButton;

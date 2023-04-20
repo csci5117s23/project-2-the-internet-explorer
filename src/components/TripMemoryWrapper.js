@@ -8,12 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/TripMemory.module.css';
 import { useAuth } from "@clerk/nextjs";
 import { LoadScript } from "@react-google-maps/api";
-const libraries = ["places"];
+// const libraries = ["places"];
 
 Modal.setAppElement("body");
 
 export default function TripMemoryWrapper({ parentId }) {
-  const MAP_API = process.env.NEXT_PUBLIC_MAP_API
+  // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
   
   
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -73,10 +73,10 @@ export default function TripMemoryWrapper({ parentId }) {
       >
         <span className={styles.plusIcon}><FontAwesomeIcon icon={faPlus} /></span>
       </button>
-      <LoadScript
+      {/* <LoadScript
           libraries={libraries}
           googleMapsApiKey={MAP_API}
-        >
+        > */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -92,7 +92,7 @@ export default function TripMemoryWrapper({ parentId }) {
         
         <button onClick={closeModal}>Close</button>
       </Modal>
-      </LoadScript>
+      {/* </LoadScript> */}
     </>
   );
 }

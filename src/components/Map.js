@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
-import { GoogleMap, LoadScript, StandaloneSearchBox, MarkerF } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, StandaloneSearchBox, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -9,6 +9,8 @@ const mapContainerStyle = {
 };
 
 export default function Map({ location, setLocation, coordinates, setCoordinates }) { 
+    // const MAP_API = process.env.NEXT_PUBLIC_MAP_API  
+  
     // const [location, setLocation] = useState("Loading...");
     const [searchBox, setSearchBox] = useState(null);
     // const [coordinates, setCoordinates] = useState(null);
@@ -16,6 +18,12 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const [userPosition, setUserPosition] = useState(null);
 
     const onLoad = (ref) => setSearchBox(ref);
+
+    const { isLoaded } = useJsApiLoader({
+      id: 'searchbox-example',
+      googleMapsApiKey: MAP_API,
+      libraries: libraries
+    });
 
     useEffect(() => {
         
@@ -62,7 +70,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
               readOnly
             ></input>
           </div>
-          <GoogleMap
+          {isLoaded && <GoogleMap
             id="searchbox-example"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
@@ -96,7 +104,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
                 }}
               />
             </StandaloneSearchBox>
-          </GoogleMap>
+          </GoogleMap>}
         </div>
       </>
     );

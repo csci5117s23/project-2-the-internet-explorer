@@ -10,8 +10,12 @@ import EditTripButton from "@/components/buttons/EditTripButton";
 import DeleteTripButton from "@/components/buttons/DeleteFileButton";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import { LoadScript } from "@react-google-maps/api";
+const libraries = ["places"];
 
 const TripView = () => {
+    const MAP_API = process.env.NEXT_PUBLIC_MAP_API
+
     const [tripMemories, setTripMemories] = useState(null);
     const [loadingTripMemories, setLoadingTripMemories] = useState(true);
     const [tripDays, setTripDays] = useState({});
@@ -97,6 +101,7 @@ const TripView = () => {
             let curDateStr = `${months[month]} ${day}`;
             let curView = (
                 <DayViewButton 
+                    key={curDateStr}
                     title={curDateStr}
                     color={"bg-custom-blue"}
                 ></DayViewButton>
@@ -113,6 +118,7 @@ const TripView = () => {
         <Header
             title={curTrip.tripName}
             back={true}
+            prevUrl='/trips'
         />
         <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
             <br></br>
@@ -167,7 +173,12 @@ const TripView = () => {
                 color={"bg-violet-500"}
             /> */}
         </div>
+        {/* <LoadScript
+          libraries={libraries}
+          googleMapsApiKey={MAP_API}
+        > */}
         <TripMemoryWrapper parentId={tripID}></TripMemoryWrapper>
+        {/* </LoadScript> */}
         </>
     ))
 
