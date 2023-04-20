@@ -17,7 +17,6 @@ app.get('/', (req, res) => {
 const tripFolderYup = object({
   tripName: string().required(),      // The name of the trip.
   startDate: date().required(),       // The start date of the trip.
-  endDate: date().required(),         // The end date of the trip.
   description: string(),              // An optional description of the trip.
   user: string().required(),          // The user that created the trip.
 });
@@ -60,7 +59,7 @@ async function getTripMemories(req, res) {
   const options = {
     filter: query,
     sort: {"date": 1},
-    hints: {$fields: {date: 1, image: 1}}
+    hints: {$fields: {date: 1, image: 1, _id: 1}}
   }
   conn.getMany('tripMemories', options).json(res);
 }

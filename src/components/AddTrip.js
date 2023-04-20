@@ -13,12 +13,12 @@ export default function AddTrip({ addTrip, closeModal }) {
         console.log('form json: ', formJson);
 
         let newStart = new Date(formJson.startDate.replace(/-/g, '\/'));
-        let newEnd = new Date(formJson.endDate.replace(/-/g, '\/'));
+        // let newEnd = new Date(formJson.endDate.replace(/-/g, '\/'));
 
         let newTrip = {
             tripName: formJson.tripName,
             startDate: newStart,
-            endDate: newEnd,
+            // endDate: newEnd,
             description: formJson.description
         };
 
@@ -53,7 +53,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                         required
                     ></input>
                 </div>
-                <div className="p-4 end-date-container">
+                {/* <div className="p-4 end-date-container">
                     <h4 className="text-l font-bold" id="createTripHeader">End Date</h4>
                     <input 
                         type="date"
@@ -62,7 +62,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                         name="endDate"
                         required
                     ></input>
-                </div>
+                </div> */}
                 <div className="p-4">
                     <h4 className="text-l font-bold" id="createTripHeader">Brief Description</h4>
                     <textarea 
