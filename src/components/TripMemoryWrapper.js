@@ -12,7 +12,7 @@ import { LoadScript } from "@react-google-maps/api";
 
 Modal.setAppElement("body");
 
-export default function TripMemoryWrapper({ parentId }) {
+export default function TripMemoryWrapper({ parentId, startDate }) {
   // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
   
   
@@ -88,6 +88,7 @@ export default function TripMemoryWrapper({ parentId }) {
           closeModal={closeModal}
           parentId={parentId}
           setDataUrl={setDataUrl}
+          startDate={startDate}
         />
         
         <button onClick={closeModal}>Close</button>

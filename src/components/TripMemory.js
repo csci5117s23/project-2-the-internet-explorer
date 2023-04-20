@@ -6,7 +6,7 @@ import Resizer from 'react-image-file-resizer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl }) {
+export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, startDate }) {
     const [showWebCamera, setShowWebCamera] = useState(false);
     const [camera, setCamera] = useState(false); // front is false. back is true.
     const [image, setImage] = useState('');
@@ -118,6 +118,29 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
         closeModal();
     }
 
+    // TODO: Deconstruct and reconstruct the passed in startDate to be accepted as a default value in
+    // TODO: the html form for the date.
+    let curDate = new Date(startDate);
+    let year = curDate.getFullYear();
+    let month = curDate.getMonth() + 1;
+    let day = curDate.getDate();
+
+    let yearStr = year.toString();
+    let monthStr = '';
+    if (month < 10) {
+        monthStr = `0${month.toString()}`;
+    } else {
+        monthStr = month.toString();
+    }
+    let dayStr = '';
+    if (day < 10) {
+        dayStr = `0${dat.toString()}`;
+    } else {
+        dayStr = day.toString();
+    }
+
+    let dateStr = `${yearStr}-${monthStr}-${dayStr}`;
+
     return (
         <>
         <form method='post' onSubmit={handleSubmit}>
@@ -142,6 +165,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                         id="date"
                         name="date"
                         required
+                        min={dateStr}
                     ></input>
                 </div>
                 <Map
