@@ -178,7 +178,7 @@ const TripView = () => {
           libraries={libraries}
           googleMapsApiKey={MAP_API}
         > */}
-        <TripMemoryWrapper parentId={tripID}></TripMemoryWrapper>
+        <TripMemoryWrapper parentId={tripID} startDate={curTrip.startDate}></TripMemoryWrapper>
         {/* </LoadScript> */}
         </>
     ))
