@@ -4,13 +4,14 @@ import CategoryButton from "@/components/buttons/CategoryButton";
 import Header from "@/components/Header";
 import TripMemoryWrapper from "@/components/TripMemoryWrapper";
 import { useRouter } from "next/router";
-import styles from '../../styles/TripView.module.css'
+import styles from '../../../styles/TripView.module.css'
 import DayViewButton from "@/components/buttons/DayViewButton";
 import EditTripButton from "@/components/buttons/EditTripButton";
 import DeleteTripButton from "@/components/buttons/DeleteFileButton";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { LoadScript } from "@react-google-maps/api";
+import LoadingCircle from "@/components/LoadingCircle";
 const libraries = ["places"];
 
 const TripView = () => {
@@ -113,7 +114,7 @@ const TripView = () => {
     }
 
     return (isLoading ? (
-        <h1>LOADING TRIP...</h1>
+        <LoadingCircle></LoadingCircle>
     ) : (
         <>
         <Header
