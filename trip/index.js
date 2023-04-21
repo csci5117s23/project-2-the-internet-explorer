@@ -59,7 +59,7 @@ async function getTripMemories(req, res) {
   const options = {
     filter: query,
     sort: {"date": 1},
-    hints: {$fields: {date: 1, image: 1, _id: 1}}
+    // hints: {$fields: {date: 1, image: 1, _id: 1}}
   }
   conn.getMany('tripMemories', options).json(res);
 }
@@ -72,7 +72,7 @@ async function getCategoryMemories(req, res) {
   const category = req.query.category;
 
   const conn = await Datastore.open();
-  const query = {$and: [{"user": userId}, {"parentTripId": tripId}, {"category": category}]};
+  const query = {$and: [{"user": userId}, {"parentTripId": tripId}, {"category": category.toLowerCase()}]};
   
   const options = {
     filter: query,
