@@ -1,0 +1,16 @@
+.tripSummaryContainer {
+    top: 20%;
+    left: 5%;
+    margin: auto;
+    width: 90%;
+    margin: auto;
+    position: absolute;
+    border:1px solid black;
+    border-radius: 10px;
+}
+
+.tripSummaryHeader {
+    position: absolute;
+    top: 12%;
+    left: 5%;
+}
