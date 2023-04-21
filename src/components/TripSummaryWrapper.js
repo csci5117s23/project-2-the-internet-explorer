@@ -25,7 +25,7 @@ export default function TripSummaryWrapper() {
   return (
     <>
       <button
-        className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}
+        className={"float-right right-4 sticky bottom-4 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
         onClick={openModal}
       > View Trip Summary
       </button>
