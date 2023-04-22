@@ -1,15 +1,11 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-const MAP_API = process.env.NEXT_PUBLIC_MAP_API;
 
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react"
 import Link from "next/link";
 import LoadingCircle from "./LoadingCircle";
 import Header from "./Header";
-import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 import MemoryMap from "./MemoryMap";
-
-const libraries = ['places'];
 
 export default function IndividualMemory({ trip, memoryID, filter, params, router }) {
   const [memory, setMemory] = useState(null);
@@ -52,7 +48,6 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
       return;
     }
     let category = params.get('category');
-    // prevUrl = `/updated_trips/${trip._id}/category?category=${category}`;
     prevUrl = `/trips/${trip._id}/category?category=${category}`;
   } else if (filter === 'day') {
     if (!params.has('day')) {
@@ -60,7 +55,6 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
       return;
     }
     let day = params.get('day');
-    // prevUrl = `/updated_trips/${trip._id}/day?day=${day}`;
     prevUrl = `/trips/${trip._id}/day?day=${day}`;
     if (params.has('category')) {
       console.log('has category param');
@@ -68,7 +62,6 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
     }
   } else { // Handle unaccepted filters.
     prevUrl = `/trips/${trip._id}`;
-    // prevUrl = `/updated_trips/${trip._id}`;
   }
 
   return (loadingMemory ? (

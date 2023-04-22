@@ -30,7 +30,6 @@ export default function IndividualCategory({ trip, category, router }) {
           });
           if (!response.ok) {
             router.push('/trips');
-            // router.push('/updated_trips');
             return;
           }
           const data = await response.json();
@@ -51,7 +50,6 @@ export default function IndividualCategory({ trip, category, router }) {
     let params = {
       'category': category
     }
-    // console.log('params: ', params);
     memoryList = tripMemories.map(
       (memory) => 
         <MemoryViewButton
@@ -72,7 +70,6 @@ export default function IndividualCategory({ trip, category, router }) {
       <Header
         title={`${trip.tripName}`}
         back={true}
-        // prevUrl={`/updated_trips/${trip._id}`}
         prevUrl={`/trips/${trip._id}`}
         day={"All Days"}
       />
@@ -87,5 +84,5 @@ export default function IndividualCategory({ trip, category, router }) {
       )}
       <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
     </>
-  )
+  );
 }

@@ -1,15 +1,12 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-const MAP_API = process.env.NEXT_PUBLIC_MAP_API;
 
 import { useAuth } from "@clerk/nextjs";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingCircle from "./LoadingCircle";
 import IndividualTrip from "./IndividualTrip";
 import IndividualCategory from "./IndividualCategory";
 import IndividualDay from "./IndividualDay";
 import IndividualMemory from "./IndividualMemory";
-import { LoadScript } from '@react-google-maps/api';
 
 // This wraps all individual pages, such as an individual trip, individual category,
 // individual day, and individual memory. The page that it renders depends on the 
@@ -20,7 +17,6 @@ import { LoadScript } from '@react-google-maps/api';
 export default function IndividualWrapper({ router }) {
   const [curTrip, setCurTrip] = useState(null);
   const [loadingCurTrip, setLoadingCurTrip] = useState(true);
-  // const router = useRouter();
   let { tripData } = router.query;
   let tripID = tripData[0];
 
@@ -40,7 +36,6 @@ export default function IndividualWrapper({ router }) {
           });
           if (!response.ok) {
             router.push('/trips');
-            // router.push('/updated_trips');
             return;
           }
           const data = await response.json();
@@ -105,15 +100,13 @@ export default function IndividualWrapper({ router }) {
       const urlParams = new URLSearchParams(location.search);
       let memoryID = tripData[2];
       return (
-        // <LoadScript googleMapsApiKey={MAP_API}>
-          <IndividualMemory 
-            trip={curTrip} 
-            memoryID={memoryID}
-            filter={filter}
-            params={urlParams}
-            router={router}
-          ></IndividualMemory>
-        // {/* </LoadScript> */}
+        <IndividualMemory 
+          trip={curTrip} 
+          memoryID={memoryID}
+          filter={filter}
+          params={urlParams}
+          router={router}
+        ></IndividualMemory>
       );
     }
   }
