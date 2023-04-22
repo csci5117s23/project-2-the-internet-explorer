@@ -121,7 +121,7 @@ const TripView = () => {
             prevUrl='/trips'
         />
         <CategoryButtonWrapper></CategoryButtonWrapper>
-        {/* <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
+        <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
             <br></br>
             <CategoryButton
               name={"Places"}
@@ -143,12 +143,8 @@ const TripView = () => {
               name={"People"}
               tripId={tripID}
             />
-<<<<<<< HEAD
-        </div> */}
-=======
             <TripSummaryWrapper />
         </div>
->>>>>>> main
         <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
             <br></br>
             <>
