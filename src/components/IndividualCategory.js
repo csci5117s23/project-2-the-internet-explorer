@@ -70,12 +70,13 @@ export default function IndividualCategory({ trip, category, router }) {
   return (
     <>
       <Header
-        title={`${trip.tripName} ${category}`}
+        title={`${trip.tripName}`}
         back={true}
         // prevUrl={`/updated_trips/${trip._id}`}
         prevUrl={`/trips/${trip._id}`}
+        day={"All Days"}
       />
-      <CategoryButtonWrapper tripID={trip._id}></CategoryButtonWrapper>
+      <CategoryButtonWrapper tripID={trip._id} curr_category={category}></CategoryButtonWrapper>
       {loadingMemories ? (
         <LoadingCircle></LoadingCircle>
       ) : (

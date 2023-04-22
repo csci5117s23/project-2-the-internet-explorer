@@ -2,35 +2,35 @@ import CategoryButton from './CategoryButton.js';
 import styles from '../../styles/TripView.module.css';
 import TripSummaryWrapper from '../TripSummaryWrapper.js';
 
-export default function CategoryButtonWrapper({ tripID, date }) {
+
+
+
+const buttons = [
+  "Places", "Events", "Food", "Souvenirs", "People"
+]
+
+export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
+
+  function isSelected(name) {
+    if (name === curr_category) {
+      return true
+    }
+    return false
+  }
+
+  console.log(curr_category)
+
   return (
     <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
       <br></br>
-      <CategoryButton
-        name={"Places"}
+      {buttons.map(str => (
+        <CategoryButton
+        name={str}
         tripId={tripID}
         date={date}
-      />
-      <CategoryButton
-        name={"Events"}
-        tripId={tripID}
-        date={date}
-      />
-      <CategoryButton
-        name={"Food"}
-        tripId={tripID}
-        date={date}
-      />
-      <CategoryButton
-        name={"Souvenirs"}
-        tripId={tripID}
-        date={date}
-      />
-      <CategoryButton
-        name={"People"}
-        tripId={tripID}
-        date={date}
-      />
+        pressed={isSelected(str)}
+        />
+      ))}
       <TripSummaryWrapper />
     </div>
   )

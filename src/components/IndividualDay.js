@@ -97,11 +97,12 @@ export default function IndividualDay({ trip, date, category, router }) {
   return (
     <>
       <Header
-        title={`${trip.tripName} ${curDateStr} ${category}`}
+        title={`${trip.tripName}`}
         back={true}
         prevUrl={prevUrl}
+        day={`${curDateStr}`}
       />
-      <CategoryButtonWrapper tripID={trip._id} date={date}></CategoryButtonWrapper>
+      <CategoryButtonWrapper tripID={trip._id} date={date} curr_category={category}></CategoryButtonWrapper>
       {loadingMemories ? (
         <LoadingCircle></LoadingCircle>
       ) : (

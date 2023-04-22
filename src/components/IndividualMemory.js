@@ -75,7 +75,7 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
     <LoadingCircle></LoadingCircle>
   ) : (
     <>
-      <Header title={memory.title} back={true} prevUrl={prevUrl} />
+      <Header title={memory.title} back={true} prevUrl={prevUrl}/>
       <div className='grid gap-1 place-items-center m-8'>
         <div style={{ width: '400px' }} className='p-2'>
           <img src={memory.image} alt={memory.title} />

@@ -12,7 +12,7 @@ const BackButton = ({ prevUrl }) => {
     router.back();
   };
   return (
-    <Link className={styles.backButton} href={prevUrl}><FontAwesomeIcon className="text-4xl" style={{ color: "#c6d2ec" }} icon={faChevronLeft}/></Link>
+    <Link className={styles.backButton} href={prevUrl}><FontAwesomeIcon className="text-4xl text-white" icon={faChevronLeft}/></Link>
     // <button type="button" onClick={handleBackClick}>
     //   <Link href={prevUrl}><FontAwesomeIcon className="text-4xl" style={{ color: "#c6d2ec" }} icon={faChevronLeft}/></Link>
     //   <FontAwesomeIcon

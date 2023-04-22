@@ -119,6 +119,7 @@ export default function IndividualTrip({ trip, router }) {
           back={true}
           // prevUrl='/updated_trips'
           prevUrl='/trips'
+          day="All Days"
         />
         <CategoryButtonWrapper tripID={trip._id}></CategoryButtonWrapper>
         <DayViewButtonWrapper tripID={trip._id} router={router}></DayViewButtonWrapper>
