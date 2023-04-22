@@ -14,10 +14,6 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   ];
   index = index % colors.length;
 
-  // while (index > colors.length) {
-  //   index = index - colors.length
-  // }
-
   // show only month and year of start date
   const date = new Date(startDate);
   var options = {
@@ -38,7 +34,6 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   // TODO make edit/delete buttons little circles w/ icons inside that only appear on hover
   return (
     <>
-    {/* <Link href={`/updated_trips/${id}`}> */}
     <Link href={`/trips/${id}`}>
     <div className={styles.tripDiv + " " + colors[index] + " " + getHover()}>
       {/* <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span>Edit</span> | <span>Delete</span></span></div><br></br> */}

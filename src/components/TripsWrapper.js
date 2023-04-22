@@ -67,8 +67,4 @@ export default function TripsWrapper({ uploadedTrip }) {
   ) : (
     <TripsList trips={allTrips}></TripsList>
   ));
-
-  // return (
-  //   <TripsList trips={allTrips}></TripsList>
-  // )
 }
