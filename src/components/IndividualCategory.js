@@ -48,14 +48,22 @@ export default function IndividualCategory({ trip, category, router }) {
 
   let memoryList = [];
   if (!loadingMemories) {
+    let params = {
+      'category': category
+    }
+    // console.log('params: ', params);
     memoryList = tripMemories.map(
       (memory) => 
         <MemoryViewButton
           key={memory._id}
+          tripID={trip._id}
+          memoryID={memory._id}
+          filter='category'
+          params={params}
           title={memory.title}
           color={'bg-emerald-400'}
         />
-    )
+    );
   } 
   console.log('memory list: ', memoryList);
 

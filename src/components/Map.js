@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, MarkerF, useJsApiLoader } from '@react-google-maps/api';
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API

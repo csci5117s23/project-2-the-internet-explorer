@@ -3,6 +3,7 @@ const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 import CategoryButton from "@/components/buttons/CategoryButton";
 import Header from "@/components/Header";
 import TripMemoryWrapper from "@/components/TripMemoryWrapper";
+import TripSummaryWrapper from "@/components/TripSummaryWrapper";
 import { useRouter } from "next/router";
 import styles from '../../../styles/TripView.module.css'
 import DayViewButton from "@/components/buttons/DayViewButton";
@@ -142,7 +143,12 @@ const TripView = () => {
               name={"People"}
               tripId={tripID}
             />
+<<<<<<< HEAD
         </div> */}
+=======
+            <TripSummaryWrapper />
+        </div>
+>>>>>>> main
         <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
             <br></br>
             <>

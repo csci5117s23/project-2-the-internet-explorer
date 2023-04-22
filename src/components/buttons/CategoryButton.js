@@ -1,8 +1,15 @@
 import Link from "next/link";
 
-const CategoryButton = ({name, tripId}) => {
+const CategoryButton = ({name, tripId, date}) => {
+    let link = `/updated_trips/${tripId}/category?category=${name}`;
+    // let link = `/trips/${tripId}/category?category=${name}`;
+    if (date) {
+        link = `/updated_trips/${tripId}/day?day=${date}&category=${name}`;
+        // link = `/trips/${tripId}/day?day=${date}&category=${name}`;
+    }
+
     return (
-        <Link href={`/updated_trips/${tripId}/category?category=${name}`}>
+        <Link href={link}>
         {/* <Link href={`/trips/${tripId}/${name.toLowerCase()}`}> */}
         <button
             type="button"

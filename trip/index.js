@@ -82,6 +82,12 @@ async function getCategoryMemories(req, res) {
 }
 app.get('/getCategoryMemories', getCategoryMemories);
 
+// async function getDateMemories(req, res) {
+//   const userId = req.user_token.sub;
+//   const tripId = req.query.trip;
+//   const date = 
+// }
+
 async function addMemory(req, res) {
   const conn = await Datastore.open();
   const doc = await conn.insertOne('tripMemories', req.body);

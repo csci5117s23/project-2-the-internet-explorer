@@ -65,7 +65,9 @@ export default function DayViewButtonWrapper({ tripID, router }) {
       let curView = (
         <DayViewButton
           key={curDateStr}
+          tripID={tripID}
           title={curDateStr}
+          ISOString={date}
           color={'bg-custom-blue'}
         />
       )
