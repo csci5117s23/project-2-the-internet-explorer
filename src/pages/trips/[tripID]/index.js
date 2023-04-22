@@ -11,13 +11,10 @@ import EditTripButton from "@/components/buttons/EditTripButton";
 import DeleteTripButton from "@/components/buttons/DeleteFileButton";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { LoadScript } from "@react-google-maps/api";
 import LoadingCircle from "@/components/LoadingCircle";
-const libraries = ["places"];
+import CategoryButtonWrapper from "@/components/buttons/CategoryButtonWrapper";
 
 const TripView = () => {
-    const MAP_API = process.env.NEXT_PUBLIC_MAP_API
-
     const [tripMemories, setTripMemories] = useState(null);
     const [loadingTripMemories, setLoadingTripMemories] = useState(true);
     const [tripDays, setTripDays] = useState({});
@@ -123,22 +120,28 @@ const TripView = () => {
             back={true}
             prevUrl='/trips'
         />
+        <CategoryButtonWrapper></CategoryButtonWrapper>
         <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
             <br></br>
             <CategoryButton
               name={"Places"}
+              tripId={tripID}
             />
             <CategoryButton
               name={"Events"}
+              tripId={tripID}
             />
             <CategoryButton
               name={"Food"}
+              tripId={tripID}
             />
             <CategoryButton
               name={"Souvenirs"}
+              tripId={tripID}
             />
             <CategoryButton
               name={"People"}
+              tripId={tripID}
             />
             <TripSummaryWrapper />
         </div>
@@ -147,108 +150,10 @@ const TripView = () => {
             <>
                 {daysList}
             </>
-            {/* <DayViewButton
-                title={"June 1"}
-                color={"bg-custom-blue"}
-            />
-            <DayViewButton
-                title={"June 2"}
-                color={"bg-teal-500"}
-            />
-            <DayViewButton
-                title={"June 3"}
-                color={"bg-amber-400"}
-            />
-            <DayViewButton
-                title={"June 4"}
-                color={"bg-violet-500"}
-            />
-            <DayViewButton
-                title={"June 4"}
-                color={"bg-violet-500"}
-            />
-            <DayViewButton
-                title={"June 4"}
-                color={"bg-violet-500"}
-            />
-            <DayViewButton
-                title={"June 4"}
-                color={"bg-violet-500"}
-            />
-            <DayViewButton
-                title={"June 4"}
-                color={"bg-violet-500"}
-            /> */}
         </div>
-        {/* <LoadScript
-          libraries={libraries}
-          googleMapsApiKey={MAP_API}
-        > */}
         <TripMemoryWrapper parentId={tripID} startDate={curTrip.startDate}></TripMemoryWrapper>
-        {/* </LoadScript> */}
         </>
     ))
-
-    //commented out because they are duplicate codes
-    
-    // return (
-    //     <>
-    //     <Header
-    //         title={title}
-    //     />
-    //     <div className={styles.buttonGroup + " flex flex-wrap space-y-2 space-x-2"}>
-    //         <br></br>
-    //         <CategoryButton
-    //             name={"Places"}
-    //         />
-    //         <CategoryButton
-    //             name={"People"}
-    //         />
-    //         <CategoryButton
-    //             name={"Events"}
-    //         />
-    //         <CategoryButton
-    //             name={"Souvenirs"}
-    //         />
-    //     </div>
-    //     <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
-    //         <br></br>
-    //         <DayViewButton
-    //             title={"June 1"}
-    //             color={"bg-custom-blue"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 2"}
-    //             color={"bg-teal-500"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 3"}
-    //             color={"bg-amber-400"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 4"}
-    //             color={"bg-violet-500"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 4"}
-    //             color={"bg-violet-500"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 4"}
-    //             color={"bg-violet-500"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 4"}
-    //             color={"bg-violet-500"}
-    //         />
-    //         <DayViewButton
-    //             title={"June 4"}
-    //             color={"bg-violet-500"}
-    //         />
-    //     </div>
-    //     <TripMemoryWrapper></TripMemoryWrapper>
-    //     </>
-    // )
 }
 
 export default TripView;
