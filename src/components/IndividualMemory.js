@@ -6,6 +6,7 @@ import Link from "next/link";
 import LoadingCircle from "./LoadingCircle";
 import Header from "./Header";
 import MemoryMap from "./MemoryMap";
+import moment from "moment"
 
 export default function IndividualMemory({ trip, memoryID, filter, params, router }) {
   const [memory, setMemory] = useState(null);
@@ -64,45 +65,45 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
     prevUrl = `/trips/${trip._id}`;
   }
 
-  return (loadingMemory ? (
+  return loadingMemory ? (
     <LoadingCircle></LoadingCircle>
   ) : (
     <>
-      <Header title={memory.title} back={true} prevUrl={prevUrl}/>
-      <div className='grid gap-1 place-items-center m-8'>
-        <div style={{ width: '400px' }} className='p-2'>
+      <Header title={memory.title} back={true} prevUrl={prevUrl} />
+      <div className="grid gap-1 place-items-center m-8">
+        <div style={{ width: "400px" }} className="flex p-2 justify-center">
           <img src={memory.image} alt={memory.title} />
         </div>
-        <div className='flex p-2'>
-          <div className='rounded-lg bg-blue-400 text-white p-2 mr-2'>
-            <Link href='/'>{memory.date}</Link>
+        <div className="flex p-2">
+          <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
+            <Link href="/">{moment(memory.date).format("YYYY-MM-DD")}</Link>
           </div>
-          <div className='rounded-lg bg-sky-400 text-white p-2 mr-2'>
-            <Link href='/'>{memory.category}</Link>
+          <div className="rounded-lg bg-sky-400 text-white p-2 mr-2">
+            <Link href="/">{memory.category}</Link>
           </div>
         </div>
         <div>
           <MemoryMap></MemoryMap>
         </div>
         <div>description</div>
-        <div 
-          className='flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mb-4'
-          style={{ width: '400px' }}
+        <div
+          className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mb-4"
+          style={{ width: "400px" }}
         >
           {memory.description}
         </div>
         <div>
           {/* edit and delete buttons here */}
-          <button className='ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm'>
+          <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm">
             Delete
           </button>
-          <button className='ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm'>
+          <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm">
             Edit
           </button>
         </div>
       </div>
     </>
-  ))
+  );
   
   return <></>
 }
