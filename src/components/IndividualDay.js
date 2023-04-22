@@ -36,8 +36,8 @@ export default function IndividualDay({ trip, date, category, router }) {
             }
           });
           if (!response.ok) {
-            // router.push('/trips');
-            router.push('/updated_trips');
+            router.push('/trips');
+            // router.push('/updated_trips');
             return;
           }
           const data = await response.json();
@@ -87,11 +87,11 @@ export default function IndividualDay({ trip, date, category, router }) {
   let day = curDate.getDate();
   let curDateStr = `${months[month]} ${day}`;
 
-  let prevUrl = `/updated_trips/${trip._id}`;
-  // let prevUrl = `/trips/${trip._id}`;
+  // let prevUrl = `/updated_trips/${trip._id}`;
+  let prevUrl = `/trips/${trip._id}`;
   if (category) {
-    prevUrl = `/updated_trips/${trip._id}/day?day=${date}`;
-    // prevUrl = `/trips/${trip._id}/day?day=${date}`;
+    // prevUrl = `/updated_trips/${trip._id}/day?day=${date}`;
+    prevUrl = `/trips/${trip._id}/day?day=${date}`;
   }
 
   return (

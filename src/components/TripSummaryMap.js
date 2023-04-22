@@ -16,7 +16,7 @@ export default function TripSummaryMap() {
     const [mapInstance, setMapInstance] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
-      id: 'searchbox-example',
+      id: 'example-map',
       googleMapsApiKey: MAP_API,
       libraries: libraries
     });
@@ -27,7 +27,7 @@ export default function TripSummaryMap() {
         <div className="p-4">
           <h4 className="text-l font-bold">Locations Visited</h4>
           {isLoaded && <GoogleMap
-            id="searchbox-example"
+            id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
             center={center}

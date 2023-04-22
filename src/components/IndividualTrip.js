@@ -117,57 +117,12 @@ export default function IndividualTrip({ trip, router }) {
         <Header 
           title={trip.tripName}
           back={true}
-          prevUrl='/updated_trips'
-          // prevUrl='/trips'
+          // prevUrl='/updated_trips'
+          prevUrl='/trips'
         />
         <CategoryButtonWrapper tripID={trip._id}></CategoryButtonWrapper>
         <DayViewButtonWrapper tripID={trip._id} router={router}></DayViewButtonWrapper>
         <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
       </>
     )
-
-    return (isLoading ? (
-        <LoadingCircle></LoadingCircle>
-    ) : (
-        <>
-        <Header
-            title={curTrip.tripName}
-            back={true}
-            prevUrl='/updated_trips'
-            // prevUrl='/trips'
-        />
-        <CategoryButtonWrapper tripID={tripID}></CategoryButtonWrapper>
-        {/* <div className={styles.buttonGroup + "flex flex-wrap space-y-2 space-x-2"}>
-            <br></br>
-            <CategoryButton
-              name={"Places"}
-              tripId={tripID}
-            />
-            <CategoryButton
-              name={"Events"}
-              tripId={tripID}
-            />
-            <CategoryButton
-              name={"Food"}
-              tripId={tripID}
-            />
-            <CategoryButton
-              name={"Souvenirs"}
-              tripId={tripID}
-            />
-            <CategoryButton
-              name={"People"}
-              tripId={tripID}
-            />
-        </div> */}
-        {/* <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
-            <br></br>
-            <>
-                {daysList}
-            </>
-        </div> */}
-        <DayViewButtonWrapper tripId={trip._id} router={router}></DayViewButtonWrapper>
-        <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
-        </>
-    ))
 }

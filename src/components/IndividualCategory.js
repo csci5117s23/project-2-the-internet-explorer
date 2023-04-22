@@ -29,8 +29,8 @@ export default function IndividualCategory({ trip, category, router }) {
             }
           });
           if (!response.ok) {
-            // router.push('/trips');
-            router.push('/updated_trips');
+            router.push('/trips');
+            // router.push('/updated_trips');
             return;
           }
           const data = await response.json();
@@ -72,8 +72,8 @@ export default function IndividualCategory({ trip, category, router }) {
       <Header
         title={`${trip.tripName} ${category}`}
         back={true}
-        prevUrl={`/updated_trips/${trip._id}`}
-        // prevUrl={`/trips/${trip._id}`}
+        // prevUrl={`/updated_trips/${trip._id}`}
+        prevUrl={`/trips/${trip._id}`}
       />
       <CategoryButtonWrapper tripID={trip._id}></CategoryButtonWrapper>
       {loadingMemories ? (

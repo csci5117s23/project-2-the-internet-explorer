@@ -16,7 +16,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const onLoad = (ref) => setSearchBox(ref);
 
     const { isLoaded } = useJsApiLoader({
-      id: 'searchbox-example',
+      id: 'example-map',
       googleMapsApiKey: MAP_API,
       libraries: libraries
     });
@@ -66,7 +66,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             ></input>
           </div>
           {isLoaded && <GoogleMap
-            id="searchbox-example"
+            id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
             center={userPosition}
