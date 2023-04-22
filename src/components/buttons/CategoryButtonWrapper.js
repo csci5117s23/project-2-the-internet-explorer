@@ -1,5 +1,6 @@
 import CategoryButton from './CategoryButton.js';
 import styles from '../../styles/TripView.module.css';
+import TripSummaryWrapper from '../TripSummaryWrapper.js';
 
 export default function CategoryButtonWrapper({ tripID, date }) {
   return (
@@ -30,6 +31,7 @@ export default function CategoryButtonWrapper({ tripID, date }) {
         tripId={tripID}
         date={date}
       />
+      <TripSummaryWrapper />
     </div>
   )
 }

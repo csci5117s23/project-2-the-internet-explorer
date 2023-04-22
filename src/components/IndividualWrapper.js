@@ -39,8 +39,8 @@ export default function IndividualWrapper({ router }) {
             }
           });
           if (!response.ok) {
-            // router.push('/trips');
-            router.push('/updated_trips');
+            router.push('/trips');
+            // router.push('/updated_trips');
             return;
           }
           const data = await response.json();

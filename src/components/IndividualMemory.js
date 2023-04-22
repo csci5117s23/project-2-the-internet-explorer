@@ -6,21 +6,16 @@ import { useEffect, useState } from "react"
 import Link from "next/link";
 import LoadingCircle from "./LoadingCircle";
 import Header from "./Header";
-import { GoogleMap, LoadScript, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import MemoryMap from "./MemoryMap";
+
+const libraries = ['places'];
 
 export default function IndividualMemory({ trip, memoryID, filter, params, router }) {
   const [memory, setMemory] = useState(null);
   const [loadingMemory, setLoadingMemory] = useState(true);
 
-  const [center, setCenter] = useState({ lat: 44.9718, lng: -93.2338 });
-
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-
-  const { mapIsLoaded } = useJsApiLoader({
-    id: 'example-map',
-    googleMapsApiKey: MAP_API,
-    // libraries: libraries
-  });
 
   useEffect(() => {
     const getIndividualMemory = async () => {
@@ -57,16 +52,23 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
       return;
     }
     let category = params.get('category');
-    prevUrl = `/updated_trips/${trip._id}/category?category=${category}`;
+    // prevUrl = `/updated_trips/${trip._id}/category?category=${category}`;
+    prevUrl = `/trips/${trip._id}/category?category=${category}`;
   } else if (filter === 'day') {
     if (!params.has('day')) {
       router.push('/404'); // Search query missing.
       return;
     }
     let day = params.get('day');
-    prevUrl = `/updated_trips/${trip._id}/day?day=${day}`;
-  } else {
-    prevUrl = `/updated_trips/${trip._id}`;
+    // prevUrl = `/updated_trips/${trip._id}/day?day=${day}`;
+    prevUrl = `/trips/${trip._id}/day?day=${day}`;
+    if (params.has('category')) {
+      console.log('has category param');
+      prevUrl += `&category=${params.get('category')}`;
+    }
+  } else { // Handle unaccepted filters.
+    prevUrl = `/trips/${trip._id}`;
+    // prevUrl = `/updated_trips/${trip._id}`;
   }
 
   return (loadingMemory ? (
@@ -87,14 +89,7 @@ export default function IndividualMemory({ trip, memoryID, filter, params, route
           </div>
         </div>
         <div>
-          {mapIsLoaded && <GoogleMap
-            id='example-map'
-            center={center}
-            zoom={10}
-            mapContainerStyle={{ height: '400px', width: '400px' }}
-          >
-            {center && <MarkerF position={center} />}
-          </GoogleMap>}
+          <MemoryMap></MemoryMap>
         </div>
         <div>description</div>
         <div 
