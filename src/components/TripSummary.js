@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts} from "@fortawesome/free-solid-svg-icons";
 
 export default function TripSummary() { 
+    const [coordinatesList, setCoordinatesList] = useState([]);
+
     return (
         <>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>

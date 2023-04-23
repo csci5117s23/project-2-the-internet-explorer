@@ -140,7 +140,7 @@ const TripView = () => {
             <CategoryButton
               name={"People"}
             />
-            <TripSummaryWrapper />
+            <TripSummaryWrapper parentId={tripID}/>
         </div>
         <div className={styles.dayButtonGroup + " flex flex-wrap space-y-6 space-x-6"}>
             <br></br>
