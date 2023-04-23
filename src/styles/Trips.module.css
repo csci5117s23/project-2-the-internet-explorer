@@ -7,16 +7,16 @@
   font-size: 2em;
   font-weight: 500;
   /* margin-left: 1em; */
-  padding-top: 0.25em;
-  padding-bottom: 0.25em;
+  /* padding-top: 0.25em; */
+  /* padding-bottom: 0.25em; */
   color: white;
   /* text-align: center; */
 }
 
 .headerUser {
-  padding-top: 0.6em;
+  padding-top: 0.3em;
   /* font-size: 1.5em; */
-  margin-right: 1em;
+  margin-right: 0.5em;
   /* float: right; */
 }
 
@@ -57,6 +57,8 @@
 
 .editDelSpan {
   float:right;
+  padding-right: 0.65em;
+  padding-top: 0.5em;
 }
 
 .title {
@@ -67,4 +69,8 @@
   padding-bottom: 0.9em;
   padding-top: 1.9em;
   color: white;
+}
+
+.backButton {
+  /* padding: 0.75em 0 0 0.5em; */
 }

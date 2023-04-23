@@ -4,7 +4,11 @@
 
 .cl-userButton-root {
   float: right;
-  padding-right: 1em;
+  /* padding-right: 1em; */
+  /* position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); */
   padding-top: 0.5em;
   height: 100%;
 }
@@ -12,6 +16,12 @@
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
   margin: 0;
 }
+
+/* @media screen and (max-width: 353px) {
+  .cl-userButton-root {
+    padding-top: 1em;
+  }
+} */
 
 /* @tailwind base;
 @tailwind components;

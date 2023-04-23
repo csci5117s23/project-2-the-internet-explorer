@@ -73,10 +73,6 @@ export default function TripMemoryWrapper({ parentId, startDate }) {
       >
         <span className={styles.plusIcon}><FontAwesomeIcon icon={faPlus} /></span>
       </button>
-      {/* <LoadScript
-          libraries={libraries}
-          googleMapsApiKey={MAP_API}
-        > */}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -93,7 +89,6 @@ export default function TripMemoryWrapper({ parentId, startDate }) {
         
         <button onClick={closeModal}>Close</button>
       </Modal>
-      {/* </LoadScript> */}
     </>
   );
 }
