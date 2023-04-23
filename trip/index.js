@@ -82,6 +82,22 @@ async function getCategoryMemories(req, res) {
 }
 app.get('/getCategoryMemories', getCategoryMemories);
 
+// Retrieve the count of locations of a specified trip.
+async function getLocationCount(req, res) {
+  const userId = req.user_token.sub;
+  const tripId = req.query.trip;
+
+  const conn = await Datastore.open();
+  const query = {$and: [{"user": userId}, {"parentTripId": tripId}, {"category": "places"}]};
+  
+  const options = {
+    hints: {$onlycount: true}, 
+    filter: query,
+  }
+  conn.find('tripMemories', options).json(res);
+}
+app.get('/getLocationCount', getLocationCount);
+
 // async function getDateMemories(req, res) {
 //   const userId = req.user_token.sub;
 //   const tripId = req.query.trip;
