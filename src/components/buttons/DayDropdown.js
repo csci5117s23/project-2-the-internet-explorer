@@ -9,7 +9,7 @@ const DayDropdown = ({day}) => {
 
     return (
         <>
-        <div class="flex text-white hover:text-black ml-12 mt-1">
+        <div className="flex text-white hover:text-black ml-12 mt-1">
             <h1 className="text-md">{day}</h1>
             <FontAwesomeIcon className="ml-1.5 mt-1.5"  icon={faAngleDown}/>
             
