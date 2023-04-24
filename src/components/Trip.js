@@ -22,23 +22,16 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   }
   const date_format = date.toLocaleDateString("en", options).split(' ')
 
-  function getHover() {
-    if (index >= 0) {
-      return "hover:bg-black"
-    }
-    else {
-      return ""
-    }
-  }
-
-  // TODO make edit/delete buttons little circles w/ icons inside that only appear on hover
   return (
     <>
-    <Link href={`/trips/${id}`}>
-    <div className={styles.tripDiv + " " + colors[index] + " " + getHover()}>
-      <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span><EditTripButton></EditTripButton></span></span></div><br></br>
-      <div className={styles.dateDiv}><span>{date_format[0] + " " + date_format[1]}</span></div><br></br>
+    <Link className="" href={`/trips/${id}`}>
+    <div className={"grid grid-cols-2 my-5 rounded-lg mx-10 " + colors[index] + " hover:bg-black"}>
       <div className={styles.title}><span>{title}</span></div>
+      <div className="flex flex-col items-end">
+        <div className="mt-3 mr-2.5"><EditTripButton></EditTripButton></div>
+        <div className="text-white mr-2.5 mt-1.5"><span>{date_format[0] + " " + date_format[1]}</span></div>
+      </div>
+      
     </div>
     </Link>
     </>
