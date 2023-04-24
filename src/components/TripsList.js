@@ -20,21 +20,10 @@ export default function TripsList({ trips }) {
 
   console.log('trips list: ', tripsList);
 
-  // this might be a bad way to fix the last element being centered on the page as opposed to left aligned
-  // might be a way to do it with tailwind but not sure
-  const BlankTrip = () => {
-    if (tripsList.length % 2 !== 0) {
-      return (
-        <Trip>
-       </Trip>
-      )
-    }
-    else return null;
-  }
 
   return (
-    <div className="flex flex-wrap justify-center space-y-1 space-x-5 mx-5" style={{paddingTop: "0.2em"}}>
-      <br></br>
+    <div className="mt-6">
+
       {tripsList}
       {/* <BlankTrip></BlankTrip> */}
     </div>
