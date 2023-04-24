@@ -12,7 +12,7 @@ import { LoadScript } from "@react-google-maps/api";
 
 Modal.setAppElement("body");
 
-export default function TripMemoryWrapper({ parentId, startDate, category, date }) {
+export default function TripMemoryWrapper({ parentId, startDate, category, date, tripMemories, setTripMemories }) {
   // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
   
   
@@ -53,6 +53,10 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date 
             console.log('Success: ', result);
             setNewMemory(null);
             setDataUrl("");
+
+            // Updates the state variable for what memories are displayed on the page when a new 
+            // memories is added.
+            setTripMemories(tripMemories.concat(result));
 
             // TODO: Update a state variable to possibly update the day-by-day view
             // TODO: in real time.

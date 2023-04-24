@@ -6,9 +6,9 @@ import LoadingCircle from "../LoadingCircle";
 import DayViewButton from "./DayViewButton";
 import styles from '../../styles/TripView.module.css';
 
-export default function DayViewButtonWrapper({ tripID, router }) {
+export default function DayViewButtonWrapper({ tripID, router, tripMemories, setTripMemories }) {
   console.log('trip id: ', tripID);
-  const [tripMemories, setTripMemories] = useState(null);
+  // const [tripMemories, setTripMemories] = useState(null);
   const [loadingTripMemories, setLoadingTripMemories] = useState(true);
   const [tripDays, setTripDays] = useState({});
 
