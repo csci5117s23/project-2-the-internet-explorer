@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
 import EditTripButton from './buttons/EditTripButton';
+import EditTripWrapper from './EditTripWrapper';
 
 export default function Trip({ id, title, startDate, endDate, index }) {
   // This is the component for an individual trip.
-
   // TODO: Create the individual trip representation.
 
   // todo used img as background instead of color if one is present
@@ -23,16 +23,14 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   const date_format = date.toLocaleDateString("en", options).split(' ')
 
   return (
-    <>
-    
+    <> 
     <div className={"grid grid-cols-10 my-5 rounded-lg mx-10 " + colors[index] + " hover:bg-black"}>
     <Link className="col-start-1 col-span-9" href={`/trips/${id}`}>
       <div className={styles.title + " mt-8 mb-2 ml-4"}><span>{title}</span></div>
       <div className="text-white ml-4 mt-1 mb-2"><span>{date_format[0] + " " + date_format[1]}</span></div>
-
     </Link>
       <div className="col-start-10 flex flex-col items-end">
-        <div className="mt-3 mr-2.5"><EditTripButton></EditTripButton></div>
+        <div className="mt-3 mr-2.5"><EditTripWrapper tripID={id}></EditTripWrapper></div>
       </div>
       
       

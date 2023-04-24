@@ -1,7 +1,7 @@
 import CategoryButton from './CategoryButton.js';
 import styles from '../../styles/TripView.module.css';
 import TripSummaryWrapper from '../TripSummaryWrapper.js';
-
+import EditTripWrapper from '../EditTripWrapper.js';
 
 
 
@@ -32,6 +32,7 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
         />
       ))}
       <TripSummaryWrapper />
+      <EditTripWrapper />
     </div>
   )
 }
