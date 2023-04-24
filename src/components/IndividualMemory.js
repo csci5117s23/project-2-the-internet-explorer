@@ -10,7 +10,8 @@ import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-
+import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
+import MemoryEditButton from "./buttons/MemoryEditButton";
 Modal.setAppElement("body");
 
 export default function IndividualMemory({
@@ -22,9 +23,6 @@ export default function IndividualMemory({
 }) {
   const [memory, setMemory] = useState(null);
   const [loadingMemory, setLoadingMemory] = useState(true);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
-
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
@@ -57,77 +55,6 @@ export default function IndividualMemory({
     };
     getIndividualMemory();
   }, [isLoaded, router]);
-
-  //delete the memory, but the useEffect will be called when the page is loaded
-  // useEffect(() => {
-  //   const deleteIndividualMemory = async () => {
-  //     try {
-  //       if (userId) {
-  // const token = await getToken({ tempalte: "codehooks" });
-  // const response = await fetch(
-  //   backend_base + `/tripMemories/${memoryID}`,
-  //   {
-  //     method: "DELETE",
-  //     headers: {
-  //       Authorization: "Bearer " + token,
-  //     },
-  //   }
-  // );
-  // if (!response.ok) {
-  //   router.push("/404");
-  //   return;
-  // }
-  // alert("Successfully deleted");
-  // router.push(`/trips/${trip._id}`);
-  // }
-  //     } catch (error) {
-  //       console.error("Error: ", error);
-  //     }
-  //   };
-  //   deleteIndividualMemory();
-  // }, [confirmed]);
-
-  const deleteIndividualMemory = async () => {
-    try {
-      if (userId) {
-        const token = await getToken({ tempalte: "codehooks" });
-        const response = await fetch(
-          backend_base + `/tripMemories/${memoryID}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        if (!response.ok) {
-          router.push("/404");
-          return;
-        }
-        alert("Successfully deleted");
-        router.push(`/trips/${trip._id}`);
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
-  function handleMemoryDeleteButton() {
-    // setConfirmed(!confirmed);
-    console.log("clicked dete");
-    deleteIndividualMemory();
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  // function afterOpenModal() {
-  // }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   let prevUrl = "";
   if (filter === "category") {
@@ -190,34 +117,18 @@ export default function IndividualMemory({
         </div>
         <div>
           {/* edit and delete buttons here */}
-          <button
-            className="px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm"
-            onClick={openModal}
-          >
-            Delete
-          </button>
-          <button className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm">
-            Edit
-          </button>
-
-          <Modal
-            isOpen={modalIsOpen}
-            // onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            contentLabel="Memory Delete Modal"
-          >
-            <button onClick={closeModal}>Cancel</button>
-            <div className="grid place-items-center mt-20">
-              <div className="text-lg">Are you sure to delete the memory</div>
-              <div className="text-lg">"{memory.title}"?</div>
-              <button
-                className="m-10 px-2 py-2 font-semibold text-m bg-red-500 text-white rounded-lg shadow-sm"
-                onClick={handleMemoryDeleteButton}
-              >
-                Delete
-              </button>
-            </div>
-          </Modal>
+          <MemoryDeleteButton
+            memoryID={memoryID}
+            title={memory.title}
+            router={router}
+            tripid={trip._id}
+          ></MemoryDeleteButton>
+          <MemoryEditButton
+            memoryID={memoryID}
+            title={memory.title}
+            router={router}
+            tripid={trip._id}
+          ></MemoryEditButton>
         </div>
       </div>
     </>

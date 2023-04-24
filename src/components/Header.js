@@ -8,7 +8,7 @@ export default function Header({title, back, prevUrl, day}) {
 
   return (
     <div className={`${styles.headerDiv} grid grid-cols-8`}>
-      <div className="col-start-1 col-span-2 flex items-center pl-3">
+      <div className="col-start-1 col-span-2 flex items-center pl-3 gap-3">
         {back ? <BackButton prevUrl={prevUrl} /> : <div></div>}
         <DayDropdown day={day} />
       </div>
