@@ -12,7 +12,7 @@ const center = {
     lng: -38.523
   };
 
-export default function TripSummaryMap() { 
+export default function TripSummaryMap({ coordinatesList, setCoordinatesList }) { 
     const [mapInstance, setMapInstance] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
@@ -20,7 +20,6 @@ export default function TripSummaryMap() {
       googleMapsApiKey: MAP_API,
       libraries: libraries
     });
-
 
     return (
       <>

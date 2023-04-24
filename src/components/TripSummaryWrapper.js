@@ -8,7 +8,7 @@ import styles from '../styles/TripView.module.css'
 
 Modal.setAppElement("body");
 
-export default function TripSummaryWrapper() {
+export default function TripSummaryWrapper({ parentId }) {
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -35,7 +35,9 @@ export default function TripSummaryWrapper() {
         contentLabel=" Modal"
       >
         
-        <TripSummary />
+        <TripSummary 
+            parentId={parentId}
+        />
         
         <button onClick={closeModal}>Close</button>
       </Modal>
