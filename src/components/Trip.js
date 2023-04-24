@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
 import EditTripButton from './buttons/EditTripButton';
+import EditTripWrapper from './EditTripWrapper';
 
 export default function Trip({ id, title, startDate, endDate, index }) {
   // This is the component for an individual trip.
-
   // TODO: Create the individual trip representation.
 
   // todo used img as background instead of color if one is present
@@ -36,7 +36,7 @@ export default function Trip({ id, title, startDate, endDate, index }) {
     <>
     <Link href={`/trips/${id}`}>
     <div className={styles.tripDiv + " " + colors[index] + " " + getHover()}>
-      <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span><EditTripButton></EditTripButton></span></span></div><br></br>
+      <div className={styles.editDelDiv}><span className={styles.editDelSpan}><span><EditTripWrapper tripID={id}></EditTripWrapper></span></span></div><br></br>
       <div className={styles.dateDiv}><span>{date_format[0] + " " + date_format[1]}</span></div><br></br>
       <div className={styles.title}><span>{title}</span></div>
     </div>
