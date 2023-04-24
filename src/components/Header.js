@@ -7,18 +7,15 @@ import DayDropdown from "./buttons/DayDropdown";
 export default function Header({title, back, prevUrl, day}) {
 
   return (
-    <div className={`${styles.headerDiv} grid grid-cols-7`}>
-      <div className="col-start-1 col-span-2 flex items-center pl-3">
-        { back ? <BackButton prevUrl={prevUrl}/> : <div></div> }
-        <DayDropdown
-          day={day}
-        />
+    <div className={`${styles.headerDiv} grid grid-cols-8`}>
+      <div className="col-start-1 col-span-2 flex items-center pl-3 gap-3">
+        {back ? <BackButton prevUrl={prevUrl} /> : <div></div>}
+        <DayDropdown day={day} />
       </div>
-      
-      <h1 className={`${styles.headerTitle} col-start-4 text-center flex items-center py-1`}>
-        {title}
-      </h1>
-      <h1 className={`${styles.headerUser} col-start-7 pr-2`}>
+      <div className="col-start-3 col-end-7 flex justify-center py-1">
+        <h1 className={`${styles.headerTitle}`}>{title}</h1>
+      </div>
+      <h1 className={`${styles.headerUser} col-start-8 pr-2`}>
         <UserButton appearance={{ elements: { rootBox: "scale-150" } }} />
       </h1>
     </div>
