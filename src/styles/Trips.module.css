@@ -37,15 +37,17 @@
 .dateDiv {
   /* float: right; */
   width: 100%;
-  padding-right: 0.25em;
+  padding-right: 0.0em;
   color: white;
+  
 }
 
 .dateDiv span {
   float:right;
   /* margin-top: 5em; */
   padding-top: 4.5em;
-  padding-right: 0.65em;
+  
+  padding-right: 0.0em;
 }
 
 .editDelDiv {
