@@ -108,7 +108,7 @@ export default function IndividualDay({ trip, date, category, router }) {
           <>{dayMemoriesList}</>
         </div>
       )}
-      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
+      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} date={date}></TripMemoryWrapper>
     </>
   )
 }
