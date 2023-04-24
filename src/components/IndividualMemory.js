@@ -47,6 +47,7 @@ export default function IndividualMemory({
           }
           const data = await response.json();
           setMemory(data);
+          console.log(data);
           setLoadingMemory(false);
         }
       } catch (error) {
@@ -106,7 +107,7 @@ export default function IndividualMemory({
           </div>
         </div>
         <div>
-          <MemoryMap></MemoryMap>
+          <MemoryMap lat={memory.latitude} lng={memory.longitude}></MemoryMap>
         </div>
         {/* <div>description</div> */}
         <div
