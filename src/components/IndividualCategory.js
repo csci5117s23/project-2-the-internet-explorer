@@ -82,7 +82,7 @@ export default function IndividualCategory({ trip, category, router }) {
           <>{memoryList}</>
         </div>
       )}
-      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
+      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
     </>
   );
 }

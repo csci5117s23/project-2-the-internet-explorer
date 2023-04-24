@@ -5,28 +5,29 @@ import LoadingCircle from "./LoadingCircle";
 import { useState } from 'react';
 const libraries = ['places'];
 
-export default function MemoryMap() {
+export default function MemoryMap({ lat, lng }) {
   // TODO: Set the lat and lng to be the actual location of the memory. This will require it to
-  // TODO: be set either inside the getIndividualMemory function in the useEffect, or after the 
+  // TODO: be set either inside the getIndividualMemory function in the useEffect, or after the
   // TODO: function. Probably inside the function.
-  const [center, setCenter] = useState({ lat: 44.9718, lng: -93.2338 });
+
+  const center = { lat, lng };
 
   const { isLoaded } = useJsApiLoader({
-    id: 'example-map',
+    id: "example-map",
     googleMapsApiKey: MAP_API,
-    libraries: libraries
+    libraries: libraries,
   });
 
-  return (isLoaded ? (
+  return isLoaded ? (
     <GoogleMap
-      id='example-map'
+      id="example-map"
       center={center}
       zoom={10}
-      mapContainerStyle={{ height: '400px', width: '400px' }}
+      mapContainerStyle={{ height: "400px", width: "400px" }}
     >
       {center && <MarkerF position={center} />}
     </GoogleMap>
   ) : (
     <LoadingCircle></LoadingCircle>
-  ))
+  );
 }

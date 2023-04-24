@@ -15,6 +15,9 @@ import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import DayViewButtonWrapper from "./buttons/DayViewButtonWrapper";
 
 export default function IndividualTrip({ trip, router }) {
+  // const [tripDays, setTripDays] = useState({});
+  const [tripMemories, setTripMemories] = useState(null);
+
   return (
     <>
       <Header 
@@ -24,8 +27,8 @@ export default function IndividualTrip({ trip, router }) {
         day="All Days"
       />
       <CategoryButtonWrapper tripID={trip._id}></CategoryButtonWrapper>
-      <DayViewButtonWrapper tripID={trip._id} router={router}></DayViewButtonWrapper>
-      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate}></TripMemoryWrapper>
+      <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
     </>
   );
 }
