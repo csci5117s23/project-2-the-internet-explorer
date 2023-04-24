@@ -44,12 +44,12 @@ export default function AddTrip({ addTrip, closeModal }) {
                     ></input>
                 </div>
                 <div className="p-4 start-date-container">
-                    <h4 className="text-l font-bold" id="createTripHeader">Start Date</h4>
+                    <h4 className="text-l font-bold" id="createTripHeader">Start Month</h4>
                     <input
-                        type="date"
+                        type="month"
                         className="border-2 border-slate-600 w-full"
-                        placeholder="Start Date"
-                        name="startDate"
+                        placeholder="Start Month"
+                        name="startMonth"
                         required
                     ></input>
                 </div>
