@@ -6,7 +6,7 @@ import Resizer from 'react-image-file-resizer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, startDate }) {
+export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, startDate, category, date }) {
     const [showWebCamera, setShowWebCamera] = useState(false);
     const [camera, setCamera] = useState(false); // front is false. back is true.
     const [image, setImage] = useState('');
@@ -81,6 +81,9 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     function handleSubmit(e) {
         e.preventDefault();
 
+        document.getElementById('date').disabled = false;
+        document.getElementById('folders').disabled = false;
+
         const form = e.target;
         const formData = new FormData(form);
 
@@ -134,12 +137,52 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     }
     let dayStr = '';
     if (day < 10) {
-        dayStr = `0${dat.toString()}`;
+        dayStr = `0${day.toString()}`;
     } else {
         dayStr = day.toString();
     }
 
     let dateStr = `${yearStr}-${monthStr}-${dayStr}`;
+
+    let defaultCategory='none';
+    if (category) {
+        defaultCategory = category;
+    }
+
+    let defaultDate = '';
+    if (date) {
+        let newDate = new Date(date);
+        let year = newDate.getFullYear();
+        let month = newDate.getMonth() + 1;
+        let day = newDate.getDate();
+
+        let yearStr = year.toString();
+        let monthStr = '';
+        if (month < 10) {
+            monthStr = `0${month.toString()}`;
+        } else {
+            monthStr = month.toString();
+        }
+        let dayStr = '';
+        if (day < 10) {
+            dayStr = `0${day.toString()}`;
+        } else {
+            dayStr = day.toString();
+        }
+
+        defaultDate = `${yearStr}-${monthStr}-${dayStr}`;
+    }
+
+    let options = (
+        <>
+            <option value="none" disabled hidden>Select an option</option>
+            <option value="places">Place</option>
+            <option value="events">Event</option>
+            <option value="food">Food</option>
+            <option value="souvenirs">Souvenirs</option>
+            <option value="people">People</option>
+        </>
+    );
 
     return (
         <>
@@ -158,15 +201,27 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 </div>
                 <div className="p-4">
                     <h4 className="text-l font-bold">Date</h4>
-                    <input
-                        type="date"
-                        className="border-2 border-slate-600 w-full"
-                        placeholder="Date"
-                        id="date"
-                        name="date"
-                        required
-                        min={dateStr}
-                    ></input>
+                    {date ? (
+                        <input 
+                            type='date'
+                            className='border-2 border-slate-600 w-full'
+                            id='date'
+                            name='date'
+                            disabled
+                            defaultValue={defaultDate}
+                        ></input>
+                    ) : (
+                        <input
+                            type="date"
+                            className="border-2 border-slate-600 w-full"
+                            placeholder="Date"
+                            id="date"
+                            name="date"
+                            required
+                            min={dateStr}
+                        ></input>
+                    )}
+                    
                 </div>
                 <Map
                     location={location}
@@ -176,19 +231,41 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 ></Map>
                 <div className="p-4">
                     <h4 className="text-l font-bold">What type of memory is this?</h4>
-                    <select 
+                    {category ? (
+                        <select 
+                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            name="folders"
+                            id="folders"
+                            disabled
+                            defaultValue={category.toLowerCase()}
+                        >
+                            {options}
+                        </select>
+                    ) : (
+                        <select 
+                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
+                            name="folders" 
+                            id="folders"
+                            required
+                            defaultValue="none"
+                        >
+                            {options}
+                        </select>
+                    )}
+                    {/* <select 
                         className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
                         name="folders" 
                         id="folders"
                         required
+                        defaultValue={defaultCategory}
                     >
-                        <option value="" disabled>Select an option</option>
+                        <option value="none" disabled hidden>Select an option</option>
                         <option value="places">Place</option>
                         <option value="events">Event</option>
                         <option value="food">Food</option>
                         <option value="souvenirs">Souvenirs</option>
                         <option value="people">People</option>
-                    </select>
+                    </select> */}
                 </div>
                 <div className={styles.photoButtons}>
                     {showWebCamera ? (
