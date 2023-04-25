@@ -116,7 +116,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             category: formJson.folders,
         }
 
-        addMemory(newMemory);
+        // addMemory(newMemory);
         e.target.reset();
         closeModal();
     }
@@ -175,7 +175,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
     let options = (
         <>
-            <option value="none" disabled hidden>Select an option</option>
+            <option value="" disabled hidden>Select an option</option>
             <option value="places">Place</option>
             <option value="events">Event</option>
             <option value="food">Food</option>
@@ -183,6 +183,8 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             <option value="people">People</option>
         </>
     );
+
+    console.log('category: ', category);
 
     return (
         <>
@@ -231,7 +233,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 ></Map>
                 <div className="p-4">
                     <h4 className="text-l font-bold">What type of memory is this?</h4>
-                    {category ? (
+                    {category !== undefined ? (
                         <select 
                             className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             name="folders"
@@ -247,7 +249,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                             name="folders" 
                             id="folders"
                             required
-                            defaultValue="none"
+                            defaultValue=""
                         >
                             {options}
                         </select>
