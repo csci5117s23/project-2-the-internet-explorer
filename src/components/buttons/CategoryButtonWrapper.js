@@ -31,7 +31,7 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
         pressed={isSelected(str)}
         />
       ))}
-      <TripSummaryWrapper />
+      <TripSummaryWrapper parentId={tripID}/>
     </div>
   )
 }

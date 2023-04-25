@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from '../styles/AddTrip.module.css';
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 export default function AddTrip({ addTrip, closeModal }) {
     function handleSubmit(e) {
         e.preventDefault();
@@ -12,13 +14,18 @@ export default function AddTrip({ addTrip, closeModal }) {
 
         console.log('form json: ', formJson);
 
-        let newStart = new Date(formJson.startDate.replace(/-/g, '\/'));
+        // Separate the month and the year from the form month input.
+        let startData = formJson.startMonth.split('-');
+        let monthIdx = parseInt(startData[1]) - 1;
+        console.log(months[monthIdx]);
+
+        // let newStart = new Date(formJson.startDate.replace(/-/g, '\/'));
         // let newEnd = new Date(formJson.endDate.replace(/-/g, '\/'));
 
         let newTrip = {
             tripName: formJson.tripName,
-            startDate: newStart,
-            // endDate: newEnd,
+            startMonth: months[monthIdx],
+            startYear: startData[0],
             description: formJson.description
         };
 

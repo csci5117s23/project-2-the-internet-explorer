@@ -55,7 +55,9 @@ export default function IndividualWrapper({ router }) {
   if (loadingCurTrip) {
     return <LoadingCircle></LoadingCircle>
   } else {
+    console.log('trip data: ', tripData);
     if (tripData.length == 1) {
+      console.log('cur trip: ', curTrip);
       return (
         <>
           <IndividualTrip trip={curTrip} router={router}></IndividualTrip>

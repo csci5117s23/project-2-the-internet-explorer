@@ -16,7 +16,8 @@ app.get('/', (req, res) => {
 //create the trip folder
 const tripFolderYup = object({
   tripName: string().required(),      // The name of the trip.
-  startDate: date().required(),       // The start date of the trip.
+  startMonth: string().required(),    // The start month of the trip.
+  startYear: string().required(),     // The start year of the trip.
   description: string(),              // An optional description of the trip.
   user: string().required(),          // The user that created the trip.
 });
@@ -26,12 +27,13 @@ const tripMemoriesYup = object({
   parentTripId: string().required(),  // The id of the parent trip
   title: string().required(),         // The title of the memory
   description: string(),              // An optional description of the memory.
-  date: date().required,              // The date of the memory.
-  location: string().required,        // The location name of the memory.
-  coordinates: string().required,     // The coordinates of a memory location.
-  category: string().required,        // The category of the memory.
-  image: string().required,           // An image of the memory.
-  user: string().required,            // The user that created the memory.
+  date: date().required(),            // The date of the memory.
+  location: string().required(),      // The location name of the memory.
+  latitude: string().required(),      // The latitude of the location.
+  longitude: string().required(),     // The longitude of the location.
+  category: string().required(),      // The category of the memory.
+  image: string().required(),         // An image of the memory.
+  user: string().required(),          // The user that created the memory.
 });
 
 // Retrieve all of the trips of a user for the main page.
@@ -95,6 +97,32 @@ async function addMemory(req, res) {
   res.status(201).json(doc);
 }
 app.post('/addMemory', addMemory);
+
+// async function deleteAllMemories(req, res) {
+//   const conn = await Datastore.open();
+//   const query = {"_id": {$exists: true}};
+
+//   const options = {
+//     filter: query
+//   };
+
+//   const data = await conn.removeMany('tripMemories', options);
+//   res.json(data);
+// }
+// app.delete('/deleteMemories', deleteAllMemories);
+
+// async function deleteAllTrips(req, res) {
+//   const conn = await Datastore.open();
+//   const query = {"_id": {$exists: true}};
+
+//   const options = {
+//     filter: query
+//   };
+
+//   const data = await conn.removeMany('tripFolders', options);
+//   res.json(data);
+// }
+// app.delete('/deleteTrips', deleteAllTrips);
 
 // Retrieves the user token from the request headers and stores it in 
 // the request. This happens prior to any database access.
