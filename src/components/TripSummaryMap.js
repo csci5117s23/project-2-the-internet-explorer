@@ -14,12 +14,19 @@ const center = {
 
 export default function TripSummaryMap({ coordinatesList, setCoordinatesList }) { 
     const [mapInstance, setMapInstance] = useState(null);
+    const [mapCenter, setMapCenter] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
       googleMapsApiKey: MAP_API,
       libraries: libraries
     });
+
+    useEffect(() => {
+        if (coordinatesList && coordinatesList.length > 0 ){
+            setMapCenter({lat: coordinatesList[0].lat, lng: coordinatesList[0].long })
+        }
+    }, [coordinatesList]);
 
     return (
       <>
@@ -29,9 +36,15 @@ export default function TripSummaryMap({ coordinatesList, setCoordinatesList }) 
             id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
-            center={center}
+            center={mapCenter}
             onLoad={setMapInstance}
           >
+            {coordinatesList && coordinatesList.map((coordinate, index) => (
+                <MarkerF
+                    key={index}
+                    position={{ lat: coordinate.lat, lng: coordinate.long }}
+                />
+            ))}
           </GoogleMap>}
         </div>
       </>
