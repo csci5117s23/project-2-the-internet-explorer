@@ -19,8 +19,8 @@ export default function TripSummary(parentId) {
             if (userId) {
               try {
                 const token = await getToken({ template: "codehooks" });
-    
-                const response = await fetch(backend_base + `/getTripMemories?trip=${parentId.parentId}}`, {
+                console.log("this is parentId: " + parentId.parentId)
+                const response = await fetch(`${backend_base}/getTripMemories?trip=${parentId.parentId}}`, {
                     'method': 'GET',
                     'headers': {
                         'Authorization': 'Bearer ' + token
@@ -28,8 +28,8 @@ export default function TripSummary(parentId) {
                 });
     
                 const result = await response.json();
-                setTripMemories(data);
-                console.log(result)
+                //setTripMemories();
+                console.log("this is tripSummary result: " + JSON.stringify(result))
                
               } catch (error) {
                 console.error('Error: ', error);
