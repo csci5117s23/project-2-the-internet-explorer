@@ -116,7 +116,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             category: formJson.folders,
         }
 
-        // addMemory(newMemory);
+        addMemory(newMemory);
         e.target.reset();
         closeModal();
     }
