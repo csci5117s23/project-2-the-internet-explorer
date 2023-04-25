@@ -8,7 +8,7 @@ import styles from '../styles/TripView.module.css'
 
 Modal.setAppElement("body");
 
-export default function TripSummaryWrapper({ parentId }) {
+export default function TripSummaryWrapper({ parentId, tripMemories, setTripMemories}) {
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -37,6 +37,8 @@ export default function TripSummaryWrapper({ parentId }) {
         
         <TripSummary 
             parentId={parentId}
+            tripMemories={tripMemories}
+            setTripMemories={setTripMemories}
         />
         
         <button onClick={closeModal}>Close</button>
