@@ -35,7 +35,7 @@ export default function TripSummaryMap({ coordinatesList, setCoordinatesList }) 
           {isLoaded && <GoogleMap
             id="example-map"
             mapContainerStyle={mapContainerStyle}
-            zoom={12}
+            zoom={10}
             center={mapCenter}
             onLoad={setMapInstance}
           >
