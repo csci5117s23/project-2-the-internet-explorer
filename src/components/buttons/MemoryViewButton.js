@@ -24,7 +24,7 @@ const MemoryViewButton = ({tripID, memoryID, filter, params, title, color, image
                 >
                 {title}
             </button> */}
-        <div className="relative inline-block w-40 h-40 overflow-hidden">
+        <div className="relative inline-block overflow-hidden">
           <img
             src={image}
             className="rounded-md h-full"

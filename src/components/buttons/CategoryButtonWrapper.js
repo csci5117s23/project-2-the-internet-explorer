@@ -5,9 +5,7 @@ import EditTripWrapper from '../EditTripWrapper.js';
 
 
 
-const buttons = [
-  "Places", "Events", "Food", "Souvenirs", "People"
-]
+const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
 
 export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
 

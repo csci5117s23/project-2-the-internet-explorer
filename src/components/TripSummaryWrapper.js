@@ -25,9 +25,9 @@ export default function TripSummaryWrapper({ parentId }) {
   return (
     <>
       <button
-        className={"float-right right-4 sticky bottom-4 mt-6 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
+        className={"float-right right-4 sticky bottom-4 mt-8 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
         onClick={openModal}
-      > View Trip Summary
+      >Trip Summary
       </button>
       <Modal
         isOpen={modalIsOpen}
