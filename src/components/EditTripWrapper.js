@@ -13,7 +13,7 @@ export default function EditTripWrapper({ tripID }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [curTrip, setCurTrip] = useState(null);
   const [curTripName, setCurTripName] = useState(null);
-  const [curStartDate, setCurStartDate] = useState(null);
+  const [curStartMonth, setCurStartMonth] = useState(null);
   const [curDiscription, setCurDiscription] = useState(null);
   // const [uploadedTrip, setUploadedTrip] = useState(null);
 
@@ -47,7 +47,7 @@ export default function EditTripWrapper({ tripID }) {
 
           setCurTrip(data);
           setCurTripName(data.tripName);
-          setCurStartDate(data.startDate);
+          setCurStartMonth(data.startMonth);
           setCurDiscription(data.discription);
           setLoadingCurTrip(false);
         }
@@ -76,7 +76,7 @@ export default function EditTripWrapper({ tripID }) {
           tripID={tripID}
           closeModal={closeModal}
           tripName={curTripName}
-          startDate={curStartDate}
+          startMonth={curStartMonth}
           discription={curDiscription}
         />
         <button onClick={closeModal}>Close</button>

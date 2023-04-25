@@ -32,7 +32,6 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
         />
       ))}
       <TripSummaryWrapper parentId={tripID}/>
-      <EditTripWrapper />
     </div>
   )
 }

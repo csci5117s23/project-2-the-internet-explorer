@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
-import EditTripButton from './buttons/EditTripButton';
 import EditTripWrapper from './EditTripWrapper';
 
 export default function Trip({ id, title, month, year, index }) {
