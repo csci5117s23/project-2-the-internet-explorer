@@ -175,7 +175,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
     let options = (
         <>
-            <option value="none" disabled hidden>Select an option</option>
+            <option value="" disabled hidden>Select an option</option>
             <option value="places">Place</option>
             <option value="events">Event</option>
             <option value="food">Food</option>
@@ -183,6 +183,8 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             <option value="people">People</option>
         </>
     );
+
+    console.log('category: ', category);
 
     return (
         <>
@@ -247,7 +249,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                             name="folders" 
                             id="folders"
                             required
-                            defaultValue="none"
+                            defaultValue=""
                         >
                             {options}
                         </select>

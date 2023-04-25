@@ -11,8 +11,8 @@ export default function TripsList({ trips }) {
         key={trip._id}
         id={trip._id}
         title={trip.tripName}
-        startDate={trip.startDate}
-        endDate={trip.endDate}
+        month={trip.startMonth}
+        year={trip.startYear}
         index={i}
       />
     )

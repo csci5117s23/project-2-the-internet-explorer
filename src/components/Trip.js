@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
-import EditTripButton from './buttons/EditTripButton';
 import EditTripWrapper from './EditTripWrapper';
 
-export default function Trip({ id, title, startDate, endDate, index }) {
+export default function Trip({ id, title, month, year, index }) {
   // This is the component for an individual trip.
   // TODO: Create the individual trip representation.
 
@@ -15,19 +14,20 @@ export default function Trip({ id, title, startDate, endDate, index }) {
   index = index % colors.length;
 
   // show only month and year of start date
-  const date = new Date(startDate);
-  var options = {
-    month: "long",
-    year: "numeric"
-  }
-  const date_format = date.toLocaleDateString("en", options).split(' ')
+  // const date = new Date(startDate);
+  // var options = {
+  //   month: "long",
+  //   year: "numeric"
+  // }
+  // const date_format = date.toLocaleDateString("en", options).split(' ')
 
   return (
     <> 
     <div className={"grid grid-cols-10 my-5 rounded-lg mx-10 " + colors[index] + " hover:bg-black"}>
     <Link className="col-start-1 col-span-9" href={`/trips/${id}`}>
       <div className={styles.title + " mt-8 mb-2 ml-4"}><span>{title}</span></div>
-      <div className="text-white ml-4 mt-1 mb-2"><span>{date_format[0] + " " + date_format[1]}</span></div>
+      <div className="text-white ml-4 mt-1 mb-2"><span>{`${month} ${year}`}</span></div>
+
     </Link>
       <div className="col-start-10 flex flex-col items-end">
         <div className="mt-3 mr-2.5"><EditTripWrapper tripID={id}></EditTripWrapper></div>

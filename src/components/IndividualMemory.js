@@ -100,10 +100,10 @@ export default function IndividualMemory({
         </div>
         <div className="flex p-2">
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
-            <Link href="/">{moment(memory.date).format("YYYY-MM-DD")}</Link>
+            {moment(memory.date).format("YYYY-MM-DD")}
           </div>
           <div className="rounded-lg bg-sky-400 text-white p-2 mr-2">
-            <Link href="/">{memory.category}</Link>
+            {memory.category}
           </div>
         </div>
         <div>
@@ -111,7 +111,7 @@ export default function IndividualMemory({
         </div>
         {/* <div>description</div> */}
         <div
-          className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mb-4"
+          className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mt-2 mb-4"
           style={{ width: "400px" }}
         >
           {memory.description}

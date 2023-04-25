@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import styles from '../styles/AddTrip.module.css';
 import { useAuth } from "@clerk/nextjs";
 
-export default function EditTrip({ tripID, closeModal, tripName, startDate, discription }) {
+export default function EditTrip({ tripID, closeModal, tripName, startMonth, description }) {
 
     const [curTripName, setCurTripName] = useState(tripName);
-    const [curStartDate, setCurStartDate] = useState(startDate);
-    const [curDiscription, setCurDiscription] = useState(discription);
+    const [curStartMonth, setCurStartMonth] = useState(startMonth);
+    const [curDescription, setCurDescription] = useState(description);
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -19,7 +19,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
+                        const response = await fetch(backend_base + `trips/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
@@ -42,8 +42,8 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
     }, [isLoaded, curTripName]);
 
     useEffect(() => {
-        const updateStartDate = async () => {
-            if (curStartDate != startDate) {
+        const updateStartMonth = async () => {
+            if (curStartMonth != startMonth) {
                 try {
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
@@ -55,7 +55,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                                 'Content-Type': 'application/json'
                             },
                             'body': JSON.stringify({
-                                startDate: curStartDate
+                                startMonth: curStartMonth
                             })
                         });
                         const result = await response.json();
@@ -67,12 +67,12 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                 }
             }
         }
-        updateStartDate();
-    }, [isLoaded, curStartDate]);
+        updateStartMonth();
+    }, [isLoaded, curStartMonth]);
 
     useEffect(() => {
-        const updateDiscription = async () => {
-            if (curDiscription != discription) {
+        const updateDescription = async () => {
+            if (curDescription != description) {
                 try {
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
@@ -84,7 +84,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                                 'Content-Type': 'application/json'
                             },
                             'body': JSON.stringify({
-                                discription: curDiscription
+                                description: curDescription
                             })
                         });
                         const result = await response.json();
@@ -96,8 +96,8 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                 }
             }
         }
-        updateDiscription();
-    }, [isLoaded, curDiscription]);
+        updateDescription();
+    }, [isLoaded, curDescription]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -110,8 +110,8 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
         console.log('form json: ', formJson);
 
         setCurTripName(formJson.tripName);
-        setCurStartDate(formJson.startDate);
-        setCurDiscription(formJson.discription);
+        setCurStartMonth(formJson.startMonth);
+        setCurDescription(formJson.description);
 
         e.target.reset();
         closeModal(); // Close the pop-up after submitting.
@@ -120,7 +120,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
     return (
         <>
         <form onSubmit={handleSubmit}>
-            <h1 className={`text-xl font-bold ${styles.createTripHeader}`}>Create Trip</h1>
+            <h1 className={`text-xl font-bold ${styles.createTripHeader}`}>Edit Trip</h1>
             <div className={styles.addTripContainer}>
                 <div className="p-4">
                     <h4 className="text-l font-bold" id="createTripHeader">Trip Name</h4>
@@ -129,31 +129,29 @@ export default function EditTrip({ tripID, closeModal, tripName, startDate, disc
                         placeholder={curTripName}
                         id="tripName"
                         name="tripName"
-                        required
                     ></input>
                 </div>
                 <div className="p-4 start-date-container">
-                    <h4 className="text-l font-bold" id="createTripHeader">Start Date</h4>
+                    <h4 className="text-l font-bold" id="createTripHeader">Start Month</h4>
                     <input
-                        type="date"
+                        type="month"
                         className="border-2 border-slate-600 w-full"
-                        placeholder={curStartDate}
-                        id="startDate"
-                        name="startDate"
-                        required
+                        placeholder={curStartMonth}
+                        id="startMonth"
+                        name="startMonth"
                     ></input>
                 </div>
                 <div className="p-4">
                     <h4 className="text-l font-bold" id="createTripHeader">Brief Description</h4>
                     <textarea 
                         className="border-2 border-slate-600 w-full h-20"
-                        placeholder={curDiscription}
+                        placeholder={curDescription}
                         id="description"
                         name="description"
                     ></textarea>
                 </div>
 
-                <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
+                <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
             </div>
         </form>
         </>
