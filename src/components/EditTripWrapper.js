@@ -14,7 +14,7 @@ export default function EditTripWrapper({ tripID }) {
   const [curTrip, setCurTrip] = useState(null);
   const [curTripName, setCurTripName] = useState(null);
   const [curStartMonth, setCurStartMonth] = useState(null);
-  const [curDiscription, setCurDiscription] = useState(null);
+  const [curDescription, setCurDescription] = useState(null);
   // const [uploadedTrip, setUploadedTrip] = useState(null);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -33,7 +33,7 @@ export default function EditTripWrapper({ tripID }) {
         if (userId) {
           const token = await getToken({ template: "codehooks" });
 
-          const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
+          const response = await fetch(backend_base + `/trips/${tripID}`, {
             'method': 'GET',
             'headers': {
               'Authorization': 'Bearer ' + token
@@ -48,7 +48,7 @@ export default function EditTripWrapper({ tripID }) {
           setCurTrip(data);
           setCurTripName(data.tripName);
           setCurStartMonth(data.startMonth);
-          setCurDiscription(data.discription);
+          setCurDescription(data.description);
           setLoadingCurTrip(false);
         }
       } catch (error) {
@@ -77,7 +77,7 @@ export default function EditTripWrapper({ tripID }) {
           closeModal={closeModal}
           tripName={curTripName}
           startMonth={curStartMonth}
-          discription={curDiscription}
+          description={curDescription}
         />
         <button onClick={closeModal}>Close</button>
       </Modal>
