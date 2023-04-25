@@ -2,7 +2,7 @@ import Link from 'next/link';
 import styles from '../styles/Trips.module.css';
 import EditTripWrapper from './EditTripWrapper';
 
-export default function Trip({ id, title, month, year, index }) {
+export default function Trip({ id, title, month, year, index, description }) {
   // This is the component for an individual trip.
   // TODO: Create the individual trip representation.
 
@@ -30,7 +30,7 @@ export default function Trip({ id, title, month, year, index }) {
 
     </Link>
       <div className="col-start-10 flex flex-col items-end">
-        <div className="mt-3 mr-2.5"><EditTripWrapper tripID={id}></EditTripWrapper></div>
+        <div className="mt-3 mr-2.5"><EditTripWrapper tripID={id} tripName={title} startMonth={month} startYear={year} description={description}></EditTripWrapper></div>
       </div>
       
       

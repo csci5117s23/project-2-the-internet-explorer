@@ -6,18 +6,12 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
 import EditTrip from "./EditTrip";
+import DeleteTrip from "./DeleteTrip";
 
 Modal.setAppElement("body");
 
-export default function EditTripWrapper({ tripID }) {
+export default function EditTripWrapper({ tripID, tripName, startMonth, startYear, description }) {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [curTrip, setCurTrip] = useState(null);
-  const [curTripName, setCurTripName] = useState(null);
-  const [curStartMonth, setCurStartMonth] = useState(null);
-  const [curDescription, setCurDescription] = useState(null);
-  // const [uploadedTrip, setUploadedTrip] = useState(null);
-
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   function openModal() {
     setIsOpen(true);
@@ -26,37 +20,6 @@ export default function EditTripWrapper({ tripID }) {
   function closeModal() {
     setIsOpen(false);
   }
-
-  useEffect(() => {
-    const getIndividualTrip = async () => {
-      try {
-        if (userId) {
-          const token = await getToken({ template: "codehooks" });
-
-          const response = await fetch(backend_base + `/trips/${tripID}`, {
-            'method': 'GET',
-            'headers': {
-              'Authorization': 'Bearer ' + token
-            }
-          });
-          if (!response.ok) {
-            router.push('/trips');
-            return;
-          }
-          const data = await response.json();
-
-          setCurTrip(data);
-          setCurTripName(data.tripName);
-          setCurStartMonth(data.startMonth);
-          setCurDescription(data.description);
-          setLoadingCurTrip(false);
-        }
-      } catch (error) {
-        console.error('Error: ', error);
-      }
-    }
-    getIndividualTrip();
-  }, [isLoaded]);
 
   return (
     <>
@@ -75,11 +38,13 @@ export default function EditTripWrapper({ tripID }) {
         <EditTrip
           tripID={tripID}
           closeModal={closeModal}
-          tripName={curTripName}
-          startMonth={curStartMonth}
-          description={curDescription}
+          tripName={tripName}
+          startMonth={startMonth}
+          startYear={startYear}
+          description={description}
         />
         <button onClick={closeModal}>Close</button>
+        <DeleteTrip tripID={tripID} closeModal={closeModal}/>
       </Modal>
     </>
   );

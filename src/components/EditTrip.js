@@ -3,14 +3,24 @@ const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 import React, { useEffect, useState } from "react";
 import styles from '../styles/AddTrip.module.css';
 import { useAuth } from "@clerk/nextjs";
+import DeleteTrip from "./DeleteTrip";
 
-export default function EditTrip({ tripID, closeModal, tripName, startMonth, description }) {
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export default function EditTrip({ tripID, closeModal, tripName, startMonth, startYear, description }) {
 
     const [curTripName, setCurTripName] = useState(tripName);
     const [curStartMonth, setCurStartMonth] = useState(startMonth);
+    const [curStartYear, setCurStartYear] = useState(startYear);
     const [curDescription, setCurDescription] = useState(description);
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+    let monthIdx = months.indexOf(startMonth) + 1;
+    let startData = startYear;
+    // startData = startData.join('-');
+    // console.log(startData);
+    // startData = startData.append(monthIdx);
 
     useEffect(() => {
         const updateTripName = async () => {
@@ -19,7 +29,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `trips/${tripID}`, {
+                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
@@ -48,7 +58,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `trips/${tripID}`, {
+                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
@@ -71,13 +81,42 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
     }, [isLoaded, curStartMonth]);
 
     useEffect(() => {
+        const updateStartYear = async () => {
+            if (curStartYear != startYear) {
+                try {
+                    if (userId) {
+                        const token = await getToken({template: "codehooks"});
+
+                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
+                            'method': 'PATCH',
+                            'headers': {
+                                'Authorization': 'Bearer ' + token,
+                                'Content-Type': 'application/json'
+                            },
+                            'body': JSON.stringify({
+                                startYear: curStartYear
+                            })
+                        });
+                        const result = await response.json();
+                        console.log('Success: ', result);
+                    }
+                }
+                catch (error) {
+                    console.error('Error: ', error);
+                }
+            }
+        }
+        updateStartYear();
+    }, [isLoaded, curStartYear]);
+
+    useEffect(() => {
         const updateDescription = async () => {
             if (curDescription != description) {
                 try {
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `trips/${tripID}`, {
+                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
@@ -111,7 +150,8 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
 
         setCurTripName(formJson.tripName);
         setCurStartMonth(formJson.startMonth);
-        setCurDescription(formJson.description);
+        setCurStartYear(formJson.startYear);
+;        setCurDescription(formJson.description);
 
         e.target.reset();
         closeModal(); // Close the pop-up after submitting.
@@ -126,7 +166,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     <h4 className="text-l font-bold" id="createTripHeader">Trip Name</h4>
                     <input 
                         className="border-2 border-slate-600 w-full"
-                        placeholder={curTripName}
+                        defaultValue={curTripName}
                         id="tripName"
                         name="tripName"
                     ></input>
@@ -136,7 +176,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     <input
                         type="month"
                         className="border-2 border-slate-600 w-full"
-                        placeholder={curStartMonth}
+                        defaultValue={startData}
                         id="startMonth"
                         name="startMonth"
                     ></input>
@@ -145,7 +185,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     <h4 className="text-l font-bold" id="createTripHeader">Brief Description</h4>
                     <textarea 
                         className="border-2 border-slate-600 w-full h-20"
-                        placeholder={curDescription}
+                        defaultValue={curDescription}
                         id="description"
                         name="description"
                     ></textarea>
@@ -154,6 +194,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                 <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
             </div>
         </form>
+        
         </>
     );
 }
