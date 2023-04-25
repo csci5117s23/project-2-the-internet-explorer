@@ -3,6 +3,7 @@ const MAP_API = process.env.NEXT_PUBLIC_MAP_API;
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import LoadingCircle from "./LoadingCircle";
 import { useState } from 'react';
+import styles from '../styles/TripMemory.module.css';
 const libraries = ['places'];
 
 export default function MemoryMap({ lat, lng }) {
@@ -20,10 +21,11 @@ export default function MemoryMap({ lat, lng }) {
 
   return isLoaded ? (
     <GoogleMap
+      mapContainerClassName={styles.mapContainer}
       id="example-map"
       center={center}
       zoom={10}
-      mapContainerStyle={{ height: "400px", width: "400px" }}
+      // mapContainerStyle={{ height: "90vw", width: "100%" }}
     >
       {center && <MarkerF position={center} />}
     </GoogleMap>

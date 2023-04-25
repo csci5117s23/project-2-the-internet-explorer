@@ -12,6 +12,7 @@ import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
 import MemoryEditButton from "./buttons/MemoryEditButton";
+import styles from '../styles/TripMemory.module.css';
 Modal.setAppElement("body");
 
 export default function IndividualMemory({
@@ -86,12 +87,13 @@ export default function IndividualMemory({
   ) : (
     <>
       <Header title={memory.title} back={true} prevUrl={prevUrl} />
-      <div className="grid gap-1 place-items-center m-8">
+      <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
         <div className="flex p-2 justify-center">
           <TransformWrapper>
             <TransformComponent>
               <img
-                style={{ width: "400px" }}
+                // style={{ width: "90vw"}}
+                className={styles.imgContainer}
                 src={memory.image}
                 alt={memory.title}
               />
@@ -112,7 +114,7 @@ export default function IndividualMemory({
         {/* <div>description</div> */}
         <div
           className="flex justify-center bg-blue-100 border-4 border-blue-300 rounded-lg shadow-sm p-4 mt-2 mb-4"
-          style={{ width: "400px" }}
+          style={{ width: "90vw" }}
         >
           {memory.description}
         </div>
