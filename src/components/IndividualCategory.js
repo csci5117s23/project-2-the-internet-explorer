@@ -9,61 +9,43 @@ import TripMemoryWrapper from "./TripMemoryWrapper";
 import MemoryViewButton from "./buttons/MemoryViewButton";
 import styles from '../styles/TripView.module.css';
 
-export default function IndividualCategory({ trip, category, router }) {
-  const [tripMemories, setTripMemories] = useState(null);
-  const [loadingMemories, setLoadingMemories] = useState(true);
+export default function IndividualCategory({ trip, category, tripMemories, setTripMemories, router }) {
+  const [categoryMemories, setCategoryMemories] = useState(null);
+  // const [loadingCategoryMemories, setLoadingCategoryMemories] = useState(true);
+  // const [tripMemories, setTripMemories] = useState(null);
+  // const [loadingMemories, setLoadingMemories] = useState(true);
   
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
+  // TODO: Add a useEffect that relies on the router to search through the passed in memories to grab all the ones for the specified category.
   useEffect(() => {
-    const getCategoryMemories = async () => {
-      try {
-        setLoadingMemories(true);
-        if (userId) {
-          const token = await getToken({ template: "codehooks" });
-
-          const response = await fetch(backend_base + `/getCategoryMemories?trip=${trip._id}&category=${category}`, {
-            'method': 'GET',
-            'headers': {
-              'Authorization': 'Bearer ' + token
-            }
-          });
-          if (!response.ok) {
-            router.push('/trips');
-            return;
+    const findCategoryMemories = async () => {
+      if (tripMemories) {
+        let params = {
+          'category': category
+        };
+        let memoryList = [];
+        for (let memory of tripMemories) {
+          if (memory.category === category.toLowerCase()) {
+            let curMemory = (
+              <MemoryViewButton
+                key={memory._id}
+                tripID={trip._id}
+                memoryID={memory._id}
+                filter='category'
+                params={params}
+                title={memory.title}
+                image={memory.image}
+              />
+            );
+            memoryList = memoryList.concat(curMemory);
           }
-          const data = await response.json();
-          console.log('memories: ', data);
-
-          setTripMemories(data);
-          setLoadingMemories(false);
         }
-      } catch (error) {
-        console.error('Error: ', error);
+        setCategoryMemories(memoryList);
       }
     }
-    getCategoryMemories();
-  }, [isLoaded, router]);
-
-  let memoryList = [];
-  if (!loadingMemories) {
-    let params = {
-      'category': category
-    }
-    memoryList = tripMemories.map(
-      (memory) => 
-        <MemoryViewButton
-          key={memory._id}
-          tripID={trip._id}
-          memoryID={memory._id}
-          filter='category'
-          params={params}
-          title={memory.title}
-          color={'bg-emerald-400'}
-        />
-    );
-  } 
-  console.log('memory list: ', memoryList);
+    findCategoryMemories();
+  }, [tripMemories, router]);
 
   return (
     <>
@@ -74,14 +56,10 @@ export default function IndividualCategory({ trip, category, router }) {
         day={"All Days"}
       />
       <CategoryButtonWrapper tripID={trip._id} curr_category={category}></CategoryButtonWrapper>
-      {loadingMemories ? (
-        <LoadingCircle></LoadingCircle>
-      ) : (
-        <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
-          <br></br>
-          <>{memoryList}</>
-        </div>
-      )}
+      <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+        <br></br>
+        <>{categoryMemories}</>
+      </div>
       <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
     </>
   );

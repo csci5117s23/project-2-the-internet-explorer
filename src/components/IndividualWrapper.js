@@ -17,6 +17,8 @@ import IndividualMemory from "./IndividualMemory";
 export default function IndividualWrapper({ router }) {
   const [curTrip, setCurTrip] = useState(null);
   const [loadingCurTrip, setLoadingCurTrip] = useState(true);
+  const [tripMemories, setTripMemories] = useState(null);
+  const [loadingMemories, setLoadingMemories] = useState(true);
   let { tripData } = router.query;
   let tripID = tripData[0];
 
@@ -50,9 +52,48 @@ export default function IndividualWrapper({ router }) {
     getIndividualTrip();
   }, [isLoaded]);
 
-  console.log('cur trip: ', curTrip);
+  // TODO: Add a useEffect to retrieve all memories for the specified trip. Then pass them down
+  // TODO: to the individual day and category components.
+  useEffect(() => {
+    const getMemories = async () => {
+      try {
+        setLoadingMemories(true);
+        let url = `${backend_base}/getTripMemories?trip=${tripID}`;
+        // Check if a category has been specified.
+        // if (category) {
+        //   url = `${backend_base}/getCategoryMemories?trip=${trip._id}&category=${category}`;
+        // }
+        if (userId) {
+          const token = await getToken({ template: "codehooks" });
 
-  if (loadingCurTrip) {
+          const response = await fetch(url, {
+            'method': 'GET',
+            'headers': {
+              'Authorization': 'Bearer ' + token
+            }
+          });
+          if (!response.ok) {
+            router.push('/trips');
+            return;
+          }
+          const data = await response.json();
+          console.log('memory data in wrapper: ', data);
+
+          setTripMemories(data);
+          setLoadingMemories(false);
+        }
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    }
+    getMemories();
+  }, [isLoaded]);
+
+  console.log('cur trip: ', curTrip);
+  // console.log('all memories in wrapper: ', tripMemories);
+
+  // Wait until both the individual trip and the memories for that trip have been retrieved.
+  if (loadingCurTrip || loadingMemories) {
     return <LoadingCircle></LoadingCircle>
   } else {
     console.log('trip data: ', tripData);
@@ -75,7 +116,7 @@ export default function IndividualWrapper({ router }) {
 
         let category = urlParams.get('category');
         return (
-          <IndividualCategory trip={curTrip} category={category} router={router}></IndividualCategory>
+          <IndividualCategory trip={curTrip} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
         );
       } else if (filter === 'day') {
         // Check if the correct query param is present.
@@ -90,7 +131,7 @@ export default function IndividualWrapper({ router }) {
           category = urlParams.get('category');
         }
         return (
-          <IndividualDay trip={curTrip} date={day} category={category} router={router}></IndividualDay>
+          <IndividualDay trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
         );
       } else {
         // Unaccepted second route.
