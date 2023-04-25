@@ -48,7 +48,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
+                        const response = await fetch(backend_base + `trips/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
@@ -77,7 +77,7 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, des
                     if (userId) {
                         const token = await getToken({template: "codehooks"});
 
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
+                        const response = await fetch(backend_base + `trips/${tripID}`, {
                             'method': 'PATCH',
                             'headers': {
                                 'Authorization': 'Bearer ' + token,
