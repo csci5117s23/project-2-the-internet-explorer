@@ -9,7 +9,7 @@ const buttons = [
   "Places", "Events", "Food", "Souvenirs", "People"
 ]
 
-export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
+export default function CategoryButtonWrapper({ tripID, date, curr_category, tripMemories, setTripMemories }) {
 
   function isSelected(name) {
     if (name === curr_category) {
@@ -31,7 +31,7 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category }) {
         pressed={isSelected(str)}
         />
       ))}
-      <TripSummaryWrapper parentId={tripID}/>
+      <TripSummaryWrapper parentId={tripID} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
     </div>
   )
 }

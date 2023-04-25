@@ -7,37 +7,14 @@ import styles from '../styles/TripSummary.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts} from "@fortawesome/free-solid-svg-icons";
 
-export default function TripSummary(parentId) { 
+export default function TripSummary(parentId, tripMemories, setTripMemories) { 
     const [coordinatesList, setCoordinatesList] = useState(null);
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
-    const [tripMemories, setTripMemories] = useState({});
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-    useEffect(() => {
-        const getTripMemories = async () => {
-            if (userId) {
-              try {
-                const token = await getToken({ template: "codehooks" });
-                console.log("this is parentId: " + parentId.parentId)
-                const response = await fetch(`${backend_base}/getTripMemories?trip=${parentId.parentId}}`, {
-                    'method': 'GET',
-                    'headers': {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
-    
-                const result = await response.json();
-                //setTripMemories();
-                console.log("this is tripSummary result: " + JSON.stringify(result))
-               
-              } catch (error) {
-                console.error('Error: ', error);
-              }
-            }
-          }
-          getTripMemories();
-      }, [isLoaded]);
+   console.log(("these are tripMemories: " + JSON.stringify(tripMemories)))
+    console.log(("this is parentId: " + JSON.stringify(parentId)))
 
     return (
         <>
