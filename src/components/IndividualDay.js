@@ -77,6 +77,7 @@ export default function IndividualDay({ trip, date, category, router }) {
           params={params}
           title={memory.title}
           color={'bg-emerald-400'}
+          image={memory.image}
         />
     );
   }

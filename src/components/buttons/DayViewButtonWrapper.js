@@ -1,6 +1,6 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
-import { useAuth } from "@clerk/nextjs";
+import { ClerkLoaded, useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import LoadingCircle from "../LoadingCircle";
 import DayViewButton from "./DayViewButton";
@@ -69,6 +69,7 @@ export default function DayViewButtonWrapper({ tripID, router, tripMemories, set
           title={curDateStr}
           ISOString={date}
           color={'bg-custom-blue'}
+          image={memory.image}
         />
       )
 
