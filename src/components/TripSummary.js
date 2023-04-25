@@ -9,18 +9,18 @@ import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGi
 
 export default function TripSummary(parentId) { 
     const [coordinatesList, setCoordinatesList] = useState(null);
-    const [placesCount, setPlacesCount] = useState(null);
+    const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
+    const [tripMemories, setTripMemories] = useState({});
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
-    console.log(parentId)
 
     useEffect(() => {
-        const getLocationCount = async () => {
+        const getTripMemories = async () => {
             if (userId) {
               try {
                 const token = await getToken({ template: "codehooks" });
     
-                const response = await fetch(backend_base + `/getLocationCount?trip=${parentId.parentId}`, {
+                const response = await fetch(backend_base + `/getTripMemories?trip=${parentId.parentId}}`, {
                     'method': 'GET',
                     'headers': {
                         'Authorization': 'Bearer ' + token
@@ -28,18 +28,16 @@ export default function TripSummary(parentId) {
                 });
     
                 const result = await response.json();
-                if (result < 1){
-                    setPlacesCount("no current places")
-                }
-                setPlacesCount(result[0].count)
+                setTripMemories(data);
+                console.log(result)
                
               } catch (error) {
                 console.error('Error: ', error);
               }
             }
           }
-          getLocationCount();
-      }, []);
+          getTripMemories();
+      }, [isLoaded]);
 
     return (
         <>
@@ -51,7 +49,7 @@ export default function TripSummary(parentId) {
                 />
                 <div className="p-4">
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faClock} /> Duration of Trip: </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {placesCount}</h1>
+                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPerson} /> # of People: </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCalendarDay} /> # of Events: </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faGifts} /> # of Souvenirs: </h1>
