@@ -6,8 +6,6 @@ import TripMemoryWrapper from "@/components/TripMemoryWrapper";
 import { useRouter } from "next/router";
 import styles from '../styles/TripView.module.css';
 import DayViewButton from "@/components/buttons/DayViewButton";
-import EditTripButton from "@/components/buttons/EditTripButton";
-import DeleteTripButton from "@/components/buttons/DeleteFileButton";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import LoadingCircle from "@/components/LoadingCircle";
