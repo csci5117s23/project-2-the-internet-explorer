@@ -44,3 +44,27 @@
 .webcam {
     margin: 0 auto 0.5em auto;
 }
+
+.memoryDiv {
+    margin: 2rem 0;
+}
+
+.mapContainer {
+    width: 50vw;
+    height: 50vw;
+}
+
+.imgContainer {
+    width: 90vw;
+}
+
+@media screen and (width < 501px) {
+    .mapContainer {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    /* .imgContainer {
+        width: 90vw;
+    } */
+}
