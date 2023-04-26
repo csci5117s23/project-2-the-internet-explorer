@@ -9,9 +9,11 @@ const DayDropdown = ({day}) => {
 
     return (
         <>
-        <div className="flex text-white hover:text-black mt-1">
-            <h1 className="text-md">{day}</h1>
-            <FontAwesomeIcon className="ml-1.5 mt-1.5"  icon={faAngleDown}/>
+        <div className="flex text-black mt-1">
+            <select className="text-black">
+            <option value="All Days">All Days</option>
+            <option value="Feb 3rd">Feb 3</option>
+            </select>
             
         </div>
             
