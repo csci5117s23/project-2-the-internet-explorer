@@ -65,6 +65,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                     <input
                         type="month"
                         pattern="(20[0-9]{2})-(0[1-9]|1[012])"
+                        placeholder="yyyy-mm"
                         title="yyyy-mm"
                         className="bg-gray-200 p-2 rounded-md w-full"
                         name="startMonth"
