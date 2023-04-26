@@ -53,7 +53,7 @@ export default function DeleteTrip({ tripID, tripName, closeModal }) {
         <>
         <button
             type="button"
-            className="float-right px-2 py-2 font-semibold text-m bg-red-500 text-white rounded-full shadow-sm"
+            className="float-right px-4 py-2 font-semibold text-m bg-red-500 text-white rounded-full shadow-sm"
             onClick={openDeleteTripModal}
             >
             <FontAwesomeIcon icon={faTrash} />

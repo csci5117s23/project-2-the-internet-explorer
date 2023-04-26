@@ -161,12 +161,12 @@ export default function IndividualMemory({
         </div>
         <div>
           {/* edit and delete buttons here */}
-          <MemoryDeleteButton
+          {/* <MemoryDeleteButton
             memoryID={memoryID}
             title={memory.title}
             router={router}
             tripid={trip._id}
-          ></MemoryDeleteButton>
+          ></MemoryDeleteButton> */}
           <EditMemoryWrapper
             parentId={trip._id}
             startDate={trip.startDate}
@@ -174,6 +174,10 @@ export default function IndividualMemory({
             date={memory.date}
             ori_memory={memory}
             load_memory={getIndividualMemory}
+            memoryID={memoryID}
+            title={memory.title}
+            router={router}
+            tripid={trip._id}
           ></EditMemoryWrapper>
         </div>
       </div>

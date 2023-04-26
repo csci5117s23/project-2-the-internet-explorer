@@ -3,6 +3,8 @@ const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export default function MemoryDeleteButton({
   memoryID,
   title,
@@ -53,10 +55,11 @@ export default function MemoryDeleteButton({
   return (
     <>
       <button
-        className="px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm"
+        className="float-right px-4 py-2 font-semibold text-m bg-red-500 text-white rounded-full shadow-sm"
         onClick={openDeleteModal}
       >
-        Delete
+        <FontAwesomeIcon icon={faTrash} />
+        &nbsp; Delete
       </button>
       <Modal
         isOpen={deleteModelOpen}
