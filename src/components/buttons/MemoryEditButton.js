@@ -387,7 +387,7 @@ export default function MemoryEditButton({
           </div>
           <button
             type="submit"
-            className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
+            className="ml-3 mb-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
             id="updateMemory"
           >
             Update Memory
