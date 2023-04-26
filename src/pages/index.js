@@ -16,7 +16,7 @@ export default function Splash() {
       <SignedOut>
         <Head>
           <title>Welcome!</title>
-          <link rel='icon' href='/favicon.ico' />
+          <link rel='icon' href='/favicon.png' />
         </Head>
         <style jsx global>{`
           body {

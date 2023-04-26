@@ -31,6 +31,7 @@ export default function IndividualMemory({
   const [scaleIndex, setScaleIndex] = useState(0);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+  let memoryID = memory._id;
 
   const getIndividualMemory = async () => {
     try {
