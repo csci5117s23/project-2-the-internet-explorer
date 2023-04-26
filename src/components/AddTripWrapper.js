@@ -69,11 +69,11 @@ export default function AddTripWrapper({ setUploadedTrip }) {
         onRequestClose={closeModal}
         contentLabel="Add Trip Modal"
       >
+
         <AddTrip 
           addTrip={setNewTrip}
           closeModal={closeModal}
         />
-        <button onClick={closeModal}>Close</button>
       </Modal>
     </>
   );
