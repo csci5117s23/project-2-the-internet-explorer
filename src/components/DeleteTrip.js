@@ -32,7 +32,7 @@ export default function DeleteTrip({ tripID, closeModal }) {
             }
         }
         deleteTrip();
-        closeModal();
+        // closeModal();
     }, [isLoaded]);
 
     return (
