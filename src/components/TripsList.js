@@ -14,6 +14,7 @@ export default function TripsList({ trips }) {
         month={trip.startMonth}
         year={trip.startYear}
         index={i}
+        description={trip.description}
       />
     )
   );

@@ -10,10 +10,14 @@ import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
 import MemoryEditButton from "./buttons/MemoryEditButton";
 import styles from '../styles/TripMemory.module.css';
 Modal.setAppElement("body");
+
+const imageScales = ['50vw', '55vw', '60vw', '65vw', '70vw', '75vw', '80vw', '85vw', '90vw'];
 
 export default function IndividualMemory({
   trip,
@@ -24,6 +28,8 @@ export default function IndividualMemory({
 }) {
   const [memory, setMemory] = useState(null);
   const [loadingMemory, setLoadingMemory] = useState(true);
+  const [scaleIndex, setScaleIndex] = useState(0);
+
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
@@ -58,6 +64,17 @@ export default function IndividualMemory({
     getIndividualMemory();
   }, [isLoaded, router]);
 
+  function handleIndex(e) {
+    e.preventDefault();
+
+    let newIndex = e.target.value;
+    if (newIndex) {
+      setScaleIndex(newIndex);
+    } else {
+      setScaleIndex(0);
+    }
+  }
+
   let prevUrl = "";
   if (filter === "category") {
     if (!params.has("category")) {
@@ -88,18 +105,26 @@ export default function IndividualMemory({
     <>
       <Header title={memory.title} back={true} prevUrl={prevUrl} />
       <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
+        {/* <label for="imgScale">Resize Image:   */}
+        <span>
+          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "small"}} />
+          <input type="range" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
+          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "x-large"}} />
+        </span>
+        {/* </label> */}
         <div className="flex p-2 justify-center">
           <TransformWrapper>
             <TransformComponent>
               <img
-                // style={{ width: "90vw"}}
-                className={styles.imgContainer}
+                style={{ width: imageScales[scaleIndex]}}
+                // className={styles.imgContainer}
                 src={memory.image}
                 alt={memory.title}
               />
             </TransformComponent>
           </TransformWrapper>
         </div>
+        
         <div className="flex p-2">
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
             {moment(memory.date).format("YYYY-MM-DD")}
