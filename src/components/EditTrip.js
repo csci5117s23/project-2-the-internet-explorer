@@ -18,6 +18,14 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, sta
 
     let monthIdx = months.indexOf(startMonth) + 1;
     let startData = startYear;
+    let monthStr = '';
+    if (monthIdx < 10) {
+        monthStr = `0${monthIdx}`;
+    } else {
+        monthStr = monthIdx.toString();
+    }
+
+    let dateStr = `${startData}-${monthStr}`;
     // startData = startData.join('-');
     // console.log(startData);
     // startData = startData.append(monthIdx);
@@ -176,7 +184,10 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, sta
                     <input
                         type="month"
                         className="border-2 border-slate-600 w-full"
-                        defaultValue={startData}
+                        pattern="(20[0-9]{2})-(0[1-9]|1[012])"
+                        placeholder="yyyy-mm"
+                        title="yyyy-mm"
+                        defaultValue={dateStr}
                         id="startMonth"
                         name="startMonth"
                     ></input>
