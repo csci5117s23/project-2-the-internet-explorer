@@ -8,27 +8,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
 export default function TripSummary({parentId, tripMemories, setTripMemories}) { 
-    const [coordinatesList, setCoordinatesList] = useState([]);
+    const [coordinatesDict, setCoordinatesDict] = useState({});
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
     const [tripDuration, setTripDuration] = useState();
     const [totalMemories, setTotalMemories] = useState(0);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentLocationKey, setCurrentLocationKey] = useState(null);
 
     const handleLeftClick = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
+            setCurrentLocationKey(Object.keys(coordinatesDict)[currentIndex - 1]);
         }
     };
       
     const handleRightClick = () => {
-        if (currentIndex < coordinatesList.length - 1) {
+        if (currentIndex < Object.keys(coordinatesDict).length - 1) {
             setCurrentIndex(currentIndex + 1);
+            setCurrentLocationKey(Object.keys(coordinatesDict)[currentIndex + 1]);
         }
     };
 
     useEffect(() => {
         let memoryDict = {};
-        let coordinatesList = [];
+        let coordinatesDict = {};
         let minDate = null;
         let maxDate = null;
         if (tripMemories) {
@@ -39,8 +42,10 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
                     memoryDict[memory.category] += 1;
                 }
 
-                if (memory.latitude && memory.longitude){
-                    coordinatesList.push({lat: memory.latitude, lng: memory.longitude})
+                if (memory.latitude && memory.longitude && memory.location){
+                    if (!(memory.location in memoryDict)) {
+                        coordinatesDict[memory.location] = {lat: memory.latitude, lng: memory.longitude}
+                    }
                 }
 
                 const memoryDate = moment(memory.date);
@@ -58,7 +63,10 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
         }
         setMemoriesCategoryCount(memoryDict);
         setTotalMemories(tripMemories.length)
-        setCoordinatesList(coordinatesList)
+        setCoordinatesDict(coordinatesDict)
+        if (Object.keys(coordinatesDict).length > 0) {
+            setCurrentLocationKey(Object.keys(coordinatesDict)[0]);
+        }
     }, [tripMemories]);
 
     return (
@@ -66,9 +74,9 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
             <div className={styles.tripSummaryContainer}>
                 <TripSummaryMap 
-                    coordinatesList={coordinatesList}
-                    setCoordinatesList={setCoordinatesList}
-                    currentCoordinate={coordinatesList[currentIndex]}
+                    coordinatesDict={coordinatesDict}
+                    setCoordinatesDict={setCoordinatesDict}
+                    currentCoordinate={coordinatesDict[currentLocationKey]}
                 />
                 <div className={styles.tripSummaryPaging}>
                     <span>

@@ -7,7 +7,7 @@ const mapContainerStyle = {
     width: "100%"
 };
 
-export default function TripSummaryMap({ coordinatesList, setCoordinatesList, currentCoordinate }) { 
+export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, currentCoordinate }) { 
     const [mapInstance, setMapInstance] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
@@ -22,6 +22,8 @@ export default function TripSummaryMap({ coordinatesList, setCoordinatesList, cu
         }
     }, [mapInstance, currentCoordinate]);
 
+    console.log("this is current coordinate: " + JSON.stringify(currentCoordinate))
+
     return (
       <>
         <div className="p-4">
@@ -33,7 +35,7 @@ export default function TripSummaryMap({ coordinatesList, setCoordinatesList, cu
             center={currentCoordinate}
             onLoad={setMapInstance}
           >
-            {coordinatesList && coordinatesList.map((coordinate, index) => (
+            {coordinatesDict && Object.values(coordinatesDict).map((coordinate, index) => (
                 <MarkerF
                     key={index}
                     position={{ lat: coordinate.lat, lng: coordinate.lng }}
