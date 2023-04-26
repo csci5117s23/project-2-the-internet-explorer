@@ -8,7 +8,7 @@ import styles from '../styles/TripView.module.css'
 
 Modal.setAppElement("body");
 
-export default function TripSummaryWrapper({ parentId, tripMemories, setTripMemories}) {
+export default function TripSummaryWrapper({ parentId, trip, tripMemories, setTripMemories}) {
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -25,7 +25,7 @@ export default function TripSummaryWrapper({ parentId, tripMemories, setTripMemo
   return (
     <>
       <button
-        className={"float-right right-4 sticky bottom-4 mt-8 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
+        className={"float-right right-4 sticky bottom-4 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
         onClick={openModal}
       >Trip Summary
       </button>
@@ -37,6 +37,7 @@ export default function TripSummaryWrapper({ parentId, tripMemories, setTripMemo
         
         <TripSummary 
             parentId={parentId}
+            trip={trip}
             tripMemories={tripMemories}
             setTripMemories={setTripMemories}
         />

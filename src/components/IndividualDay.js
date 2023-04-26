@@ -117,7 +117,7 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
   //   }
 
   //   dayMemoriesList = dayMemories.map(
-  //     (memory) => 
+  //     (memory) =>
   //       <MemoryViewButton
   //         key={memory._id}
   //         tripID={trip._id}
@@ -147,9 +147,9 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
         title={`${trip.tripName}`}
         back={true}
         prevUrl={prevUrl}
-        day={`${curDateStr}`}
+
       />
-      <CategoryButtonWrapper tripID={trip._id} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
+      <CategoryButtonWrapper day={`${curDateStr}`} tripID={trip._id} trip={trip} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
       {/* {loadingMemories ? (
         <LoadingCircle></LoadingCircle>
       ) : (
