@@ -1,18 +1,30 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 import React, { useState, useEffect, useCallback } from "react";
-import { useAuth } from "@clerk/nextjs";
 import moment from "moment";
 import TripSummaryMap from "./TripSummaryMap";
 import styles from '../styles/TripSummary.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils} from "@fortawesome/free-solid-svg-icons";
+import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
 export default function TripSummary({parentId, tripMemories, setTripMemories}) { 
-    const [coordinatesList, setCoordinatesList] = useState();
+    const [coordinatesList, setCoordinatesList] = useState([]);
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
     const [tripDuration, setTripDuration] = useState();
     const [totalMemories, setTotalMemories] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const handleLeftClick = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+      
+    const handleRightClick = () => {
+        if (currentIndex < coordinatesList.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
 
     useEffect(() => {
         let memoryDict = {};
@@ -28,7 +40,7 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
                 }
 
                 if (memory.latitude && memory.longitude){
-                    coordinatesList.push({lat: memory.latitude, long: memory.longitude})
+                    coordinatesList.push({lat: memory.latitude, lng: memory.longitude})
                 }
 
                 const memoryDate = moment(memory.date);
@@ -56,7 +68,23 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
                 <TripSummaryMap 
                     coordinatesList={coordinatesList}
                     setCoordinatesList={setCoordinatesList}
+                    currentCoordinate={coordinatesList[currentIndex]}
                 />
+                <div className={styles.tripSummaryPaging}>
+                    <button
+                        style={{fontSize: "1.5em", paddingRight: "2%"}}
+                        onClick={handleLeftClick}
+                    >
+                        <FontAwesomeIcon icon={faSquareCaretLeft} />
+                    </button>
+                    <span style={{fontSize: "1.5em"}}>{currentIndex + 1}</span>
+                    <button
+                        style={{fontSize: "1.5em", paddingLeft: "2%"}}
+                        onClick={handleRightClick}
+                    >
+                        <FontAwesomeIcon icon={faSquareCaretRight} />
+                    </button>
+                </div>
                 <div className="p-4">
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {memoriesCategoryCount && memoriesCategoryCount.places ? memoriesCategoryCount.places : "You have no places"} </h1>

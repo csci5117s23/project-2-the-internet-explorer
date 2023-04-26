@@ -14,3 +14,8 @@
     top: 12%;
     left: 5%;
 }
+
+.tripSummaryPaging {
+    margin: auto;
+    width: 10%;
+}
