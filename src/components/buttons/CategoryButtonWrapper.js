@@ -8,7 +8,7 @@ import DayDropdown from './DayDropdown.js';
 
 const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
 
-export default function CategoryButtonWrapper({ tripID, date, curr_category, tripMemories, setTripMemories, day }) {
+export default function CategoryButtonWrapper({ tripID, trip, date, curr_category, tripMemories, setTripMemories, day }) {
 
   function isSelected(name) {
     if (name === curr_category) {
@@ -32,13 +32,13 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category, tri
         />
       ))}
       </div>
-      
+
       <div className="flex justify-between">
       <DayDropdown day={day} />
-      <TripSummaryWrapper 
-      parentId={tripID} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
+      <TripSummaryWrapper
+      parentId={tripID} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
       </div>
-      
+
     </div>
   )
 }

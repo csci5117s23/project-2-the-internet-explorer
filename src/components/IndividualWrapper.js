@@ -142,10 +142,14 @@ export default function IndividualWrapper({ router }) {
       let filter = tripData[1]; // Get the category/day filter for going back to the previous page.
       const urlParams = new URLSearchParams(location.search);
       let memoryID = tripData[2];
+
+      let memory = tripMemories.find(memory => memory._id === memoryID);
+      // console.log('memory result: ', result);
+
       return (
         <IndividualMemory 
           trip={curTrip} 
-          memoryID={memoryID}
+          memory={memory}
           filter={filter}
           params={urlParams}
           router={router}
