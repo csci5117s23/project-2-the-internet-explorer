@@ -44,7 +44,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           description={description}
         />
         <button onClick={closeModal}>Close</button>
-        <DeleteTrip tripID={tripID} />
+        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal}/>
       </Modal>
     </>
   );
