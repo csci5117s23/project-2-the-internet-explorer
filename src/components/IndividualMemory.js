@@ -150,7 +150,7 @@ export default function IndividualMemory({
         <div style={{ width: "90vw" }} className="flex-col bg-blue-200 flex justify-center rounded-md">
           <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">Location</h1>
           <div className="flex justify-center bg-blue-300 p-5 m-5 rounded-md">
-          <MemoryMap className="" lat={memory.latitude} lng={memory.longitude}></MemoryMap>
+          <MemoryMap lat={memory.latitude} lng={memory.longitude}></MemoryMap>
 
           </div>
         </div>
