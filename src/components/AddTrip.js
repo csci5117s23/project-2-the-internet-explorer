@@ -64,7 +64,8 @@ export default function AddTrip({ addTrip, closeModal }) {
                     <h4 className="text-l font-bold" id="createTripHeader">What month did you go?</h4>
                     <input
                         type="month"
-                        placeholder={todayStr}
+                        pattern="(20[0-9]{2})-(0[1-9]|1[012])"
+                        title="yyyy-mm"
                         className="bg-gray-200 p-2 rounded-md w-full"
                         name="startMonth"
                         maxLength={20}
