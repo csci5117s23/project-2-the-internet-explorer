@@ -59,7 +59,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           <h4 className="text-l font-bold">Location</h4>
           <div>
             <input
-              className="border-2 border-slate-600 mb-6 w-full"
+              className="bg-gray-200 p-2 rounded-md w-full mb-6"
               placeholder="Current Location"
               value={location}
               readOnly

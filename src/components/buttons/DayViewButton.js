@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const DayViewButton = ({tripID, title, ISOString, color, image}) => {
-    console.log(image);
+    // console.log(image);
     return (
       <Link href={`/trips/${tripID}/day?day=${ISOString}`}>
         {/* <button

@@ -37,7 +37,7 @@ export default function IndividualWrapper({ router }) {
             }
           });
           if (!response.ok) {
-            router.push('/trips');
+            router.push('/404');
             return;
           }
           const data = await response.json();
@@ -101,7 +101,7 @@ export default function IndividualWrapper({ router }) {
       console.log('cur trip: ', curTrip);
       return (
         <>
-          <IndividualTrip trip={curTrip} router={router}></IndividualTrip>
+          <IndividualTrip trip={curTrip} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></IndividualTrip>
         </>
       );
     } else if (tripData.length == 2) {

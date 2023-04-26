@@ -12,9 +12,9 @@ import LoadingCircle from "@/components/LoadingCircle";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import DayViewButtonWrapper from "./buttons/DayViewButtonWrapper";
 
-export default function IndividualTrip({ trip, router }) {
+export default function IndividualTrip({ trip, tripMemories, setTripMemories, router }) {
   // const [tripDays, setTripDays] = useState({});
-  const [tripMemories, setTripMemories] = useState(null);
+  // const [tripMemories, setTripMemories] = useState(null);
 
   return (
     <>

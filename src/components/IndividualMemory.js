@@ -10,8 +10,10 @@ import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
-import MemoryEditButton from "./buttons/MemoryEditButton";
+import EditMemoryWrapper from "./buttons/MemoryEditButtonWrapper";
 import styles from '../styles/TripMemory.module.css';
 Modal.setAppElement("body");
 
@@ -30,35 +32,36 @@ export default function IndividualMemory({
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-  useEffect(() => {
-    const getIndividualMemory = async () => {
-      try {
-        setLoadingMemory(true);
-        if (userId) {
-          const token = await getToken({ tempalte: "codehooks" });
+  const getIndividualMemory = async () => {
+    try {
+      setLoadingMemory(true);
+      if (userId) {
+        const token = await getToken({ tempalte: "codehooks" });
 
-          const response = await fetch(
-            backend_base + `/tripMemories/${memoryID}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          if (!response.ok) {
-            router.push("/404");
-            return;
+        const response = await fetch(
+          backend_base + `/tripMemories/${memoryID}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: "Bearer " + token,
+            },
           }
-          const data = await response.json();
-          setMemory(data);
-          console.log(data);
-          setLoadingMemory(false);
+        );
+        if (!response.ok) {
+          router.push("/404");
+          return;
         }
-      } catch (error) {
-        console.error("Error: ", error);
+        const data = await response.json();
+        setMemory(data);
+        console.log(data);
+        setLoadingMemory(false);
       }
-    };
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
+  
+  useEffect(() => {
     getIndividualMemory();
   }, [isLoaded, router]);
 
@@ -103,14 +106,33 @@ export default function IndividualMemory({
     <>
       <Header title={memory.title} back={true} prevUrl={prevUrl} />
       <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
-        <label for="imgScale">Resize Image:  
-          <input type="range" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
-        </label>
+        {/* <label for="imgScale">Resize Image:   */}
+        <span>
+          <FontAwesomeIcon
+            icon={faImage}
+            style={{ color: "#000000", fontSize: "small" }}
+          />
+          <input
+            type="range"
+            className={styles.imgScale}
+            id="imgScale"
+            name="imgScale"
+            min="0"
+            max="8"
+            onChange={handleIndex}
+            defaultValue="0"
+          ></input>
+          <FontAwesomeIcon
+            icon={faImage}
+            style={{ color: "#000000", fontSize: "x-large" }}
+          />
+        </span>
+        {/* </label> */}
         <div className="flex p-2 justify-center">
           <TransformWrapper>
             <TransformComponent>
               <img
-                style={{ width: imageScales[scaleIndex]}}
+                style={{ width: imageScales[scaleIndex] }}
                 // className={styles.imgContainer}
                 src={memory.image}
                 alt={memory.title}
@@ -118,7 +140,7 @@ export default function IndividualMemory({
             </TransformComponent>
           </TransformWrapper>
         </div>
-        
+
         <div className="flex p-2">
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
             {moment(memory.date).format("YYYY-MM-DD")}
@@ -145,12 +167,14 @@ export default function IndividualMemory({
             router={router}
             tripid={trip._id}
           ></MemoryDeleteButton>
-          <MemoryEditButton
-            memoryID={memoryID}
-            title={memory.title}
-            router={router}
-            tripid={trip._id}
-          ></MemoryEditButton>
+          <EditMemoryWrapper
+            parentId={trip._id}
+            startDate={trip.startDate}
+            category={memory.category}
+            date={memory.date}
+            ori_memory={memory}
+            load_memory={getIndividualMemory}
+          ></EditMemoryWrapper>
         </div>
       </div>
     </>
