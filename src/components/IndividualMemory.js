@@ -10,6 +10,8 @@ import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
 import MemoryEditButton from "./buttons/MemoryEditButton";
 import styles from '../styles/TripMemory.module.css';
@@ -103,9 +105,13 @@ export default function IndividualMemory({
     <>
       <Header title={memory.title} back={true} prevUrl={prevUrl} />
       <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
-        <label for="imgScale">Resize Image:  
+        {/* <label for="imgScale">Resize Image:   */}
+        <span>
+          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "small"}} />
           <input type="range" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
-        </label>
+          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "x-large"}} />
+        </span>
+        {/* </label> */}
         <div className="flex p-2 justify-center">
           <TransformWrapper>
             <TransformComponent>
