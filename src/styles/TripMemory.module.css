@@ -55,7 +55,14 @@
 }
 
 .imgContainer {
-    width: 90vw;
+    width: 50vw;
+}
+
+.imgScale {
+    border: 1px solid;
+    border-radius: 0.25em;
+    padding: 0 0.1em 0 0.25em;
+    width: 3em;
 }
 
 @media screen and (width < 501px) {
