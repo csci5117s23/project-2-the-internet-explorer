@@ -153,6 +153,8 @@ export default function IndividualWrapper({ router }) {
           filter={filter}
           params={urlParams}
           router={router}
+          tripMemories={tripMemories}
+          setTripMemories={setTripMemories}
         ></IndividualMemory>
       );
     }

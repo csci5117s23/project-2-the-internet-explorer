@@ -25,42 +25,45 @@ export default function IndividualMemory({
   filter,
   params,
   router,
+  tripMemories,
+  setTripMemories
 }) {
   // const [memory, setMemory] = useState(null);
   // const [loadingMemory, setLoadingMemory] = useState(true);
   const [scaleIndex, setScaleIndex] = useState(0);
+  const [curMemory, setCurMemory] = useState(memory);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   let memoryID = memory._id;
 
-  const getIndividualMemory = async () => {
-    try {
-      // setLoadingMemory(true);
-      if (userId) {
-        const token = await getToken({ tempalte: "codehooks" });
+  // const getIndividualMemory = async () => {
+  //   try {
+  //     // setLoadingMemory(true);
+  //     if (userId) {
+  //       const token = await getToken({ tempalte: "codehooks" });
 
-        const response = await fetch(
-          backend_base + `/tripMemories/${memoryID}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        if (!response.ok) {
-          router.push("/404");
-          return;
-        }
-        const data = await response.json();
-        // setMemory(data);
-        console.log(data);
-        // setLoadingMemory(false);
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
+  //       const response = await fetch(
+  //         backend_base + `/tripMemories/${memoryID}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             Authorization: "Bearer " + token,
+  //           },
+  //         }
+  //       );
+  //       if (!response.ok) {
+  //         router.push("/404");
+  //         return;
+  //       }
+  //       const data = await response.json();
+  //       // setMemory(data);
+  //       console.log(data);
+  //       // setLoadingMemory(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error: ", error);
+  //   }
+  // };
   
   // useEffect(() => {
   //   getIndividualMemory();
@@ -103,7 +106,7 @@ export default function IndividualMemory({
 
   return (
     <>
-      <Header title={memory.title} back={true} prevUrl={prevUrl} />
+      <Header title={curMemory.title} back={true} prevUrl={prevUrl} />
 
       <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
         {/* <label for="imgScale">Resize Image:   */}
@@ -116,8 +119,8 @@ export default function IndividualMemory({
               <img
                 // style={{ width: imageScales[scaleIndex] }}
                 className={`${styles.imgContainer} rounded-md`}
-                src={memory.image}
-                alt={memory.title}
+                src={curMemory.image}
+                alt={curMemory.title}
               />
             </TransformComponent>
           </TransformWrapper>
@@ -138,10 +141,10 @@ export default function IndividualMemory({
         </div>
         <div className="flex p-2">
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
-            {moment(memory.date).format("YYYY-MM-DD")}
+            {moment(curMemory.date).format("YYYY-MM-DD")}
           </div>
           <div className="rounded-lg bg-sky-400 text-white p-2 mr-2">
-            {memory.category}
+            {curMemory.category}
           </div>
         </div>
 
@@ -150,7 +153,7 @@ export default function IndividualMemory({
         <div style={{ width: "90vw" }} className="flex-col bg-blue-200 flex justify-center rounded-md">
           <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">Location</h1>
           <div className="flex justify-center bg-blue-300 p-5 m-5 rounded-md">
-          <MemoryMap lat={memory.latitude} lng={memory.longitude}></MemoryMap>
+          <MemoryMap lat={curMemory.latitude} lng={curMemory.longitude}></MemoryMap>
 
           </div>
         </div>
@@ -167,14 +170,17 @@ export default function IndividualMemory({
           <EditMemoryWrapper
             parentId={trip._id}
             startDate={trip.startDate}
-            category={memory.category}
-            date={memory.date}
+            category={curMemory.category}
+            date={curMemory.date}
             ori_memory={memory}
-            load_memory={getIndividualMemory}
-            memoryID={memory._id}
-            title={memory.title}
+            memoryID={memoryID}
+            title={curMemory.title}
             router={router}
             tripid={trip._id}
+            curMemory={curMemory}
+            setCurMemory={setCurMemory}
+            tripMemories={tripMemories}
+            setTripMemories={setTripMemories}
           ></EditMemoryWrapper>
         </div>
       </div>

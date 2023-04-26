@@ -16,11 +16,14 @@ export default function EditMemoryWrapper({
   category,
   date,
   ori_memory,
-  load_memory,
   memoryID,
   title,
   router,
-  tripid
+  tripid,
+  curMemory,
+  setCurMemory,
+  tripMemories,
+  setTripMemories
 }) {
   // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 
@@ -46,10 +49,11 @@ export default function EditMemoryWrapper({
           try {
             let updatedMemory = newMemory;
             updatedMemory["image"] = dataUrl;
+            setCurMemory(updatedMemory);
             const token = await getToken({ template: "codehooks" });
 
             const response = await fetch(
-              backend_base + `/tripMemories/${ori_memory._id}`,
+              backend_base + `/tripMemories/${memoryID}`,
               {
                 method: "PATCH",
                 headers: {
@@ -62,9 +66,17 @@ export default function EditMemoryWrapper({
 
             const result = await response.json();
             console.log("Success: ", result);
+
+            let tripMemoriesCopy = tripMemories;
+            let memory = tripMemoriesCopy.find(memory => memory._id === memoryID);
+            let memIndex = tripMemoriesCopy.indexOf(memory);
+            // Update the list of trip memories in real time.
+            tripMemoriesCopy[memIndex] = result;
+            setTripMemories(tripMemoriesCopy);
+            // console.log('mem index: ', memIndex);
+
             setNewMemory(null);
             setDataUrl("");
-            load_memory();
           } catch (error) {
             console.error("Error: ", error);
           }
@@ -96,6 +108,7 @@ export default function EditMemoryWrapper({
           category={category}
           date={date}
           ori_memory={ori_memory}
+          curMemory={curMemory}
         />
 
         <button 

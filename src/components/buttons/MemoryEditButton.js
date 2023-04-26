@@ -15,15 +15,16 @@ export default function MemoryEditButton({
   category,
   date,
   ori_memory,
+  curMemory
 }) {
   const [showWebCamera, setShowWebCamera] = useState(false);
   const [camera, setCamera] = useState(false); // front is false. back is true.
-  const [image, setImage] = useState(ori_memory.image);
+  const [image, setImage] = useState(curMemory.image);
   const [resizedImage, setResizedImage] = useState(null);
-  const [location, setLocation] = useState(ori_memory.location);
+  const [location, setLocation] = useState(curMemory.location);
   const [coordinates, setCoordinates] = useState({
-    lat: ori_memory.latitude,
-    lng: ori_memory.longitude,
+    lat: curMemory.latitude,
+    lng: curMemory.longitude,
   });
   const webcamRef = useRef(null);
   // console.log(coordinates);
@@ -224,7 +225,7 @@ export default function MemoryEditButton({
               placeholder="Title"
               id="title"
               name="title"
-              defaultValue={ori_memory.title}
+              defaultValue={curMemory.title}
               required
             ></input>
           </div>
@@ -382,7 +383,7 @@ export default function MemoryEditButton({
               placeholder="Brief Description"
               id="description"
               name="description"
-              defaultValue={ori_memory.description}
+              defaultValue={curMemory.description}
             ></textarea>
           </div>
           <button
