@@ -24,8 +24,8 @@ export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, cu
 
     return (
       <>
-        <div className="p-4">
-          <h4 className="text-l font-bold">Locations Visited</h4>
+        <div className="p-3 flex-col bg-blue-200 flex justify-center rounded-md">
+          <h4 className="bg-blue-300 text-white text-lg font-bold mb-3 p-2 rounded-md">Locations Visited</h4>
           {isLoaded && <GoogleMap
             id="example-map"
             mapContainerStyle={mapContainerStyle}

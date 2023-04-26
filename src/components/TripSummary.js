@@ -69,8 +69,6 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
         }
     }, [tripMemories]);
 
-    console.log("this is TRIP: " + JSON.stringify(trip))
-
     return (
         <>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
@@ -98,7 +96,9 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
                     </span>
                 </div>
                 <div className="p-4">
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
+                    <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
+                        <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
+                    </div>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {memoriesCategoryCount && memoriesCategoryCount.places ? memoriesCategoryCount.places : "You have no places"} </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faGifts} /> # of Souvenirs: {memoriesCategoryCount && memoriesCategoryCount.souvenirs ? memoriesCategoryCount.souvenirs : "You have no souvenirs"} </h1>
