@@ -114,10 +114,9 @@ export default function IndividualMemory({
             <TransformComponent>
               <img
                 // style={{ width: imageScales[scaleIndex] }}
-                className={styles.imgContainer}
+                className={`${styles.imgContainer} rounded-md`}
                 src={memory.image}
                 alt={memory.title}
-                className="rounded-md"
               />
             </TransformComponent>
           </TransformWrapper>
@@ -171,7 +170,7 @@ export default function IndividualMemory({
             date={memory.date}
             ori_memory={memory}
             load_memory={getIndividualMemory}
-            memoryID={memoryID}
+            memoryID={memory._id}
             title={memory.title}
             router={router}
             tripid={trip._id}
