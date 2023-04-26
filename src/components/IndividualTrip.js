@@ -24,7 +24,7 @@ export default function IndividualTrip({ trip, tripMemories, setTripMemories, ro
         prevUrl='/trips'
 
       />
-      <CategoryButtonWrapper day="All Days" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
+      <CategoryButtonWrapper day="All Days" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
       <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
       <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
     </>
