@@ -7,14 +7,12 @@ import DeleteTrip from "./DeleteTrip";
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export default function EditTrip({ tripID, closeModal, tripName, startMonth, startYear, description }) {
+export default function EditTrip({ editTrip, closeModal, tripName, startMonth, startYear, description }) {
 
     const [curTripName, setCurTripName] = useState(tripName);
-    const [curStartMonth, setCurStartMonth] = useState(startMonth);
-    const [curStartYear, setCurStartYear] = useState(startYear);
+    // const [curStartMonth, setCurStartMonth] = useState(startMonth);
+    // const [curStartYear, setCurStartYear] = useState(startYear);
     const [curDescription, setCurDescription] = useState(description);
-
-    const { isLoaded, userId, sessionId, getToken } = useAuth();
 
     let monthIdx = months.indexOf(startMonth) + 1;
     let startData = startYear;
@@ -26,125 +24,6 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, sta
     }
 
     let dateStr = `${startData}-${monthStr}`;
-    // startData = startData.join('-');
-    // console.log(startData);
-    // startData = startData.append(monthIdx);
-
-    useEffect(() => {
-        const updateTripName = async () => {
-            if (curTripName != tripName) {
-                try {
-                    if (userId) {
-                        const token = await getToken({template: "codehooks"});
-
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
-                            'method': 'PATCH',
-                            'headers': {
-                                'Authorization': 'Bearer ' + token,
-                                'Content-Type': 'application/json'
-                            },
-                            'body': JSON.stringify({
-                                tripName: curTripName
-                            })
-                        });
-                        const result = await response.json();
-                        console.log('Success: ', result);
-                    }
-                }
-                catch (error) {
-                    console.error('Error: ', error);
-                }
-            }
-        }
-        updateTripName();
-    }, [isLoaded, curTripName]);
-
-    useEffect(() => {
-        const updateStartMonth = async () => {
-            if (curStartMonth != startMonth) {
-                try {
-                    if (userId) {
-                        const token = await getToken({template: "codehooks"});
-
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
-                            'method': 'PATCH',
-                            'headers': {
-                                'Authorization': 'Bearer ' + token,
-                                'Content-Type': 'application/json'
-                            },
-                            'body': JSON.stringify({
-                                startMonth: curStartMonth
-                            })
-                        });
-                        const result = await response.json();
-                        console.log('Success: ', result);
-                    }
-                }
-                catch (error) {
-                    console.error('Error: ', error);
-                }
-            }
-        }
-        updateStartMonth();
-    }, [isLoaded, curStartMonth]);
-
-    useEffect(() => {
-        const updateStartYear = async () => {
-            if (curStartYear != startYear) {
-                try {
-                    if (userId) {
-                        const token = await getToken({template: "codehooks"});
-
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
-                            'method': 'PATCH',
-                            'headers': {
-                                'Authorization': 'Bearer ' + token,
-                                'Content-Type': 'application/json'
-                            },
-                            'body': JSON.stringify({
-                                startYear: curStartYear
-                            })
-                        });
-                        const result = await response.json();
-                        console.log('Success: ', result);
-                    }
-                }
-                catch (error) {
-                    console.error('Error: ', error);
-                }
-            }
-        }
-        updateStartYear();
-    }, [isLoaded, curStartYear]);
-
-    useEffect(() => {
-        const updateDescription = async () => {
-            if (curDescription != description) {
-                try {
-                    if (userId) {
-                        const token = await getToken({template: "codehooks"});
-
-                        const response = await fetch(backend_base + `tripFolders/${tripID}`, {
-                            'method': 'PATCH',
-                            'headers': {
-                                'Authorization': 'Bearer ' + token,
-                                'Content-Type': 'application/json'
-                            },
-                            'body': JSON.stringify({
-                                description: curDescription
-                            })
-                        });
-                        const result = await response.json();
-                        console.log('Success: ', result);
-                    }
-                }
-                catch (error) {
-                    console.error('Error: ', error);
-                }
-            }
-        }
-        updateDescription();
-    }, [isLoaded, curDescription]);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -156,11 +35,19 @@ export default function EditTrip({ tripID, closeModal, tripName, startMonth, sta
 
         console.log('form json: ', formJson);
 
-        setCurTripName(formJson.tripName);
-        setCurStartMonth(formJson.startMonth);
-        setCurStartYear(formJson.startYear);
-;        setCurDescription(formJson.description);
+        let startData = formJson.startMonth.split('-');
+        let monthIdx = parseInt(startData[1]) - 1;
+        console.log(months[monthIdx]);
 
+        let editedTrip = {
+            tripName: formJson.tripName,
+            startMonth: formJson.startMonth,
+            startYear: startData[0],
+            description: formJson.description
+        }
+        
+        console.log('edited trip: ', editedTrip);
+        editTrip(editedTrip);
         e.target.reset();
         closeModal(); // Close the pop-up after submitting.
     }
