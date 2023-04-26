@@ -34,14 +34,12 @@ export default function TripSummaryWrapper({ parentId, trip, tripMemories, setTr
         onRequestClose={closeModal}
         contentLabel=" Modal"
       >
-        
         <TripSummary 
             parentId={parentId}
             trip={trip}
             tripMemories={tripMemories}
             setTripMemories={setTripMemories}
-        />
-        
+        /> 
         <button onClick={closeModal}>Close</button>
       </Modal>
     </>
