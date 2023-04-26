@@ -36,6 +36,16 @@ export default function AddTrip({ addTrip, closeModal }) {
         closeModal(); // Close the pop-up after submitting.
     }
 
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let yearStr = year.toString();
+    let monthStr = '';
+    if (month < 10) {
+        monthStr = `0${month}`;
+    }
+    let todayStr = `${yearStr}-${monthStr}`;
+
     return (
         <>
         <form method='post' onSubmit={handleSubmit}>
@@ -55,7 +65,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                     <input
                         type="month"
                         className="border-2 border-slate-600 w-full"
-                        placeholder="Start Month"
+                        placeholder={todayStr}
                         name="startMonth"
                         required
                     ></input>

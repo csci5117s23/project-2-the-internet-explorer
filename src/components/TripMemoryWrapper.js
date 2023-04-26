@@ -51,12 +51,13 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
 
             const result = await response.json();
             console.log('Success: ', result);
+            setTripMemories(tripMemories.concat(result));
             setNewMemory(null);
             setDataUrl("");
 
             // Updates the state variable for what memories are displayed on the page when a new 
             // memories is added.
-            setTripMemories(tripMemories.concat(result));
+            // setTripMemories(tripMemories.concat(result));
 
             // TODO: Update a state variable to possibly update the day-by-day view
             // TODO: in real time.

@@ -45,7 +45,7 @@ async function getAllTrips(req, res) {
 
   const options = {
     filter: query,
-    sort: {"startDate": 1}
+    sort: {"startMonth": 1, "startYear": 1}
   };
   conn.getMany('tripFolders', options).json(res);
 }
