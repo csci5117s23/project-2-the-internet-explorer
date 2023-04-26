@@ -36,6 +36,16 @@ export default function AddTrip({ addTrip, closeModal }) {
         closeModal(); // Close the pop-up after submitting.
     }
 
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1;
+    let yearStr = year.toString();
+    let monthStr = '';
+    if (month < 10) {
+        monthStr = `0${month}`;
+    }
+    let todayStr = `${yearStr}-${monthStr}`;
+
     return (
         <>
         <form method='post' onSubmit={handleSubmit}>
@@ -54,8 +64,8 @@ export default function AddTrip({ addTrip, closeModal }) {
                     <h4 className="text-l font-bold" id="createTripHeader">What month did you go?</h4>
                     <input
                         type="month"
+                        placeholder={todayStr}
                         className="bg-gray-200 p-2 rounded-md w-full"
-                        placeholder="Start Month"
                         name="startMonth"
                         maxLength={20}
                         required

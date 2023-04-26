@@ -70,6 +70,8 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
   useEffect(() => {
     const findDayMemories = async () => {
       if (tripMemories) {
+        console.log('trip memories: ', tripMemories);
+        console.log('finding day memories');
         let params = {
           'day': date
         };
@@ -96,7 +98,7 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
       }
     }
     findDayMemories();
-  }, [tripMemories, router]);
+  }, [router]);
 
   // let dayMemoriesList = [];
   // if (!loadingMemories) {

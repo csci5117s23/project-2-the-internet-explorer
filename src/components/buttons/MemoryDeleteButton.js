@@ -28,6 +28,7 @@ export default function MemoryDeleteButton({
           router.push("/404");
           return;
         }
+        console.log(await response.json());
         alert("Successfully deleted");
         router.push(`/trips/${tripid}`);
       }
