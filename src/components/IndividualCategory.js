@@ -55,7 +55,7 @@ export default function IndividualCategory({ trip, category, tripMemories, setTr
         prevUrl={`/trips/${trip._id}`}
         day={"All Days"}
       />
-      <CategoryButtonWrapper tripID={trip._id} curr_category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
+      <CategoryButtonWrapper tripID={trip._id} trip={trip} curr_category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
       <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
         <br></br>
         <>{categoryMemories}</>

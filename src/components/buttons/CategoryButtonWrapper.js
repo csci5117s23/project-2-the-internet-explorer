@@ -7,7 +7,7 @@ import EditTripWrapper from '../EditTripWrapper.js';
 
 const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
 
-export default function CategoryButtonWrapper({ tripID, date, curr_category, tripMemories, setTripMemories }) {
+export default function CategoryButtonWrapper({ tripID, trip, date, curr_category, tripMemories, setTripMemories }) {
 
   function isSelected(name) {
     if (name === curr_category) {
@@ -29,7 +29,7 @@ export default function CategoryButtonWrapper({ tripID, date, curr_category, tri
         pressed={isSelected(str)}
         />
       ))}
-      <TripSummaryWrapper parentId={tripID} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
+      <TripSummaryWrapper parentId={tripID} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
     </div>
   )
 }
