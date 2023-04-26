@@ -31,6 +31,7 @@ export default function IndividualMemory({
   const [scaleIndex, setScaleIndex] = useState(0);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+  let memoryID = memory._id;
 
   const getIndividualMemory = async () => {
     try {
@@ -113,8 +114,8 @@ export default function IndividualMemory({
           <TransformWrapper>
             <TransformComponent>
               <img
-                style={{ width: imageScales[scaleIndex] }}
-                // className={styles.imgContainer}
+                // style={{ width: imageScales[scaleIndex] }}
+                className={styles.imgContainer}
                 src={memory.image}
                 alt={memory.title}
                 className="rounded-md"
@@ -158,12 +159,12 @@ export default function IndividualMemory({
 
         <div>
           {/* edit and delete buttons here */}
-          <MemoryDeleteButton
-            memoryID={memory._id}
+          {/* <MemoryDeleteButton
+            memoryID={memoryID}
             title={memory.title}
             router={router}
             tripid={trip._id}
-          ></MemoryDeleteButton>
+          ></MemoryDeleteButton> */}
           <EditMemoryWrapper
             parentId={trip._id}
             startDate={trip.startDate}
@@ -171,6 +172,10 @@ export default function IndividualMemory({
             date={memory.date}
             ori_memory={memory}
             load_memory={getIndividualMemory}
+            memoryID={memoryID}
+            title={memory.title}
+            router={router}
+            tripid={trip._id}
           ></EditMemoryWrapper>
         </div>
       </div>

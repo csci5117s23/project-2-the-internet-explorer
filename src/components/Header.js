@@ -10,13 +10,13 @@ export default function Header({title, back, prevUrl, day}) {
     <div className={`${styles.headerDiv} grid grid-cols-8`}>
       <div className="col-start-1 col-span-1 flex items-center pl-3 gap-3">
         {back ? <BackButton prevUrl={prevUrl} /> : <div></div>}
-        <DayDropdown day={day} />
+        
       </div>
       <div className="col-start-2 col-end-8 flex justify-center py-1">
         <h1 className={`${styles.headerTitle}`}>{title}</h1>
       </div>
       <div className="col-start-8 pr-2">
-        <h1 className={`${styles.headerUser}`}>
+        <h1 className="flex justify-end pr-2 pt-[0.075em] center-items">
           <UserButton appearance={{ elements: { rootBox: "scale-150" } }} />
         </h1>
       </div>

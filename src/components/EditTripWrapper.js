@@ -26,12 +26,12 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
   useEffect(() => {
     const editTrip = async () => {
       if(editedTrip){
-        try {
-          if (userId) {
+        if (userId) {
+          try {
             const token = await getToken({template: "codehooks"});
             
-            const response = await fetch(backend_base + `tripFolders/${tripID}`, {
-              'method': 'PUT',
+            const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
+              'method': 'PATCH',
               'headers': {
                 'Authorization': 'Bearer ' + token,
                 'Content-Type': 'application/json'
@@ -42,12 +42,12 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
             console.log('Success: ', result);
             setEditedTrip(null);
           }
-        }
-        catch (error) {
-          console.error('Error: ', error);
+          catch (error) {
+            console.error('Error: ', error);
+          }
         }
       }
-    }
+    };
     editTrip();
   }, [isLoaded, editedTrip]);
   
@@ -73,7 +73,10 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           startYear={startYear}
           description={description}
         />
-        <button onClick={closeModal}>Close</button>
+        <button 
+          onClick={closeModal}
+          className="px-4 py-2 font-semibold text-m bg-gray-400 border-black text-white rounded-full shadow-sm"
+        >Close</button>
         <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal}/>
       </Modal>
     </>
