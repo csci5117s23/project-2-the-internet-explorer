@@ -41,7 +41,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
 
         let editedTrip = {
             tripName: formJson.tripName,
-            startMonth: formJson.startMonth,
+            startMonth: months[monthIdx],
             startYear: startData[0],
             description: formJson.description
         }
@@ -89,7 +89,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
                     ></textarea>
                 </div>
 
-                <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
+                <button type='submit' className="ml-3 mb-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
             </div>
         </form>
         
