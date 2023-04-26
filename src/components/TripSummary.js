@@ -71,19 +71,21 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
                     currentCoordinate={coordinatesList[currentIndex]}
                 />
                 <div className={styles.tripSummaryPaging}>
-                    <button
-                        style={{fontSize: "1.5em", paddingRight: "2%"}}
-                        onClick={handleLeftClick}
-                    >
-                        <FontAwesomeIcon icon={faSquareCaretLeft} />
-                    </button>
-                    <span style={{fontSize: "1.5em"}}>{currentIndex + 1}</span>
-                    <button
-                        style={{fontSize: "1.5em", paddingLeft: "2%"}}
-                        onClick={handleRightClick}
-                    >
-                        <FontAwesomeIcon icon={faSquareCaretRight} />
-                    </button>
+                    <span>
+                        <button
+                            style={{fontSize: "1.5em", paddingRight: "2%"}}
+                            onClick={handleLeftClick}
+                        >
+                            <FontAwesomeIcon icon={faSquareCaretLeft} />
+                        </button>
+                        <span style={{fontSize: "1.5em"}}>{currentIndex + 1}</span>
+                        <button
+                            style={{fontSize: "1.5em", paddingLeft: "2%"}}
+                            onClick={handleRightClick}
+                        >
+                            <FontAwesomeIcon icon={faSquareCaretRight} />
+                        </button>
+                    </span>
                 </div>
                 <div className="p-4">
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
