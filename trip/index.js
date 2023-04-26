@@ -6,7 +6,7 @@
 import {app, Datastore} from 'codehooks-js';
 import {crudlify} from 'codehooks-crudlify';
 import jwtDecode from "jwt-decode";
-import { object, string, date } from "yup";
+import { object, string, date, integer } from "yup";
 
 // test route for https://<PROJECTID>.api.codehooks.io/dev/
 app.get('/', (req, res) => {
@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
 //create the trip folder
 const tripFolderYup = object({
   tripName: string().required(),      // The name of the trip.
-  startMonth: string().required(),    // The start month of the trip.
-  startYear: string().required(),     // The start year of the trip.
+  startMonth: integer().required(),   // The start month of the trip.
+  startYear: integer().required(),    // The start year of the trip.
   description: string(),              // An optional description of the trip.
   user: string().required(),          // The user that created the trip.
 });
