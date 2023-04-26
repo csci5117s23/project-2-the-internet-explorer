@@ -130,8 +130,8 @@ export default function IndividualMemory({
           <TransformWrapper>
             <TransformComponent>
               <img
-                style={{ width: imageScales[scaleIndex] }}
-                // className={styles.imgContainer}
+                // style={{ width: imageScales[scaleIndex] }}
+                className={styles.imgContainer}
                 src={memory.image}
                 alt={memory.title}
               />
