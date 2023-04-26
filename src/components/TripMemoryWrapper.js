@@ -94,7 +94,6 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
           date={date}
         />
         
-        <button onClick={closeModal}>Close</button>
       </Modal>
     </>
   );

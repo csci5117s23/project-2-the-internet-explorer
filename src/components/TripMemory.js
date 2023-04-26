@@ -189,12 +189,13 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     return (
         <>
         <form method='post' onSubmit={handleSubmit}>
-            <h1 className={`text-xl font-bold ${styles.tripMemoryHeader}`}>Add Memory</h1>
-            <div className={styles.tripMemoryContainer}>
+            <div className="p-20 max-md:px-5 pt-36 -mt-16">
+            <h1 className={`text-xl font-bold pl-3.5`}>Add Memory</h1>
+
                 <div className="p-4">
                     <h4 className="text-l font-bold">Title</h4>
                     <input 
-                        className="border-2 border-slate-600 w-full"
+                        className="bg-gray-200 p-2 rounded-md w-full"
                         placeholder="Title"
                         id="title"
                         name="title"
@@ -206,7 +207,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                     {date ? (
                         <input 
                             type='date'
-                            className='border-2 border-slate-600 w-full'
+                            className='bg-gray-200 p-2 rounded-md w-full'
                             id='date'
                             name='date'
                             disabled
@@ -215,7 +216,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                     ) : (
                         <input
                             type="date"
-                            className="border-2 border-slate-600 w-full"
+                            className="bg-gray-200 p-2 rounded-md w-full"
                             placeholder="Date"
                             id="date"
                             name="date"
@@ -326,13 +327,15 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 <div className="p-4">
                     <h4 className="text-l font-bold">Brief Description</h4>
                     <textarea 
-                        className="border-2 border-slate-600 w-full h-20"
+                        className="bg-gray-200 p-2 rounded-md w-full h-20"
                         placeholder="Brief Description"
                         id="description"
                         name="description"
                     ></textarea>
                 </div>
                 <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
+                <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
+
             </div>
         </form>
         </>
