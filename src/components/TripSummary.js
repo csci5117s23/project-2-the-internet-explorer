@@ -5,9 +5,9 @@ import moment from "moment";
 import TripSummaryMap from "./TripSummaryMap";
 import styles from '../styles/TripSummary.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCameraRetro, faClock, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
+import { faCameraRetro, faClock, faPen, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
-export default function TripSummary({parentId, tripMemories, setTripMemories}) { 
+export default function TripSummary({parentId, trip, tripMemories, setTripMemories}) { 
     const [coordinatesDict, setCoordinatesDict] = useState({});
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
     const [tripDuration, setTripDuration] = useState();
@@ -69,6 +69,8 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
         }
     }, [tripMemories]);
 
+    console.log("this is TRIP: " + JSON.stringify(trip))
+
     return (
         <>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
@@ -96,13 +98,14 @@ export default function TripSummary({parentId, tripMemories, setTripMemories}) {
                     </span>
                 </div>
                 <div className="p-4">
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
+                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
+                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {memoriesCategoryCount && memoriesCategoryCount.places ? memoriesCategoryCount.places : "You have no places"} </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faGifts} /> # of Souvenirs: {memoriesCategoryCount && memoriesCategoryCount.souvenirs ? memoriesCategoryCount.souvenirs : "You have no souvenirs"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faUtensils} /> # of Food: {memoriesCategoryCount && memoriesCategoryCount.food ? memoriesCategoryCount.food : "You have no food"}</h1>
+                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faUtensils} /> # of Food: {memoriesCategoryCount && memoriesCategoryCount.food ? memoriesCategoryCount.food : "You have no food"}</h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCalendarDay} /> # of Events: {memoriesCategoryCount && memoriesCategoryCount.events ? memoriesCategoryCount.events : "no current events"} </h1>
                     <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPerson} /> # of People: {memoriesCategoryCount && memoriesCategoryCount.people ? memoriesCategoryCount.people : "You have no people"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}><FontAwesomeIcon icon={faCameraRetro} /> # of Photos: {totalMemories ? totalMemories : "You have no photos"}</h1>
+                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCameraRetro} /> # of Photos: {totalMemories ? totalMemories : "You have no photos"}</h1>
                 </div>
             </div>
         </>

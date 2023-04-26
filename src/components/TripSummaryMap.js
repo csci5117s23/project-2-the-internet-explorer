@@ -22,8 +22,6 @@ export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, cu
         }
     }, [mapInstance, currentCoordinate]);
 
-    console.log("this is current coordinate: " + JSON.stringify(currentCoordinate))
-
     return (
       <>
         <div className="p-4">

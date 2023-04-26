@@ -149,7 +149,7 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
         prevUrl={prevUrl}
         day={`${curDateStr}`}
       />
-      <CategoryButtonWrapper tripID={trip._id} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
+      <CategoryButtonWrapper tripID={trip._id} trip={trip} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
       {/* {loadingMemories ? (
         <LoadingCircle></LoadingCircle>
       ) : (
