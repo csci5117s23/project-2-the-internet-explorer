@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from '../styles/AddTrip.module.css';
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function AddTrip({ addTrip, closeModal }) {
     function handleSubmit(e) {
@@ -16,16 +16,16 @@ export default function AddTrip({ addTrip, closeModal }) {
 
         // Separate the month and the year from the form month input.
         let startData = formJson.startMonth.split('-');
-        let monthIdx = parseInt(startData[1]) - 1;
-        console.log(months[monthIdx]);
+        // let monthIdx = parseInt(startData[1]) - 1;
+        // console.log(months[monthIdx]);
 
         // let newStart = new Date(formJson.startDate.replace(/-/g, '\/'));
         // let newEnd = new Date(formJson.endDate.replace(/-/g, '\/'));
 
         let newTrip = {
             tripName: formJson.tripName,
-            startMonth: months[monthIdx],
-            startYear: startData[0],
+            startMonth: parseInt(startData[1]),
+            startYear: parseInt(startData[0]),
             description: formJson.description
         };
 
@@ -36,15 +36,15 @@ export default function AddTrip({ addTrip, closeModal }) {
         closeModal(); // Close the pop-up after submitting.
     }
 
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let yearStr = year.toString();
-    let monthStr = '';
-    if (month < 10) {
-        monthStr = `0${month}`;
-    }
-    let todayStr = `${yearStr}-${monthStr}`;
+    // let today = new Date();
+    // let year = today.getFullYear();
+    // let month = today.getMonth() + 1;
+    // let yearStr = year.toString();
+    // let monthStr = '';
+    // if (month < 10) {
+    //     monthStr = `0${month}`;
+    // }
+    // let todayStr = `${yearStr}-${monthStr}`;
 
     return (
         <>

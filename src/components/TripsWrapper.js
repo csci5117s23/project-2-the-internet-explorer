@@ -46,13 +46,12 @@ export default function TripsWrapper({ uploadedTrip }) {
         let mutableTrips = [...allTrips];
         mutableTrips = mutableTrips.concat(uploadedTrip);
         mutableTrips.sort((a, b) => {
-          if (a.startDate < b.startDate) {
-            return -1;
-          } 
-          if (a.startDate > b.startDate) {
-            return 1;
+          // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+          if (a.startYear === b.startYear) {
+            return a.startMonth < b.startMonth ? -1 : 1;
+          } else {
+            return a.startYear < b.startYear ? -1 : 1;
           }
-          return 0;
         });
         setAllTrips(mutableTrips);
       }

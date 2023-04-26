@@ -28,7 +28,7 @@ const DayDropdown = ({day, tripMemories, router}) => {
               let curDate = new Date(date);
               let month = curDate.getMonth();
               let day = curDate.getDate();
-              daysList.push( `${months[month]} ${day}`);
+              daysList.push(`${months[month]} ${day}`);
                 
             }
     

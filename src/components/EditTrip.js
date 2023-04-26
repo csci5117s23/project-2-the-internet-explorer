@@ -15,15 +15,20 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
     const [curDescription, setCurDescription] = useState(description);
 
     let monthIdx = months.indexOf(startMonth) + 1;
-    let startData = startYear;
-    let monthStr = '';
+    let yearStr = startYear.toString();
+    let monthStr = monthIdx.toString();
+    // if (monthIdx < 10) {
+    //     monthStr = `0${monthIdx}`;
+    // } else {
+    //     monthStr = monthIdx.toString();
+    // }
+
     if (monthIdx < 10) {
-        monthStr = `0${monthIdx}`;
-    } else {
-        monthStr = monthIdx.toString();
+        monthStr=`0${monthIdx}`;
     }
 
-    let dateStr = `${startData}-${monthStr}`;
+    let dateStr = `${yearStr}-${monthStr}`;
+    console.log('date string: ', dateStr);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -36,13 +41,13 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
         console.log('form json: ', formJson);
 
         let startData = formJson.startMonth.split('-');
-        let monthIdx = parseInt(startData[1]) - 1;
-        console.log(months[monthIdx]);
+        // let monthIdx = parseInt(startData[1]) - 1;
+        // console.log(months[monthIdx]);
 
         let editedTrip = {
             tripName: formJson.tripName,
-            startMonth: months[monthIdx],
-            startYear: startData[0],
+            startMonth: parseInt(startData[1]),
+            startYear: parseInt(startData[0]),
             description: formJson.description
         }
         
