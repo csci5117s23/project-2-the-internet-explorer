@@ -16,15 +16,12 @@ export default function DeleteTrip({ tripID, closeModal }) {
             try {
                 if (userId) {
                     const token = await getToken({template: "codehooks"});
-
                     const response = await fetch(backend_base + `tripFolders/${tripID}`, {
                         'method': 'DELETE',
                         'headers': {
-                            'Authorization': 'Bearer ' + token
+                            'Authorization': 'Bearer ' + token,
                         }
                     });
-                    const result = await response.json();
-                    console.log('Success: ', result);
                 }
             }
             catch (error) {
