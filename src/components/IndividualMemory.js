@@ -104,7 +104,7 @@ export default function IndividualMemory({
       <Header title={memory.title} back={true} prevUrl={prevUrl} />
       <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
         <label for="imgScale">Resize Image:  
-          <input type="number" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
+          <input type="range" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
         </label>
         <div className="flex p-2 justify-center">
           <TransformWrapper>

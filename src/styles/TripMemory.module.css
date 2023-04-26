@@ -59,10 +59,7 @@
 }
 
 .imgScale {
-    border: 1px solid;
-    border-radius: 0.25em;
-    padding: 0 0.1em 0 0.25em;
-    width: 3em;
+    margin-left: 0.5em;
 }
 
 @media screen and (width < 501px) {
