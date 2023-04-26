@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "../../styles/TripMemory.module.css";
 import { useAuth } from "@clerk/nextjs";
 import MemoryEditButton from "./MemoryEditButton";
+import MemoryDeleteButton from "./MemoryDeleteButton";
 Modal.setAppElement("body");
 
 export default function EditMemoryWrapper({
@@ -16,6 +17,10 @@ export default function EditMemoryWrapper({
   date,
   ori_memory,
   load_memory,
+  memoryID,
+  title,
+  router,
+  tripid
 }) {
   // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 
@@ -72,7 +77,7 @@ export default function EditMemoryWrapper({
   return (
     <>
       <button
-        className="px-2 py-2 ml-2 font-semibold text-m bg-custom-blue text-white rounded-lg shadow-sm"
+        className="px-4 py-2 ml-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         onClick={openModal}
       >
         Edit
@@ -93,7 +98,16 @@ export default function EditMemoryWrapper({
           ori_memory={ori_memory}
         />
 
-        <button onClick={closeModal}>Close</button>
+        <button 
+          onClick={closeModal}
+          className="px-4 py-2 font-semibold text-m bg-gray-400 border-black text-white rounded-full shadow-sm"
+        >Close</button>
+        <MemoryDeleteButton
+            memoryID={memoryID}
+            title={title}
+            router={router}
+            tripid={tripid}
+          ></MemoryDeleteButton>
       </Modal>
     </>
   );
