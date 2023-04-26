@@ -54,7 +54,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
 
     return (
         <>
-        <form onSubmit={handleSubmit}>
+        <form method='post' onSubmit={handleSubmit}>
             <h1 className={`text-xl font-bold ${styles.createTripHeader}`}>Edit Trip</h1>
             <div className={styles.addTripContainer}>
                 <div className="p-4">
