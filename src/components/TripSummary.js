@@ -16,17 +16,15 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
     const [currentLocationKey, setCurrentLocationKey] = useState(null);
 
     const handleLeftClick = () => {
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
-            setCurrentLocationKey(Object.keys(coordinatesDict)[currentIndex - 1]);
-        }
+        const keys = Object.keys(coordinatesDict);
+        setCurrentIndex((currentIndex - 1 + keys.length) % keys.length);
+        setCurrentLocationKey(keys[(currentIndex - 1 + keys.length) % keys.length]);
     };
       
     const handleRightClick = () => {
-        if (currentIndex < Object.keys(coordinatesDict).length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            setCurrentLocationKey(Object.keys(coordinatesDict)[currentIndex + 1]);
-        }
+        const keys = Object.keys(coordinatesDict);
+        setCurrentIndex((currentIndex + 1) % keys.length);
+        setCurrentLocationKey(keys[(currentIndex + 1) % keys.length]);
     };
 
     useEffect(() => {
