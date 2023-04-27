@@ -12,6 +12,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     // const [coordinates, setCoordinates] = useState(null);
     const [mapInstance, setMapInstance] = useState(null);
     const [userPosition, setUserPosition] = useState(null);
+    const [geocoder, setGeocoder] = useState(null);
 
     const onLoad = (ref) => setSearchBox(ref);
 
@@ -22,25 +23,52 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     });
 
     useEffect(() => {
-        
-        if (!userPosition) {
-          // Get the user's current location
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const { latitude, longitude } = position.coords;
-              const pos = { lat: latitude, lng: longitude }
-              setUserPosition(pos);
-            },
-            (error) => {
-              console.error("Error getting user location:", error);
-            },
-            { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
-          );
-        } else {
-            setCoordinates(userPosition);
-        }
-      
+      if (isLoaded && !geocoder) {
+        setGeocoder(new window.google.maps.Geocoder());
+      }
+    }, [isLoaded, geocoder]);
+    
+
+    useEffect(() => {
+      if (!userPosition) {
+        // Get the user's current location
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            const pos = { lat: latitude, lng: longitude }
+            setUserPosition(pos);
+          },
+          (error) => {
+            console.error("Error getting user location:", error);
+          },
+          { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
+        );
+      } else {
+        setCoordinates(userPosition);
+        reverseGeocode(userPosition);
+      }
     }, [userPosition]);
+
+    const reverseGeocode = (pos) => {
+      if (geocoder) {
+        geocoder.geocode({ location: pos }, (results, status) => {
+          if (status === "OK") {
+            if (results[0]) {
+              console.log("this is results: " + JSON.stringify(results[0]))
+              const locationName = results[0].address_components
+                .filter(addressComponent => addressComponent.types.includes('street_number') || addressComponent.types.includes('route'))
+                .map(addressComponent => addressComponent.long_name)
+                .join(' ');
+              setLocation(locationName);
+            } else {
+              console.error("No results found");
+            }
+          } else {
+            console.error("Geocoder failed due to: " + status);
+          }
+        });
+      }
+    };
 
     const onPlacesChanged =() => {
         const place = searchBox.getPlaces()[0];
