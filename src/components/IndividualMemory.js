@@ -14,10 +14,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
 import EditMemoryWrapper from "./buttons/MemoryEditButtonWrapper";
-import styles from '../styles/TripMemory.module.css';
+import styles from "../styles/TripMemory.module.css";
 Modal.setAppElement("body");
 
-const imageScales = ['50vw', '55vw', '60vw', '65vw', '70vw', '75vw', '80vw', '85vw', '90vw'];
+const imageScales = [
+  "50vw",
+  "55vw",
+  "60vw",
+  "65vw",
+  "70vw",
+  "75vw",
+  "80vw",
+  "85vw",
+  "90vw",
+];
 
 export default function IndividualMemory({
   trip,
@@ -26,7 +36,7 @@ export default function IndividualMemory({
   params,
   router,
   tripMemories,
-  setTripMemories
+  setTripMemories,
 }) {
   // const [memory, setMemory] = useState(null);
   // const [loadingMemory, setLoadingMemory] = useState(true);
@@ -64,7 +74,7 @@ export default function IndividualMemory({
   //     console.error("Error: ", error);
   //   }
   // };
-  
+
   // useEffect(() => {
   //   getIndividualMemory();
   // }, [isLoaded, router]);
@@ -112,9 +122,7 @@ export default function IndividualMemory({
         {/* <label for="imgScale">Resize Image:   */}
 
         {/* </label> */}
-        <div
-          className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7"
-        >
+        <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
           <div className="flex p-2 justify-center">
             {/* <TransformWrapper>
             <TransformComponent> */}
@@ -142,7 +150,7 @@ export default function IndividualMemory({
           <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
             {moment(curMemory.date).format("YYYY-MM-DD")}
           </div>
-          <div className="rounded-lg bg-sky-400 text-white p-2 mr-2">
+          <div className="rounded-lg bg-sky-300 text-white p-2 mr-2">
             {curMemory.category}
           </div>
         </div>
@@ -155,7 +163,13 @@ export default function IndividualMemory({
           <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">
             Location
           </h1>
-          <div className="flex justify-center bg-blue-300 p-5 m-5 rounded-md">
+          {/* <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">
+            {curMemory.location}
+          </h1> */}
+          <div className="flex flex-col items-center justify-center gap-4 bg-blue-300 p-5 m-5 rounded-md">
+            <div className="text-white text-lg font-bold bg-sky-400 p-2 rounded-md">
+              {curMemory.location}
+            </div>
             <MemoryMap
               lat={curMemory.latitude}
               lng={curMemory.longitude}
