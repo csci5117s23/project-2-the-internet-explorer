@@ -28,7 +28,8 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           navigator.geolocation.getCurrentPosition(
             (position) => {
               const { latitude, longitude } = position.coords;
-              setUserPosition({ lat: latitude, lng: longitude });
+              const pos = { lat: latitude, lng: longitude }
+              setUserPosition(pos);
             },
             (error) => {
               console.error("Error getting user location:", error);

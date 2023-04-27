@@ -7,7 +7,7 @@ import styles from '../styles/TripSummary.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faPen, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
-export default function TripSummary({parentId, trip, tripMemories, setTripMemories}) { 
+export default function TripSummary({parentId, trip, tripMemories, setTripMemories, closeModal}) { 
     const [coordinatesDict, setCoordinatesDict] = useState({});
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
     const [tripDuration, setTripDuration] = useState();
@@ -69,6 +69,7 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
 
     return (
         <>
+        <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
             <div className={`p-2 ${styles.tripSummaryContainer}`}>
                 <TripSummaryMap 
@@ -84,7 +85,7 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
                         >
                             <FontAwesomeIcon icon={faSquareCaretLeft} />
                         </button>
-                        <span style={{fontSize: "1.5em"}}>{currentIndex + 1}</span>
+                        <span style={{fontSize: "1.5em"}}>{currentLocationKey}</span>
                         <button
                             style={{fontSize: "1.5em", paddingLeft: "2%"}}
                             onClick={handleRightClick}
