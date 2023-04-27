@@ -77,23 +77,25 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
                     setCoordinatesDict={setCoordinatesDict}
                     currentCoordinate={coordinatesDict[currentLocationKey]}
                 />
-                <div className={styles.tripSummaryPaging}>
-                    <span>
-                        <button
-                            style={{fontSize: "1.5em", paddingRight: "2%"}}
-                            onClick={handleLeftClick}
-                        >
-                            <FontAwesomeIcon icon={faSquareCaretLeft} />
-                        </button>
-                        <span style={{fontSize: "1.5em"}}>{currentLocationKey}</span>
-                        <button
-                            style={{fontSize: "1.5em", paddingLeft: "2%"}}
-                            onClick={handleRightClick}
-                        >
-                            <FontAwesomeIcon icon={faSquareCaretRight} />
-                        </button>
-                    </span>
-                </div>
+                {Object.keys(coordinatesDict).length > 0 && (
+                    <div className={styles.tripSummaryPaging}>
+                        <span>
+                            <button
+                                style={{fontSize: "1.5em", paddingRight: "2%"}}
+                                onClick={handleLeftClick}
+                            >
+                                <FontAwesomeIcon icon={faSquareCaretLeft} />
+                            </button>
+                            <span style={{fontSize: "1.5em"}}>{currentLocationKey}</span>
+                            <button
+                                style={{fontSize: "1.5em", paddingLeft: "2%"}}
+                                onClick={handleRightClick}
+                            >
+                                <FontAwesomeIcon icon={faSquareCaretRight} />
+                            </button>
+                        </span>
+                    </div>
+                )}
                 <div className="p-4">
                     <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
                         <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
