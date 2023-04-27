@@ -5,7 +5,7 @@ import { useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react'
 
 
-const DayDropdown = ({day, tripMemories, tripID, router}) => {
+const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
   console.log('day in day dropdown: ', day);
 
   const [tripDays, setTripDays] = useState([]);
@@ -77,7 +77,7 @@ const DayDropdown = ({day, tripMemories, tripID, router}) => {
           <div className='py-1'>
             {day != "All Days" ? (
               <Menu.Item key={"All Days"}>
-                <Link href={`/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+                <Link href={curCategory ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
                   All Days
                 </Link>
               </Menu.Item>
@@ -85,9 +85,13 @@ const DayDropdown = ({day, tripMemories, tripID, router}) => {
               <></>
             )}
             {tripDays.map((object, i) => {
+              let link = `/trips/${tripID}/day?day=${object.iso}`;
+              if (curCategory && curCategory != "All Categories") {
+                link += `&category=${curCategory}`;
+              }
               return (
                 <Menu.Item key={i}>
-                  <Link href={`/trips/${tripID}/day?day=${object.iso}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+                  <Link href={link} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
                     {object.dateStr}
                   </Link>
                 </Menu.Item>
