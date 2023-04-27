@@ -1,10 +1,12 @@
 import Link from "next/link";
 
 const CategoryButton = ({name, tripId, date, pressed}) => {
+    console.log('date in category button: ', date);
     let link = `/trips/${tripId}/category?category=${name}`;
     if (date) {
         link = `/trips/${tripId}/day?day=${date}&category=${name}`;
     }
+    // console.log('link: ', link);
 
     return (pressed ? (
         <Link href={link}>

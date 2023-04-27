@@ -9,6 +9,8 @@ import DayDropdown from './DayDropdown.js';
 const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
 
 export default function CategoryButtonWrapper({ tripID, trip, date, curr_category, tripMemories, setTripMemories, day, router }) {
+  // console.log('date in category wrapper: ', date);
+  // console.log('day in category wrapper: ', day);
 
   function isSelected(name) {
     if (name === curr_category) {
