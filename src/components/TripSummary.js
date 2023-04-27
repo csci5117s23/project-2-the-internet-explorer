@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import React, { useState, useEffect, useCallback } from "react";
 import moment from "moment";
 import TripSummaryMap from "./TripSummaryMap";
@@ -69,7 +67,7 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
 
     return (
         <>
-        <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
+        <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Close</button>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
             <div className={`p-2 ${styles.tripSummaryContainer}`}>
                 <TripSummaryMap 
