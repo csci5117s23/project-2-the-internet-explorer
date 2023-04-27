@@ -34,7 +34,7 @@ export default function CategoryButtonWrapper({ tripID, trip, date, curr_categor
       </div>
 
       <div className="flex justify-between">
-      <DayDropdown day={day} tripMemories={tripMemories} router={router} />
+      <DayDropdown day={day} tripMemories={tripMemories} tripID={tripID} router={router} />
       <TripSummaryWrapper
       parentId={tripID} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
       </div>
