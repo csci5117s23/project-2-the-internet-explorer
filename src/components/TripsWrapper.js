@@ -6,38 +6,38 @@ import { useAuth } from "@clerk/clerk-react";
 import LoadingCircle from "./LoadingCircle";
 
 
-export default function TripsWrapper({ uploadedTrip }) {
+export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
   // This is the wrapper for the trips list.
   
-  const [allTrips, setAllTrips] = useState([]);
-  const [loadingTrips, setLoadingTrips] = useState(true);
+  // const [allTrips, setAllTrips] = useState([]);
+  // const [loadingTrips, setLoadingTrips] = useState(true);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
-  useEffect(() => {
-    const getAllTrips = async () => {
-      if (userId) {
-        try {
-          const token = await getToken({ template: "codehooks" });
+  // useEffect(() => {
+  //   const getAllTrips = async () => {
+  //     if (userId) {
+  //       try {
+  //         const token = await getToken({ template: "codehooks" });
 
-          const response = await fetch(backend_base + '/getAllTrips', {
-            'method': 'GET',
-            'headers': {
-              'Authorization': 'Bearer ' + token
-            }
-          });
+  //         const response = await fetch(backend_base + '/getAllTrips', {
+  //           'method': 'GET',
+  //           'headers': {
+  //             'Authorization': 'Bearer ' + token
+  //           }
+  //         });
 
-          const data = await response.json();
-          console.log('all data: ', data);
-          setAllTrips(data);
-          setLoadingTrips(false);
-        } catch (error) {
-          console.error('Error: ', error);
-        }
-      }
-    }
-    getAllTrips();
-  }, []);
+  //         const data = await response.json();
+  //         console.log('all data: ', data);
+  //         setAllTrips(data);
+  //         setLoadingTrips(false);
+  //       } catch (error) {
+  //         console.error('Error: ', error);
+  //       }
+  //     }
+  //   }
+  //   getAllTrips();
+  // }, []);
 
   useEffect(() => {
     // Update allTrips with a new trip, then sort the new list by start date.
@@ -59,7 +59,11 @@ export default function TripsWrapper({ uploadedTrip }) {
     updateTrips();
   }, [uploadedTrip]);
 
-  console.log('loading: ', loadingTrips);
+  // console.log('loading: ', loadingTrips);
+
+  return (
+    <TripsList trips={allTrips}></TripsList>
+  );
 
   return (loadingTrips ? (
     <LoadingCircle></LoadingCircle>
