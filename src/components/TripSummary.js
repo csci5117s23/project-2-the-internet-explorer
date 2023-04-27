@@ -72,7 +72,7 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
     return (
         <>
          <h1 className={`text-xl font-bold ${styles.tripSummaryHeader}`}>Trip Summary</h1>
-            <div className={styles.tripSummaryContainer}>
+            <div className={`p-2 ${styles.tripSummaryContainer}`}>
                 <TripSummaryMap 
                     coordinatesDict={coordinatesDict}
                     setCoordinatesDict={setCoordinatesDict}
@@ -99,13 +99,17 @@ export default function TripSummary({parentId, trip, tripMemories, setTripMemori
                     <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
                         <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
                     </div>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {memoriesCategoryCount && memoriesCategoryCount.places ? memoriesCategoryCount.places : "You have no places"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faGifts} /> # of Souvenirs: {memoriesCategoryCount && memoriesCategoryCount.souvenirs ? memoriesCategoryCount.souvenirs : "You have no souvenirs"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faUtensils} /> # of Food: {memoriesCategoryCount && memoriesCategoryCount.food ? memoriesCategoryCount.food : "You have no food"}</h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCalendarDay} /> # of Events: {memoriesCategoryCount && memoriesCategoryCount.events ? memoriesCategoryCount.events : "no current events"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPerson} /> # of People: {memoriesCategoryCount && memoriesCategoryCount.people ? memoriesCategoryCount.people : "You have no people"} </h1>
-                    <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCameraRetro} /> # of Photos: {totalMemories ? totalMemories : "You have no photos"}</h1>
+                    <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
+                        <div className="text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md">
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faClock} /> Duration of Trip: {tripDuration ? `${tripDuration} days` : "N/A"}</h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faMapLocationDot} /> # of Places: {memoriesCategoryCount && memoriesCategoryCount.places ? memoriesCategoryCount.places : "You have no places"} </h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faGifts} /> # of Souvenirs: {memoriesCategoryCount && memoriesCategoryCount.souvenirs ? memoriesCategoryCount.souvenirs : "You have no souvenirs"} </h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faUtensils} /> # of Food: {memoriesCategoryCount && memoriesCategoryCount.food ? memoriesCategoryCount.food : "You have no food"}</h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCalendarDay} /> # of Events: {memoriesCategoryCount && memoriesCategoryCount.events ? memoriesCategoryCount.events : "no current events"} </h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPerson} /> # of People: {memoriesCategoryCount && memoriesCategoryCount.people ? memoriesCategoryCount.people : "You have no people"} </h1>
+                            <h1 className={`text-l font-bold ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faCameraRetro} /> # of Photos: {totalMemories ? totalMemories : "You have no photos"}</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>
