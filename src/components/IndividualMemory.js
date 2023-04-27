@@ -129,26 +129,6 @@ export default function IndividualMemory({
           </TransformWrapper> */}
           </div>
         </div>
-        <span className="flex justify-center bg-gray-200 mt-2 mb-5 p-2 mx-28 rounded-md place-items-center">
-          <FontAwesomeIcon
-            icon={faImage}
-            style={{ color: "#000000", fontSize: "small" }}
-          />
-          <input
-            type="range"
-            className={styles.imgScale}
-            id="imgScale"
-            name="imgScale"
-            min="0"
-            max="8"
-            onChange={handleIndex}
-            defaultValue="0"
-          ></input>
-          <FontAwesomeIcon
-            icon={faImage}
-            style={{ color: "#000000", fontSize: "x-large" }}
-          />
-        </span>
         <div
           className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
           style={{ width: "90vw" }}
