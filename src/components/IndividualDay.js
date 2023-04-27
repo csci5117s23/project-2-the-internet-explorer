@@ -82,7 +82,7 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
         let memoryList = [];
         for (let memory of tripMemories) {
           if (category) {
-            if (memory.date === date && memory.category === category) {
+            if (memory.date === date && memory.category === category.toLowerCase()) {
               let curMemory = createMemoryButton(memory, params);
               memoryList = memoryList.concat(curMemory);
             }
