@@ -7,7 +7,7 @@ import DayDropdown from "./buttons/DayDropdown";
 import Link from "next/link";
 export default function Header({title, back, prevUrl, day}) {
   return (
-    <div className={`${styles.headerDiv} flex w-full`}>
+    <div className={`${styles.headerDiv} flex w-full m-0 p-0`}>
       <div className="flex items-center pl-3 gap-3">
         {back ? <BackButton prevUrl={prevUrl} /> : <div></div>}
       </div>
