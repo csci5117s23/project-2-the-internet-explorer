@@ -98,7 +98,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             return;
         }
 
-        if (location === "Loading..." || location === "Current Location" || !coordinates) {
+        if (!location || !coordinates) {
             alert('Please select a location');
             return;
         }

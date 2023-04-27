@@ -53,7 +53,7 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
       }
     }
     findDaysList();
-  }, [router, day]);
+  }, [router, day, tripMemories]);
 
   return (
     <Menu as='div' className='relative inline-block text-left'>
