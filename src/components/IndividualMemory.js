@@ -9,7 +9,7 @@ import MemoryMap from "./MemoryMap";
 import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
@@ -112,31 +112,50 @@ export default function IndividualMemory({
         {/* <label for="imgScale">Resize Image:   */}
 
         {/* </label> */}
-        <div className="p-3 px-4 rounded-md bg-gray-200">
-        <div className="flex p-2 justify-center">
-          <TransformWrapper>
-            <TransformComponent>
-              <img
-                // style={{ width: imageScales[scaleIndex] }}
-                className={`${styles.imgContainer} rounded-md`}
-                src={curMemory.image}
-                alt={curMemory.title}
-              />
-            </TransformComponent>
-          </TransformWrapper>
-        </div>
-
+        <div
+          className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7"
+        >
+          <div className="flex p-2 justify-center">
+            {/* <TransformWrapper>
+            <TransformComponent> */}
+            <img
+              // style={{ width: imageScales[scaleIndex] }}
+              className={`${styles.imgContainer} rounded-md`}
+              src={curMemory.image}
+              alt={curMemory.title}
+              style={{ width: "100vw" }}
+            />
+            {/* </TransformComponent>
+          </TransformWrapper> */}
+          </div>
         </div>
         <span className="flex justify-center bg-gray-200 mt-2 mb-5 p-2 mx-28 rounded-md place-items-center">
-          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "small"}} />
-          <input type="range" className={styles.imgScale} id="imgScale" name="imgScale" min="0" max="8" onChange={handleIndex} defaultValue="0"></input>
-          <FontAwesomeIcon icon={faImage} style={{color: "#000000", fontSize: "x-large"}} />
+          <FontAwesomeIcon
+            icon={faImage}
+            style={{ color: "#000000", fontSize: "small" }}
+          />
+          <input
+            type="range"
+            className={styles.imgScale}
+            id="imgScale"
+            name="imgScale"
+            min="0"
+            max="8"
+            onChange={handleIndex}
+            defaultValue="0"
+          ></input>
+          <FontAwesomeIcon
+            icon={faImage}
+            style={{ color: "#000000", fontSize: "x-large" }}
+          />
         </span>
         <div
           className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
           style={{ width: "90vw" }}
         >
-          <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">Description</h1>
+          <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">
+            Description
+          </h1>
           <span className="mt-2 bg-gray-300 p-3 m-1">{memory.description}</span>
         </div>
         <div className="flex p-2">
@@ -148,13 +167,19 @@ export default function IndividualMemory({
           </div>
         </div>
 
-
         <div></div>
-        <div style={{ width: "90vw" }} className="flex-col bg-blue-200 flex justify-center rounded-md">
-          <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">Location</h1>
+        <div
+          style={{ width: "90vw" }}
+          className="flex-col bg-blue-200 flex justify-center rounded-md"
+        >
+          <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">
+            Location
+          </h1>
           <div className="flex justify-center bg-blue-300 p-5 m-5 rounded-md">
-          <MemoryMap lat={curMemory.latitude} lng={curMemory.longitude}></MemoryMap>
-
+            <MemoryMap
+              lat={curMemory.latitude}
+              lng={curMemory.longitude}
+            ></MemoryMap>
           </div>
         </div>
         {/* <div>description</div> */}
@@ -185,7 +210,7 @@ export default function IndividualMemory({
         </div>
       </div>
     </>
-  )
+  );
 
   // return loadingMemory ? (
   //   <LoadingCircle></LoadingCircle>

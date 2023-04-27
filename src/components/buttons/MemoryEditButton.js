@@ -237,7 +237,6 @@ export default function MemoryEditButton({
                 className="border-2 border-slate-600 w-full"
                 id="date"
                 name="date"
-                disabled
                 defaultValue={defaultDate}
               ></input>
             ) : (
