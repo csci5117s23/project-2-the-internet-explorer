@@ -9,13 +9,27 @@ import TripMemoryWrapper from "./TripMemoryWrapper";
 import MemoryViewButton from "./buttons/MemoryViewButton";
 import styles from '../styles/TripView.module.css';
 
-export default function IndividualCategory({ trip, category, tripMemories, setTripMemories, router }) {
+export default function IndividualCategory({ trip, date, category, tripMemories, setTripMemories, router }) {
   const [categoryMemories, setCategoryMemories] = useState(null);
   // const [loadingCategoryMemories, setLoadingCategoryMemories] = useState(true);
   // const [tripMemories, setTripMemories] = useState(null);
   // const [loadingMemories, setLoadingMemories] = useState(true);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+  function createMemoryButton(memory, params) {
+    return (
+      <MemoryViewButton
+        key={memory._id}
+        tripID={trip._id}
+        memoryID={memory._id}
+        filter='category'
+        params={params}
+        title={memory.title}
+        image={memory.image}
+      />
+    );
+  }
 
   // TODO: Add a useEffect that relies on the router to search through the passed in memories to grab all the ones for the specified category.
   useEffect(() => {
@@ -24,21 +38,22 @@ export default function IndividualCategory({ trip, category, tripMemories, setTr
         let params = {
           'category': category
         };
+
+        if (date) {
+          params['day'] = date;
+        }
         let memoryList = [];
         for (let memory of tripMemories) {
-          if (memory.category === category.toLowerCase()) {
-            let curMemory = (
-              <MemoryViewButton
-                key={memory._id}
-                tripID={trip._id}
-                memoryID={memory._id}
-                filter='category'
-                params={params}
-                title={memory.title}
-                image={memory.image}
-              />
-            );
-            memoryList = memoryList.concat(curMemory);
+          if (date) {
+            if (memory.category === category.toLowerCase() && memory.date === date) {
+              let curMemory = createMemoryButton(memory, params);
+              memoryList = memoryList.concat(curMemory);
+            }
+          } else {
+            if (memory.category === category.toLowerCase()) {
+              let curMemory = createMemoryButton(memory, params);
+              memoryList = memoryList.concat(curMemory);
+            }
           }
         }
         setCategoryMemories(memoryList);

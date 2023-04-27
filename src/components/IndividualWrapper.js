@@ -115,8 +115,12 @@ export default function IndividualWrapper({ router }) {
         }
 
         let category = urlParams.get('category');
+        let day = '';
+        if (urlParams.has('day')) {
+          day = urlParams.get('day');
+        }
         return (
-          <IndividualCategory trip={curTrip} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
+          <IndividualCategory trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
         );
       } else if (filter === 'day') {
         // Check if the correct query param is present.
