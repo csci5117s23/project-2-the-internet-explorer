@@ -7,7 +7,7 @@ const mapContainerStyle = {
     width: "100%"
 };
 
-export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, currentCoordinate }) { 
+export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, currentCoordinate, zoom}) { 
     const [mapInstance, setMapInstance] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
@@ -20,7 +20,7 @@ export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, cu
         if (mapInstance && currentCoordinate) {
             mapInstance.panTo(currentCoordinate);
         }
-    }, [mapInstance, currentCoordinate]);
+    }, [mapInstance, currentCoordinate,isLoaded]);
 
     return (
       <>
@@ -31,7 +31,7 @@ export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, cu
                 <GoogleMap
                     id="example-map"
                     mapContainerStyle={mapContainerStyle}
-                    zoom={10}
+                    zoom={zoom}
                     center={currentCoordinate}
                     onLoad={setMapInstance}
                  >
