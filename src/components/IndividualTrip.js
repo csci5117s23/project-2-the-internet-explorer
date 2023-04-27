@@ -12,9 +12,12 @@ import LoadingCircle from "@/components/LoadingCircle";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import DayViewButtonWrapper from "./buttons/DayViewButtonWrapper";
 
-export default function IndividualTrip({ trip, tripMemories, setTripMemories, router }) {
+export default function IndividualTrip({ trip, loadingMemories, tripMemories, setTripMemories, router }) {
   // const [tripDays, setTripDays] = useState({});
   // const [tripMemories, setTripMemories] = useState(null);
+  // if (!loadingMemories) {
+  //   setLoadingMemories(true);
+  // }
 
   return (
     <>
@@ -24,9 +27,15 @@ export default function IndividualTrip({ trip, tripMemories, setTripMemories, ro
         prevUrl='/trips'
 
       />
-      <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
-      <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
-      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+      {loadingMemories ? (
+        <LoadingCircle></LoadingCircle>
+      ) : (
+        <>
+          <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
+          <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+          <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+        </>
+      )}
     </>
   );
 }
