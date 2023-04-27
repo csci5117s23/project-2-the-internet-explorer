@@ -5,6 +5,11 @@ const CategoryButton = ({name, tripId, date, pressed}) => {
     let link = `/trips/${tripId}/category?category=${name}`;
     if (date) {
         link = `/trips/${tripId}/day?day=${date}&category=${name}`;
+        if (name === "All Categories") {
+            link = `/trips/${tripId}/day?day=${date}`;
+        }
+    } else if (name === "All Categories") {
+        link = `/trips/${tripId}`;
     }
     // console.log('link: ', link);
 
