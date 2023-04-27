@@ -4,7 +4,8 @@ const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
     height: "300px",
-    width: "100%"
+    width: "100%",
+    marginTop: "2%"
 };
 
 export default function Map({ location, setLocation, coordinates, setCoordinates }) { 
@@ -13,6 +14,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const [mapInstance, setMapInstance] = useState(null);
     const [userPosition, setUserPosition] = useState(null);
     const [geocoder, setGeocoder] = useState(null);
+    const [showCurrentDiv, setShowCurrentDiv] = useState(false);
 
     const onLoad = (ref) => setSearchBox(ref);
 
@@ -60,6 +62,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
                 .map(addressComponent => addressComponent.long_name)
                 .join(' ');
               setLocation(locationName);
+              setShowCurrentDiv(true);
             } else {
               console.error("No results found");
             }
@@ -71,15 +74,16 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     };
 
     const onPlacesChanged =() => {
-        const place = searchBox.getPlaces()[0];
-        setLocation(place.name);
-        let coordinates = { 
-            lat: place.geometry.location.lat(), 
-            lng: place.geometry.location.lng() 
-        };
-        setCoordinates(coordinates);
-        mapInstance.panTo(coordinates);
-        console.log(place);
+      setShowCurrentDiv(false);
+      const place = searchBox.getPlaces()[0];
+      setLocation(place.name);
+      let coordinates = { 
+          lat: place.geometry.location.lat(), 
+          lng: place.geometry.location.lng() 
+      };
+      setCoordinates(coordinates);
+      mapInstance.panTo(coordinates);
+      console.log(place);
     }
 
     return (
@@ -88,11 +92,12 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           <h4 className="text-l font-bold">Location</h4>
           <div>
             <input
-              className="bg-gray-200 p-2 rounded-md w-full mb-6"
+              className="bg-gray-200 p-2 rounded-md w-full"
               placeholder="Current Location"
               value={location}
               readOnly
             ></input>
+            {showCurrentDiv && <div className="text-sm">(Current Location)</div>}
           </div>
           {isLoaded && <GoogleMap
             id="example-map"
