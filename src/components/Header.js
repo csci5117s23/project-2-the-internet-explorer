@@ -23,8 +23,8 @@ export default function Header({title, back, prevUrl, day}) {
         <h1 className={`${styles.headerTitle}`}>{title}</h1>
       </div>
       {/* <div className="col-start-9 col-end-10"></div> */}
-      <div class="flex justify-end items-center pr-2">
-        <div class=" justify-center ml-4">
+      <div className="flex justify-end items-center pr-2">
+        <div className=" justify-center ml-4">
           <UserButton appearance={{ elements: { rootBox: "scale-150" } }} />
         </div>
       </div>

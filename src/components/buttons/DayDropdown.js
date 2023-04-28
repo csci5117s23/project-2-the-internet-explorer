@@ -87,7 +87,7 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
             {tripDays.map((object, i) => {
               let link = `/trips/${tripID}/day?day=${object.iso}`;
               if (curCategory && curCategory != "All Categories") {
-                link += `&category=${curCategory}`;
+                link = `/trips/${tripID}/category?day=${object.iso}&category=${curCategory}`;
               }
               return (
                 <Menu.Item key={i}>

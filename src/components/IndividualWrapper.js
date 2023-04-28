@@ -190,7 +190,7 @@ export default function IndividualWrapper({ router }) {
             day = urlParams.get('day');
           }
           return (
-            <IndividualCategory trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
+            <IndividualCategory trip={curTrip} date={day} category={category} loadingMemories={loadingMemories} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
           );
         } else if (filter === 'day') {
           // Check if the correct query param is present.
@@ -205,7 +205,7 @@ export default function IndividualWrapper({ router }) {
             category = urlParams.get('category');
           }
           return (
-            <IndividualDay trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
+            <IndividualDay trip={curTrip} date={day} category={category} loadingMemories={loadingMemories} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
           );
         } else {
           // Unaccepted second route.

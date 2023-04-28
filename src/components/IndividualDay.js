@@ -9,7 +9,7 @@ import TripMemoryWrapper from './TripMemoryWrapper';
 import CategoryButtonWrapper from './buttons/CategoryButtonWrapper';
 import styles from '../styles/TripView.module.css';
 
-export default function IndividualDay({ trip, date, category, tripMemories, setTripMemories, router }) {
+export default function IndividualDay({ trip, date, category, loadingMemories, tripMemories, setTripMemories, router }) {
   const [dayMemories, setDayMemories] = useState(null);
   // const [tripMemories, setTripMemories] = useState(null);
   // const [loadingMemories, setLoadingMemories] = useState(true);
@@ -80,25 +80,27 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
           params['category'] = category;
         }
         let memoryList = [];
-        for (let memory of tripMemories) {
-          if (category) {
-            if (memory.date === date && memory.category === category.toLowerCase()) {
-              let curMemory = createMemoryButton(memory, params);
-              memoryList = memoryList.concat(curMemory);
-            }
-          } else {
-            if (memory.date === date) {
-              let curMemory = createMemoryButton(memory, params);
-              memoryList = memoryList.concat(curMemory);
+        if (trip) {
+          for (let memory of tripMemories) {
+            if (category) {
+              if (memory.date === date && memory.category === category.toLowerCase()) {
+                let curMemory = createMemoryButton(memory, params);
+                memoryList = memoryList.concat(curMemory);
+              }
+            } else {
+              if (memory.date === date) {
+                let curMemory = createMemoryButton(memory, params);
+                memoryList = memoryList.concat(curMemory);
+              }
             }
           }
+          console.log('memory list in day', memoryList);
+          setDayMemories(memoryList);
         }
-        console.log('memory list in day', memoryList);
-        setDayMemories(memoryList);
       }
     }
     findDayMemories();
-  }, [router]);
+  }, [tripMemories, trip, router]);
 
   // let dayMemoriesList = [];
   // if (!loadingMemories) {
@@ -131,38 +133,74 @@ export default function IndividualDay({ trip, date, category, tripMemories, setT
   //   );
   // }
 
-  let curDate = new Date(date);
-  let month = curDate.getMonth();
-  let day = curDate.getDate();
-  let curDateStr = `${months[month]} ${day}`;
+  // let curDate = new Date(date);
+  // let month = curDate.getMonth();
+  // let day = curDate.getDate();
+  // let curDateStr = `${months[month]} ${day}`;
 
-  let prevUrl = `/trips/${trip._id}`;
-  if (category) {
-    prevUrl = `/trips/${trip._id}/day?day=${date}`;
+  // let prevUrl = `/trips/${trip._id}`;
+  // if (category) {
+  //   prevUrl = `/trips/${trip._id}/day?day=${date}`;
+  // }
+
+  if (trip && dayMemories) {
+    let curDate = new Date(date);
+    let month = curDate.getMonth();
+    let day = curDate.getDate();
+    let curDateStr = `${months[month]} ${day}`;
+
+    let prevUrl = `/trips/${trip._id}`;
+    if (category) {
+      prevUrl = `/trips/${trip._id}/day?day=${date}`;
+    }
+
+    return (
+      <>
+        <Header 
+          title={trip.tripName}
+          back={true}
+          prevUrl={prevUrl}
+        />
+        {loadingMemories ? (
+          <LoadingCircle></LoadingCircle>
+        ) : (
+          <>
+            <CategoryButtonWrapper tripID={trip._id} day={curDateStr} trip={trip} date={date} curr_category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
+            <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+              <br></br>
+              <>{dayMemories}</>
+            </div>
+            <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} date={date} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+          </>
+        )}
+      </>
+    );
+  } else {
+    return <></>
   }
 
-  return (
-    <>
-      <Header
-        title={`${trip.tripName}`}
-        back={true}
-        prevUrl={prevUrl}
+  // return (
+  //   <>
+  //     <Header
+  //       title={`${trip.tripName}`}
+  //       back={true}
+  //       prevUrl={prevUrl}
 
-      />
-      <CategoryButtonWrapper day={`${curDateStr}`} tripID={trip._id} trip={trip} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
-      {/* {loadingMemories ? (
-        <LoadingCircle></LoadingCircle>
-      ) : (
-        <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
-          <br></br>
-          <>{dayMemoriesList}</>
-        </div>
-      )} */}
-      <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
-        <br></br>
-        <>{dayMemories}</>
-      </div>
-      <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} date={date} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
-    </>
-  )
+  //     />
+  //     <CategoryButtonWrapper day={`${curDateStr}`} tripID={trip._id} trip={trip} date={date} curr_category={category} tripMemories={tripMemories}></CategoryButtonWrapper>
+  //     {/* {loadingMemories ? (
+  //       <LoadingCircle></LoadingCircle>
+  //     ) : (
+  //       <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+  //         <br></br>
+  //         <>{dayMemoriesList}</>
+  //       </div>
+  //     )} */}
+  //     <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+  //       <br></br>
+  //       <>{dayMemories}</>
+  //     </div>
+  //     <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} date={date} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+  //   </>
+  // )
 }
