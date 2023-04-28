@@ -80,9 +80,19 @@ export default function IndividualMemory({
 
     return (
       <>
-        <Header title={curMemory.title} back={true} prevUrl={prevUrl} />
+        <Header title={trip.tripName} back={true} prevUrl={prevUrl} />
+
+        
 
         <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
+          <div
+            className="flex flex-col bg-blue-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
+            style={{ width: "90vw" }}
+          >
+            <h1 className="text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
+              {curMemory.title}
+            </h1>
+          </div>
           <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
             <div className="flex p-2 justify-center">
               <img
