@@ -28,7 +28,29 @@ export default function DeleteTrip({ tripID, tripName, closeModal }) {
                 return;
             }
             console.log(await response.json());
-            alert("Successfully deleted");
+            alert("Successfully deleted main trip");
+        }
+        catch (error) {
+            console.error('Error: ', error);
+        }
+
+        // to delete trip emmories
+        try {
+            if (userId) {
+                const token = await getToken({template: "codehooks"});
+                const responseMemory = await fetch(backend_base + `/getTripMemories?trip=${tripID}`, {
+                    'method': 'DELETE',
+                    'headers': {
+                        'Authorization': 'Bearer ' + token,
+                    }
+                });
+            }
+            if (!responseMemory.ok) {
+                console.log('Error, 404 most likely')
+                return;
+            }
+            console.log(await responseMemory.json());
+            alert("Successfully deleted trip memories");
         }
         catch (error) {
             console.error('Error: ', error);
