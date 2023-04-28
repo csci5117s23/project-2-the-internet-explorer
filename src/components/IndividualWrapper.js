@@ -207,13 +207,15 @@ export default function IndividualWrapper({ router }) {
           return (
             <IndividualDay trip={curTrip} date={day} category={category} loadingMemories={loadingMemories} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
           );
+        // } else if (filter === 'memory') {
+
         } else {
           // Unaccepted second route.
           router.push('/404');
           return;
         }
       } else if (tripData.length === 3) {
-        let filter = tripData[1]; // Get the category/day filter for going back to the previous page.
+        let filter = tripData[1]; // Get the category/day/memory filter for going back to the previous page.
         const urlParams = new URLSearchParams(location.search);
         let memoryID = tripData[2];
         console.log('mem id: ', memoryID);
