@@ -16,7 +16,7 @@ import HomePage from "./HomePage";
 // If rendering an individual category or day, there should also be a query param
 // indicating what category or day to render.
 export default function IndividualWrapper({ router }) {
-  const [allTrips, setAllTrips] = useState([]);
+  const [allTrips, setAllTrips] = useState(null);
   const [loadingTrips, setLoadingTrips] = useState(true);
   const [curTrip, setCurTrip] = useState(null);
   const [loadingCurTrip, setLoadingCurTrip] = useState(true);
@@ -32,7 +32,7 @@ export default function IndividualWrapper({ router }) {
 
   useEffect(() => {
     const getAllTrips = async () => {
-      if (!tripID) {
+      if (!allTrips) {
         if (userId) {
           try {
             const token = await getToken({ template: "codehooks" });
@@ -60,6 +60,16 @@ export default function IndividualWrapper({ router }) {
     }
     getAllTrips();
   }, [isLoaded]);
+
+  useEffect(() => {
+    if (allTrips) {
+      console.log('all trips in setting curTrip: ', allTrips);
+      let target = allTrips.find(trip => trip._id === tripID);
+      if (curTrip !== target) {
+        setCurTrip(target);
+      }
+    }
+  }, [allTrips, tripID]);
 
   // useEffect(() => {
   //   const getIndividualTrip = async () => {
@@ -155,10 +165,10 @@ export default function IndividualWrapper({ router }) {
         console.log('cur trip: ', curTrip);
         // Get the current trip to render, but only update the curTrip state variable if it is 
         // different than the retrieved trip.
-        let target = allTrips.find(trip => trip._id === tripID);
-        if (curTrip !== target) {
-          setCurTrip(target);
-        }
+        // let target = allTrips.find(trip => trip._id === tripID);
+        // if (curTrip !== target) {
+        //   setCurTrip(target);
+        // }
         return (
           <>
             <IndividualTrip trip={curTrip} loadingMemories={loadingMemories} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></IndividualTrip>

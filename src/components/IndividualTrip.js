@@ -19,23 +19,58 @@ export default function IndividualTrip({ trip, loadingMemories, tripMemories, se
   //   setLoadingMemories(true);
   // }
 
-  return (
-    <>
-      <Header
-        title={trip.tripName}
-        back={true}
-        prevUrl='/trips'
+  if (trip) {
+    return (
+      <>
+        <Header 
+          title={trip.tripName}
+          back={true}
+          prevUrl='/trips'
+        />
+        {loadingMemories ? (
+          <LoadingCircle></LoadingCircle>
+        ) : (
+          <>
+            <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
+            <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+            <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+          </>
+        )}
+      </>
+    );
+  } else {
+    return <></>
+  }
 
-      />
-      {loadingMemories ? (
-        <LoadingCircle></LoadingCircle>
-      ) : (
-        <>
-          <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
-          <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
-          <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
-        </>
-      )}
-    </>
-  );
+  // return (
+  //   <>
+  //     {trip ? (
+  //       <Header
+  //         title={trip.tripName}
+  //         back={true}
+  //         prevUrl='/trips'
+  //       />
+  //       {loadingMemories ? (
+  //         <LoadingCircle></LoadingCircle>
+  //       ) : (
+  //         <>
+  //           <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
+  //           <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+  //           <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+  //         </>
+  //       )}
+  //     ) : (
+  //       <></>
+  //     )}
+  //     {/* {loadingMemories ? (
+  //       <LoadingCircle></LoadingCircle>
+  //     ) : (
+  //       <>
+  //         <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
+  //         <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+  //         <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
+  //       </>
+  //     )} */}
+  //   </>
+  // );
 }
