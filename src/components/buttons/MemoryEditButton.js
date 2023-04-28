@@ -14,7 +14,6 @@ export default function MemoryEditButton({
   startDate,
   category,
   date,
-  ori_memory,
   curMemory
 }) {
   const [showWebCamera, setShowWebCamera] = useState(false);

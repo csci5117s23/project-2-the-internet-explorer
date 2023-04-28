@@ -190,7 +190,7 @@ export default function IndividualWrapper({ router }) {
             day = urlParams.get('day');
           }
           return (
-            <IndividualCategory trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
+            <IndividualCategory trip={curTrip} date={day} category={category} loadingMemories={loadingMemories} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualCategory>
           );
         } else if (filter === 'day') {
           // Check if the correct query param is present.
@@ -205,25 +205,25 @@ export default function IndividualWrapper({ router }) {
             category = urlParams.get('category');
           }
           return (
-            <IndividualDay trip={curTrip} date={day} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
+            <IndividualDay trip={curTrip} date={day} category={category} loadingMemories={loadingMemories} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></IndividualDay>
           );
+        // } else if (filter === 'memory') {
+
         } else {
           // Unaccepted second route.
           router.push('/404');
           return;
         }
       } else if (tripData.length === 3) {
-        let filter = tripData[1]; // Get the category/day filter for going back to the previous page.
+        let filter = tripData[1]; // Get the category/day/memory filter for going back to the previous page.
         const urlParams = new URLSearchParams(location.search);
         let memoryID = tripData[2];
-
-        let memory = tripMemories.find(memory => memory._id === memoryID);
-        // console.log('memory result: ', result);
+        console.log('mem id: ', memoryID);
 
         return (
           <IndividualMemory 
             trip={curTrip} 
-            memory={memory}
+            memoryID={memoryID}
             filter={filter}
             params={urlParams}
             router={router}

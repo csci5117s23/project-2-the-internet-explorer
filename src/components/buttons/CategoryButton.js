@@ -4,7 +4,7 @@ const CategoryButton = ({name, tripId, date, pressed}) => {
     console.log('date in category button: ', date);
     let link = `/trips/${tripId}/category?category=${name}`;
     if (date) {
-        link = `/trips/${tripId}/day?day=${date}&category=${name}`;
+        link = `/trips/${tripId}/category?day=${date}&category=${name}`;
         if (name === "All Categories") {
             link = `/trips/${tripId}/day?day=${date}`;
         }

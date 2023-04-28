@@ -12,7 +12,7 @@ export default function TripData() {
     return (
       <IndividualWrapper router={router}></IndividualWrapper>
     )
-  // } else {
-  //   return <LoadingCircle></LoadingCircle>
+  } else {
+    return <LoadingCircle></LoadingCircle>
   }
 }
