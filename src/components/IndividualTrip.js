@@ -11,6 +11,7 @@ import { useAuth } from "@clerk/nextjs";
 import LoadingCircle from "@/components/LoadingCircle";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import DayViewButtonWrapper from "./buttons/DayViewButtonWrapper";
+import MemoryViewButtonWrapper from "./buttons/MemoryViewButtonWrapper";
 
 export default function IndividualTrip({ trip, loadingMemories, tripMemories, setTripMemories, router }) {
   if (trip) {
@@ -26,7 +27,8 @@ export default function IndividualTrip({ trip, loadingMemories, tripMemories, se
         ) : (
           <>
             <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
-            <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper>
+            {/* <DayViewButtonWrapper tripID={trip._id} router={router} tripMemories={tripMemories} setTripMemories={setTripMemories}></DayViewButtonWrapper> */}
+            <MemoryViewButtonWrapper tripMemories={tripMemories}></MemoryViewButtonWrapper>
             <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
           </>
         )}

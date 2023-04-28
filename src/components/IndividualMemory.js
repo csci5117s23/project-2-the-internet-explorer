@@ -73,9 +73,12 @@ export default function IndividualMemory({
         console.log("has category param");
         prevUrl += `&category=${params.get("category")}`;
       }
-    } else {
-      // Handle unaccepted filters.
+    } else if (filter === "memory") {
       prevUrl = `/trips/${trip._id}`;
+    } else {
+      // Handles any unaccepted filters.
+      router.push('/404');
+      return;
     }
 
     return (
