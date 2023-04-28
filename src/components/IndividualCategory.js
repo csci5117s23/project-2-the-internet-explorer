@@ -66,17 +66,6 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
     findCategoryMemories();
   }, [tripMemories, trip, router]);
 
-  // let prevUrl = `/trips/${trip._id}`;
-  // let curDateStr = 'All Days';
-  // if (date) {
-  //   prevUrl = `/trips/${trip._id}/category?category=${category}`;
-
-  //   let curDate = new Date(date);
-  //   let month = curDate.getMonth();
-  //   let day = curDate.getDate();
-  //   curDateStr = `${months[month]} ${day}`;
-  // }
-
   if (trip && categoryMemories) {
     let prevUrl = `/trips/${trip._id}`;
     let curDateStr = 'All Days';
@@ -111,23 +100,6 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
       </>
     );
   } else {
-    return <></>
+    return <LoadingCircle></LoadingCircle>
   }
-
-  // return (
-  //   <>
-  //     <Header
-  //       title={`${trip.tripName}`}
-  //       back={true}
-  //       prevUrl={`/trips/${trip._id}`}
-
-  //     />
-  //     <CategoryButtonWrapper tripID={trip._id} day={"All Days"} trip={trip} curr_category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
-  //     <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
-  //       <br></br>
-  //       <>{categoryMemories}</>
-  //     </div>
-  //     <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
-  //   </>
-  // );
 }
