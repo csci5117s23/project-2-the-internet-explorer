@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import IndividualWrapper from "@/components/IndividualWrapper";
 
 
-export default function tripData() {
+export default function TripData() {
   const router = useRouter();
 
   if (router.isReady) {
