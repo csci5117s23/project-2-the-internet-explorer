@@ -15,7 +15,6 @@ export default function EditMemoryWrapper({
   startDate,
   category,
   date,
-  ori_memory,
   memoryID,
   title,
   router,
@@ -107,7 +106,6 @@ export default function EditMemoryWrapper({
           startDate={startDate}
           category={category}
           date={date}
-          ori_memory={ori_memory}
           curMemory={curMemory}
         />
 
