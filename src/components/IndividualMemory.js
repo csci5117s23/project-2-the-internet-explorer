@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import React from "react";
 // import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
 import EditMemoryWrapper from "./buttons/MemoryEditButtonWrapper";
 import styles from "../styles/TripMemory.module.css";
@@ -43,15 +43,46 @@ export default function IndividualMemory({
   // const [loadingMemory, setLoadingMemory] = useState(true);
   const [scaleIndex, setScaleIndex] = useState(0);
   const [curMemory, setCurMemory] = useState(null);
+  const [curIndex, setCurIndex] = useState(null);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
     if (tripMemories) {
-    let memory = tripMemories.find(memory => memory._id === memoryID);
-    setCurMemory(memory);
+      // let memory = tripMemories.find(memory => memory._id === memoryID);
+      let memoryIndex = tripMemories.findIndex(memory => memory._id === memoryID);
+      setCurIndex(memoryIndex);
+      // setCurMemory(tripMemories[memoryIndex]);
     }
   }, [tripMemories, router]);
+
+  useEffect(() => {
+    if (curIndex !== null) {
+      setCurMemory(tripMemories[curIndex]);
+    }
+  }, [curIndex]);
+
+  function cycleLeft() {
+    if (curIndex === 0) {
+      console.log('index before left: ', curIndex);
+      setCurIndex(tripMemories.length - 1);
+      console.log('index after left: ', curIndex);
+    } else {
+      console.log('index before normal left: ', curIndex);
+      setCurIndex(curIndex - 1);
+      console.log('index after normal left: ', curIndex);
+    }
+  }
+
+  function cycleRight() {
+    if (curIndex === tripMemories.length - 1) {
+      setCurIndex(0);
+    } else {
+      setCurIndex(curIndex + 1);
+    }
+  }
+
+  console.log('cur index: ', curIndex);
 
   if (curMemory && trip) {
     let prevUrl = "";
@@ -92,9 +123,13 @@ export default function IndividualMemory({
             className="flex flex-col bg-blue-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
             style={{ width: "90vw" }}
           >
-            <h1 className="text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
+            
+            <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
+              <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} onClick={cycleLeft} />
               {curMemory.title}
+              <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} onClick={cycleRight} />
             </h1>
+            
           </div>
           <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
             <div className="flex p-2 justify-center">

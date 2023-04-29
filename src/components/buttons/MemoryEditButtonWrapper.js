@@ -87,7 +87,7 @@ export default function EditMemoryWrapper({
     editMemory();
   }, [isLoaded, newMemory, dataUrl]);
 
-  console.log('cur memory: ', curMemory);
+  // console.log('cur memory: ', curMemory);
 
   return (
     <>
