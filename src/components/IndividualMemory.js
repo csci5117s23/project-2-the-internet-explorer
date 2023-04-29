@@ -165,6 +165,16 @@ export default function IndividualMemory({
             </h1>
             
           </div>
+
+          <div className="flex p-2">
+            <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
+              {moment(curMemory.date).format("YYYY-MM-DD")}
+            </div>
+            <div className="rounded-lg bg-sky-300 text-white p-2 mr-2">
+              {curMemory.category.charAt(0).toUpperCase() + curMemory.category.slice(1)}
+            </div>
+          </div>
+
           <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
             <div className="flex p-2 justify-center">
               <img
@@ -189,14 +199,7 @@ export default function IndividualMemory({
           ) : (
             <></>
           )}
-          <div className="flex p-2">
-            <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
-              {moment(curMemory.date).format("YYYY-MM-DD")}
-            </div>
-            <div className="rounded-lg bg-sky-300 text-white p-2 mr-2">
-              {curMemory.category.charAt(0).toUpperCase() + curMemory.category.slice(1)}
-            </div>
-          </div>
+          
 
           <div></div>
           <div

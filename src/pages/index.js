@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Splash() {
   //!!!! URGENT: UPDATE <LINK> COMPONENTS HREF BEFORE HOSTING ON NETFLIY !!!!//
+  // Switch to use window.location.origin
 
   return (
     <>
