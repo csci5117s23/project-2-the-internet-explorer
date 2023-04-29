@@ -20,7 +20,7 @@ const MemoryViewButton = ({tripID, memoryID, filter, params, title, color, image
   }
 
   return (
-    <div>
+    <div className="mr-2 ml-2">
       <Link href={`/trips/${tripID}/${filter}/${memoryID}${query}`} className="relative inline-block overflow-hidden">
       <img
         src={image}

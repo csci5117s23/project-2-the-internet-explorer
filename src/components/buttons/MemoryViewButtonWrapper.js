@@ -16,7 +16,7 @@ export default function MemoryViewButtonWrapper({ tripMemories }) {
   );
 
   return (
-    <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+    <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6`}>
       <br></br>
       {memoriesList}
     </div>
