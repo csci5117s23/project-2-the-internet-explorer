@@ -49,7 +49,7 @@ export default function EditMemoryWrapper({
           try {
             let updatedMemory = newMemory;
             updatedMemory["image"] = dataUrl;
-            setCurMemory(updatedMemory);
+            // setCurMemory(updatedMemory);
             const token = await getToken({ template: "codehooks" });
 
             const response = await fetch(
@@ -66,6 +66,7 @@ export default function EditMemoryWrapper({
 
             const result = await response.json();
             console.log("Success: ", result);
+            setCurMemory(result);
 
             let tripMemoriesCopy = tripMemories;
             let memory = tripMemoriesCopy.find(memory => memory._id === memoryID);
@@ -85,6 +86,8 @@ export default function EditMemoryWrapper({
     };
     editMemory();
   }, [isLoaded, newMemory, dataUrl]);
+
+  console.log('cur memory: ', curMemory);
 
   return (
     <>
