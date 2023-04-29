@@ -103,7 +103,7 @@ export default function IndividualMemory({
                 className={`${styles.imgContainer} rounded-md`}
                 src={curMemory.image}
                 alt={curMemory.title}
-                style={{ width: "100vw" }}
+                style={{ width: "90vw", height: "auto" }}
               />
             </div>
           </div>
