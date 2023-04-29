@@ -176,15 +176,19 @@ export default function IndividualMemory({
               />
             </div>
           </div>
-          <div
-            className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
-            style={{ width: "90vw" }}
-          >
-            <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">
-              Description
-            </h1>
-            <span className="mt-2 bg-gray-300 p-3 m-1">{curMemory.description}</span>
-          </div>
+          {curMemory.description ? (
+            <div
+              className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
+              style={{ width: "90vw" }}
+            >
+              <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">
+                Description
+              </h1>
+              <span className="mt-2 bg-gray-300 p-3 m-1">{curMemory.description}</span>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="flex p-2">
             <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
               {moment(curMemory.date).format("YYYY-MM-DD")}
