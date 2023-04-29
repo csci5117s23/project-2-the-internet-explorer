@@ -1,1 +1,51 @@
-[]
+[
+  [
+    "tripFolders",
+    {
+      "187ced7a87c-456papbsjomtix": {
+        "tripName": "test 1",
+        "startMonth": 4,
+        "startYear": 2023,
+        "description": "",
+        "user": "user_2OOV9PqG2RJpmRnSOoj2ezctsmE",
+        "_id": "187ced7a87c-456papbsjomtix"
+      },
+      "187ced84e2e-fkyz43f5crcxya": {
+        "tripName": "test 2",
+        "startMonth": 10,
+        "startYear": 2023,
+        "description": "",
+        "user": "user_2OOV9PqG2RJpmRnSOoj2ezctsmE",
+        "_id": "187ced84e2e-fkyz43f5crcxya"
+      },
+      "187ced86e62-vqf03emfacwk1k": {
+        "tripName": "test 3",
+        "startMonth": 6,
+        "startYear": 2023,
+        "description": "",
+        "user": "user_2OOV9PqG2RJpmRnSOoj2ezctsmE",
+        "_id": "187ced86e62-vqf03emfacwk1k"
+      },
+      "187ced9268b-swdy6h8355kqry": {
+        "tripName": "test 4",
+        "startMonth": 3,
+        "startYear": 2024,
+        "description": "",
+        "user": "user_2OOV9PqG2RJpmRnSOoj2ezctsmE",
+        "_id": "187ced9268b-swdy6h8355kqry"
+      },
+      "187ced949b5-1ni09a29z2emrh": {
+        "tripName": "test 5",
+        "startMonth": 3,
+        "startYear": 2023,
+        "description": "",
+        "user": "user_2OOV9PqG2RJpmRnSOoj2ezctsmE",
+        "_id": "187ced949b5-1ni09a29z2emrh"
+      }
+    }
+  ],
+  [
+    "_dbmetadata",
+    {}
+  ]
+]
