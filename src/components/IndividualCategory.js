@@ -91,7 +91,7 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
         ) : (
           <>
             <CategoryButtonWrapper tripID={trip._id} day={curDateStr} trip={trip} date={date} curr_category={category} tripMemories={tripMemories} setTripMemories={setTripMemories}></CategoryButtonWrapper>
-            <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
+            <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6`}>
               <br></br>
               <>{categoryMemories}</>
             </div>

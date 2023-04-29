@@ -82,8 +82,8 @@ export default function DayViewButtonWrapper({ tripID, router, tripMemories, set
   }, [router]);
 
   return (
-    <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6 space-x-6`}>
-      <br></br>
+    <div className={`${styles.dayButtonGroup} flex flex-wrap space-y-6`}>
+      <br></br>``
       <>{tripDays}</>
     </div>
   )
