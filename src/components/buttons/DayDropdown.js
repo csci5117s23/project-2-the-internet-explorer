@@ -77,7 +77,7 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
           <div className='py-1'>
             {day != "All Days" ? (
               <Menu.Item key={"All Days"}>
-                <Link href={curCategory ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+                <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
                   All Days
                 </Link>
               </Menu.Item>

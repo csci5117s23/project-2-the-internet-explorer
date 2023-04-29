@@ -41,13 +41,14 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
           'category': category
         };
 
-        if (date) {
+        let validDate = (date && date !== "All Days");
+        if (validDate) {
           params['day'] = date;
         }
         let memoryList = [];
         if (trip) {
           for (let memory of tripMemories) {
-            if (date) {
+            if (validDate) {
               if (memory.category === category.toLowerCase() && memory.date === date) {
                 let curMemory = createMemoryButton(memory, params);
                 memoryList = memoryList.concat(curMemory);
@@ -69,8 +70,8 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
   if (trip && categoryMemories) {
     let prevUrl = `/trips/${trip._id}`;
     let curDateStr = 'All Days';
-    if (date) {
-      prevUrl = `/trips/${trip._id}/category?category=${category}`;
+    if (date && date !== "All Days") {
+      // prevUrl = `/trips/${trip._id}/category?category=${category}`;
 
       let curDate = new Date(date);
       let month = curDate.getMonth();

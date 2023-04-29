@@ -1,4 +1,5 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+// const backend_base = 'http://localhost:3002'; // Use for codehooks localserver dev.
 
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
@@ -10,7 +11,7 @@ import DeleteTrip from "./DeleteTrip";
 
 Modal.setAppElement("body");
 
-export default function EditTripWrapper({ tripID, tripName, startMonth, startYear, description }) {
+export default function EditTripWrapper({ tripID, tripName, startMonth, startYear, description, allTrips, setAllTrips }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editedTrip, setEditedTrip] = useState(null);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -25,7 +26,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
   
   useEffect(() => {
     const editTrip = async () => {
-      if(editedTrip){
+      if(editedTrip) {
         if (userId) {
           try {
             const token = await getToken({template: "codehooks"});
@@ -39,7 +40,32 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
               'body': JSON.stringify(editedTrip),
             });
             const result = await response.json();
-            console.log('Success: ', result);
+            console.log('Success after update: ', result);
+
+            // Update the allTrips state variable in somewhat real time. Has to wait for the
+            // patch request to complete.
+            // Can't update it above the database request in case all the data isn't full, and 
+            // to ensure the database request works properly.
+            let mutableAllTrips = [...allTrips];
+            let originalTrip = mutableAllTrips.find(trip => trip._id === tripID);
+            let origMonth = originalTrip.startMonth;
+            let origYear = originalTrip.startYear;
+            let tripIndex = mutableAllTrips.indexOf(originalTrip);
+            mutableAllTrips[tripIndex] = result; // Update the index of the original trip.
+
+            if (origMonth != result.startMonth || origYear != result.startYear) {
+              // Resort the trips list since the year or month changed.
+              mutableAllTrips.sort((a, b) => {
+                // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+                if (a.startYear === b.startYear) {
+                  return a.startMonth < b.startMonth ? -1 : 1;
+                } else {
+                  return a.startYear < b.startYear ? -1 : 1;
+                }
+              });
+            }
+            setAllTrips(mutableAllTrips);
+
             setEditedTrip(null);
           }
           catch (error) {

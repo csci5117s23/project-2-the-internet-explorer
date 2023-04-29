@@ -62,7 +62,7 @@ export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
   // console.log('loading: ', loadingTrips);
 
   return (
-    <TripsList trips={allTrips}></TripsList>
+    <TripsList allTrips={allTrips} setAllTrips={setAllTrips}></TripsList>
   );
 
   return (loadingTrips ? (

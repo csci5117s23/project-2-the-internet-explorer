@@ -4,9 +4,9 @@ import { tileProps } from "react-calendar/dist/cjs/shared/propTypes";
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-export default function TripsList({ trips }) {
+export default function TripsList({ allTrips, setAllTrips }) {
   // This is the component for the list of trips.
-  let tripsList = trips.map(
+  let tripsList = allTrips.map(
     (trip, i) => (
       <Trip
         key={trip._id}
@@ -16,6 +16,8 @@ export default function TripsList({ trips }) {
         year={trip.startYear}
         index={i}
         description={trip.description}
+        allTrips={allTrips}
+        setAllTrips={setAllTrips}
       />
     )
   );

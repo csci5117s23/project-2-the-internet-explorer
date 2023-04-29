@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
 //create the trip folder
 const tripFolderYup = object({
   tripName: string().required(),      // The name of the trip.
-  startMonth: number().integer().required(),   // The start month of the trip.
-  startYear: number().integer().required(),    // The start year of the trip.
+  startMonth: number().required(),    // The start month of the trip.
+  startYear: number().required(),     // The start year of the trip.
   description: string(),              // An optional description of the trip.
   user: string().required(),          // The user that created the trip.
 });
@@ -38,7 +38,8 @@ const tripMemoriesYup = object({
 
 // Retrieve all of the trips of a user for the main page.
 async function getAllTrips(req, res) {
-  const userId = req.user_token.sub;
+  // const userId = req.user_token.sub;
+  const userId = req.query.user;
 
   const conn = await Datastore.open();
   const query = {"user": userId};
@@ -52,7 +53,7 @@ async function getAllTrips(req, res) {
 app.get('/getAllTrips', getAllTrips);
 
 async function getTripMemories(req, res) {
-  const userId = req.user_token.sub;
+  const userId = req.query.user;
   const tripId = req.query.trip;
 
   const conn = await Datastore.open();
