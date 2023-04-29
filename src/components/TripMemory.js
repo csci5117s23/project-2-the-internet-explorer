@@ -144,13 +144,13 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
     let dateStr = `${yearStr}-${monthStr}-${dayStr}`;
 
-    let defaultCategory='none';
-    if (category) {
+    let defaultCategory='';
+    if (category && category !== "All Categories") {
         defaultCategory = category;
     }
 
     let defaultDate = '';
-    if (date) {
+    if (date && date !== "All Days") {
         let newDate = new Date(date);
         let year = newDate.getFullYear();
         let month = newDate.getMonth() + 1;

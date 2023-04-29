@@ -1,4 +1,5 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+// const backend_base = 'http://localhost:3002'; // Use for codehooks localserver dev.
 
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
@@ -34,10 +35,11 @@ export default function IndividualWrapper({ router }) {
     const getAllTrips = async () => {
       if (!allTrips) {
         if (userId) {
+          console.log('user id in get all trips: ', userId);
           try {
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + '/getAllTrips', {
+            const response = await fetch(backend_base + '/tripFolders', {
               'method': 'GET',
               'headers': {
                 'Authorization': 'Bearer ' + token
@@ -45,11 +47,23 @@ export default function IndividualWrapper({ router }) {
             });
 
             if (!response.ok) {
-              router.push('/404');
+              console.log('response: ', response);
+              // router.push('/404');
               return;
             }
 
             const data = await response.json();
+
+            // Sort the data by year and month.
+            data.sort((a, b) => {
+              // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+              if (a.startYear === b.startYear) {
+                return a.startMonth < b.startMonth ? -1 : 1;
+              } else {
+                return a.startYear < b.startYear ? -1 : 1;
+              }
+            });
+
             setAllTrips(data);
             setLoadingTrips(false);
           } catch (error) {
@@ -185,7 +199,7 @@ export default function IndividualWrapper({ router }) {
           }
 
           let category = urlParams.get('category');
-          let day = '';
+          let day = 'All Days';
           if (urlParams.has('day')) {
             day = urlParams.get('day');
           }
@@ -200,7 +214,7 @@ export default function IndividualWrapper({ router }) {
           }
 
           let day = urlParams.get('day');
-          let category = '';
+          let category = 'All Categories';
           if (urlParams.has('category')) {
             category = urlParams.get('category');
           }
