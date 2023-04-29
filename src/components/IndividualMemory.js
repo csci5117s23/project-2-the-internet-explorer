@@ -44,6 +44,8 @@ export default function IndividualMemory({
   const [scaleIndex, setScaleIndex] = useState(0);
   const [curMemory, setCurMemory] = useState(null);
   const [curIndex, setCurIndex] = useState(null);
+  const [prevIndex, setPrevIndex] = useState(null);
+  const [nextIndex, setNextIndex] = useState(null);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -52,39 +54,62 @@ export default function IndividualMemory({
       // let memory = tripMemories.find(memory => memory._id === memoryID);
       let memoryIndex = tripMemories.findIndex(memory => memory._id === memoryID);
       setCurIndex(memoryIndex);
-      // setCurMemory(tripMemories[memoryIndex]);
+      
+      // Set the index for the previous trip in the list.
+      if (memoryIndex <= 0) {
+        setPrevIndex(tripMemories.length - 1);
+      } else {
+        setPrevIndex(memoryIndex - 1);
+      }
+
+      // Set the index for the next trip in the list.
+      if (memoryIndex >= tripMemories.length - 1) {
+        setNextIndex(0);
+      } else {
+        setNextIndex(memoryIndex + 1);
+      }
+
+      setCurMemory(tripMemories[memoryIndex]);
     }
   }, [tripMemories, router]);
 
-  useEffect(() => {
-    if (curIndex !== null) {
-      setCurMemory(tripMemories[curIndex]);
-    }
-  }, [curIndex]);
+  // useEffect(() => {
+  //   if (curIndex !== null) {
+  //     setCurMemory(tripMemories[curIndex]);
+  //   }
+  // }, [curIndex]);
 
-  function cycleLeft() {
-    if (curIndex === 0) {
-      console.log('index before left: ', curIndex);
-      setCurIndex(tripMemories.length - 1);
-      console.log('index after left: ', curIndex);
-    } else {
-      console.log('index before normal left: ', curIndex);
-      setCurIndex(curIndex - 1);
-      console.log('index after normal left: ', curIndex);
+  // console.log('cur index: ', curIndex);
+
+  function constructCycleUrl(memoryID, tripID) {
+    let url = '';
+    if (filter === 'category') {
+      // No need for error checking here since it gets error checked before, which 
+      // would occur prior to this function running.
+      let category = params.get('category');
+      url = `/trips/${tripID}/category/${memoryID}?category=${category}`;
+      if (params.has('day')) {
+        url += `&day=${params.get('day')}`;
+      }
+    } else if (filter === 'day') {
+      let day = params.get('day');
+      url = `/trips/${tripID}/day/${memoryID}?category=${category}`;
+      if (params.has('category')) {
+        url += `&category=${params.get('category')}`;
+      }
+    } else if (filter === 'memory') {
+      url = `/trips/${tripID}/memory/${memoryID}`;
     }
+
+    return url;
   }
-
-  function cycleRight() {
-    if (curIndex === tripMemories.length - 1) {
-      setCurIndex(0);
-    } else {
-      setCurIndex(curIndex + 1);
-    }
-  }
-
-  console.log('cur index: ', curIndex);
+  
 
   if (curMemory && trip) {
+    // console.log('cur index: ', curIndex);
+    // console.log('memory id: ', curMemory._id);
+    // console.log('previous memory: ', tripMemories[curIndex - 1]._id);
+    // console.log('next memory: ', tripMemories[curIndex + 1]._id);
     let prevUrl = "";
     if (filter === "category") {
       if (!params.has("category")) {
@@ -93,6 +118,9 @@ export default function IndividualMemory({
       }
       let category = params.get("category");
       prevUrl = `/trips/${trip._id}/category?category=${category}`;
+      if (params.has('day')) {
+        prevUrl += `&day=${params.get('day')}`;
+      }
     } else if (filter === "day") {
       if (!params.has("day")) {
         router.push("/404"); // Search query missing.
@@ -125,9 +153,15 @@ export default function IndividualMemory({
           >
             
             <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
-              <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} onClick={cycleLeft} />
+              {/* <Link href={constructCycleUrl(tripMemories[curIndex - 1]._id, trip._id)}>  */}
+              <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
+                <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
+              </Link>
               {curMemory.title}
-              <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} onClick={cycleRight} />
+              {/* <Link href={constructCycleUrl(tripMemories[curIndex + 1]._id, trip._id)}>  */}
+              <Link href={`/trips/${trip._id}/memory/${tripMemories[nextIndex]._id}`}>
+                <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} /> 
+              </Link>
             </h1>
             
           </div>
@@ -156,7 +190,7 @@ export default function IndividualMemory({
               {moment(curMemory.date).format("YYYY-MM-DD")}
             </div>
             <div className="rounded-lg bg-sky-300 text-white p-2 mr-2">
-              {curMemory.category}
+              {curMemory.category.charAt(0).toUpperCase() + curMemory.category.slice(1)}
             </div>
           </div>
 
