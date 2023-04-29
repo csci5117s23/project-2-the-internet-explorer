@@ -39,7 +39,7 @@ export default function IndividualWrapper({ router }) {
           try {
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + '/tripFolders', {
+            const response = await fetch(backend_base + '/tripFolders?sort=startYear,startMonth', {
               'method': 'GET',
               'headers': {
                 'Authorization': 'Bearer ' + token
@@ -54,16 +54,6 @@ export default function IndividualWrapper({ router }) {
 
             const data = await response.json();
 
-            // Sort the data by year and month.
-            data.sort((a, b) => {
-              // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
-              if (a.startYear === b.startYear) {
-                return a.startMonth < b.startMonth ? -1 : 1;
-              } else {
-                return a.startYear < b.startYear ? -1 : 1;
-              }
-            });
-
             setAllTrips(data);
             setLoadingTrips(false);
           } catch (error) {
@@ -76,9 +66,15 @@ export default function IndividualWrapper({ router }) {
   }, [isLoaded]);
 
   useEffect(() => {
-    if (allTrips) {
+    if (allTrips && tripID) {
       console.log('all trips in setting curTrip: ', allTrips);
       let target = allTrips.find(trip => trip._id === tripID);
+      console.log('trip id in target: ', tripID);
+      console.log('target: ', target);
+      if (!target) { // If target is undefined, then that means the requested trip is not accessible by the current user.
+        router.push('/404');
+        return;
+      }
       if (curTrip !== target) {
         setCurTrip(target);
       }
@@ -136,7 +132,8 @@ export default function IndividualWrapper({ router }) {
           if (userId) {
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + `/getTripMemories?trip=${tripID}`, {
+            const response = await fetch(backend_base + `/tripMemories?parentTripId=${tripID}&sort=category,date`, {
+            // const response = await fetch(backend_base + `/getTripMemories?trip=${tripID}`, {
               'method': 'GET',
               'headers': {
                 'Authorization': 'Bearer ' + token
