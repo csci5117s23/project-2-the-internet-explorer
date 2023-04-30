@@ -4,8 +4,8 @@ import { currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } f
 import IndividualCategory from "@/components/IndividualCategory";
 import IndividualDay from "@/components/IndividualDay";
 import LoadingCircle from "@/components/LoadingCircle";
-
-
+import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import Splash from "@/pages";
 export default function FilterPage() {
   const router = useRouter();
   const { filter, tripID, category, day } = router.query;
@@ -43,7 +43,19 @@ export default function FilterPage() {
       }
       
       return (
-        <IndividualDay tripID={tripID} date={day} category={curCategory} router={router}></IndividualDay>
+        <>
+          <SignedIn>
+            <IndividualDay
+              tripID={tripID}
+              date={day}
+              category={curCategory}
+              router={router}
+            ></IndividualDay>
+          </SignedIn>
+          <SignedOut>
+            <Splash></Splash>
+          </SignedOut>
+        </>
       );
     } else {
       // Unaccepted route.
@@ -51,7 +63,16 @@ export default function FilterPage() {
       return;
     }
   } else {
-    return <LoadingCircle></LoadingCircle>
+    return (
+      <>
+        <SignedIn>
+          <LoadingCircle></LoadingCircle>
+        </SignedIn>
+        <SignedOut>
+          <Splash></Splash>
+        </SignedOut>
+      </>
+    );
   }
 
   // return <IndividualCategory></IndividualCategory>

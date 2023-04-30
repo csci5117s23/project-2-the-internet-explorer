@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import LoadingCircle from './LoadingCircle'; 
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -15,10 +16,12 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const [userPosition, setUserPosition] = useState(null);
     const [geocoder, setGeocoder] = useState(null);
     const [showCurrentDiv, setShowCurrentDiv] = useState(false);
+    const [locationIsLoading, setLocationIsLoading] = useState(false);
 
     const onLoad = (ref) => setSearchBox(ref);
 
     console.log("this is mem coordinates: " + JSON.stringify(coordinates));
+    console.log("this is locationIsLoading state: " + locationIsLoading)
 
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
@@ -36,11 +39,13 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       if (!userPosition && !coordinates) {
         // Get the user's current location
         console.log("getting user's location")
+        setLocationIsLoading(true);
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
             const pos = { lat: latitude, lng: longitude }
             setUserPosition(pos);
+            setLocationIsLoading(false);
           },
           (error) => {
             console.error("Error getting user location:", error);
@@ -95,13 +100,16 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           <div>
             <input
               className="bg-gray-200 p-2 rounded-md w-full"
-              placeholder="Current Location"
+              placeholder="Loading Current Location..."
               value={location}
               readOnly
             ></input>
             {showCurrentDiv && <div className="text-sm">(Current Location)</div>}
           </div>
-          {isLoaded && <GoogleMap
+          {locationIsLoading ? (
+           <LoadingCircle />
+          ) : (
+          isLoaded && (<GoogleMap
             id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
@@ -135,7 +143,8 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
                 }}
               />
             </StandaloneSearchBox>
-          </GoogleMap>}
+          </GoogleMap>)
+          )}
         </div>
       </>
     );
