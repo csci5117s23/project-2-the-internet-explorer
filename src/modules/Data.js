@@ -14,14 +14,14 @@ export async function getAllTrips(authToken) {
   });
   allTripsData = await result.json();
   //* Uncomment this sort for use with coho localserver.
-  allTripsData.sort((a, b) => {
-    // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
-    if (a.startYear === b.startYear) {
-      return a.startMonth < b.startMonth ? -1 : 1;
-    } else {
-      return a.startYear < b.startYear ? -1 : 1;
-    }
-  });
+  // allTripsData.sort((a, b) => {
+  //   // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+  //   if (a.startYear === b.startYear) {
+  //     return a.startMonth < b.startMonth ? -1 : 1;
+  //   } else {
+  //     return a.startYear < b.startYear ? -1 : 1;
+  //   }
+  // });
   return allTripsData;
 }
 
@@ -34,14 +34,14 @@ export async function getAllMemories(authToken, tripId) {
   });
   currentTripMemories = await result.json();
   //* Uncomment this sort for use with coho localserver.
-  currentTripMemories.sort((a, b) => {
-    // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
-    if (a.category === b.category) {
-      return a.date < b.date ? -1 : 1;
-    } else {
-      return a.category < b.category ? -1 : 1;
-    }
-  });
+  // currentTripMemories.sort((a, b) => {
+  //   // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+  //   if (a.category === b.category) {
+  //     return a.date < b.date ? -1 : 1;
+  //   } else {
+  //     return a.category < b.category ? -1 : 1;
+  //   }
+  // });
   return currentTripMemories;
 }
 
@@ -80,6 +80,39 @@ export async function getIndividualMemory(authToken, memoryId) {
     }
   });
   currentMemory = await result.json();
+  return currentMemory;
+}
+
+export async function deleteMemory(authToken, memoryID) {
+  const response = await fetch(backend_base + `/tripMemories/${memoryID}`, {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken
+    }
+  });
+  if (!response.ok) {
+    return null;
+  }
+  const result = await response.json();
+  removeMemory(memoryID);
+  return result;
+}
+
+export async function updateMemory(authToken, memoryID, data) {
+  const response = await fetch (backend_base + `/tripMemories/${memoryID}`, {
+    'method': 'PATCH',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken,
+      'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify(data)
+  });
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  updateCurrentMemory(result);
   return currentMemory;
 }
 

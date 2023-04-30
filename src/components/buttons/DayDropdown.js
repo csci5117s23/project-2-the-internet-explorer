@@ -4,12 +4,11 @@ import Link from "next/link";
 import { useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react'
 
+let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
-  console.log('day in day dropdown: ', day);
-
+export default function DayDropdown({ day, curCategory, tripMemories, tripID, router }) {
   const [tripDays, setTripDays] = useState([]);
-  let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  
 
   if (day === undefined) {
       return <></>
@@ -28,7 +27,6 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
         }
         let daysList = [];
         for (const [date, memory] of Object.entries(days)) {
-          // console.log('date: ', date);
           let curDate = new Date(date);
           let month = curDate.getMonth();
           let day = curDate.getDate();
@@ -38,9 +36,6 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
             'dateStr': `${months[month]} ${day}`
           };
           daysList.push(curDay);
-
-          
-            
         }
 
         if (day != "All Days") {
@@ -80,16 +75,13 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
         <Menu.Items className='absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
             <Menu.Item key={'All Days'}>
-              {/* <Link href={curCategory && curCategory !== "All Categories" ? `/newTrips/${tripID}/category?category=${curCategory}` : `/newTrips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'> */}
               <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
                 All Days
               </Link>
             </Menu.Item>
             {tripDays.map((object, i) => {
-              // let link = `/newTrips/${tripID}/day?day=${object.iso}`;
               let link = `/trips/${tripID}/day?day=${object.iso}`;
               if (curCategory && curCategory != "All Categories") {
-                // link = `/newTrips/${tripID}/category?day=${object.iso}&category=${curCategory}`;
                 link = `/trips/${tripID}/category?day=${object.iso}&category=${curCategory}`;
               }
               return (
@@ -106,5 +98,3 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
     </Menu>
   );
 }
-
-export default DayDropdown;

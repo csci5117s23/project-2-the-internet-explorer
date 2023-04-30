@@ -291,14 +291,10 @@ export default function IndividualMemory({
           >
             
             <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
-              {/* <Link href={constructCycleUrl(tripMemories[curIndex - 1]._id, trip._id)}>  */}
-              {/* <Link href={`/newTrips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}> */}
               <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
               </Link>
               {memory.title}
-              {/* <Link href={constructCycleUrl(tripMemories[curIndex + 1]._id, trip._id)}>  */}
-              {/* <Link href={`/newTrips/${trip._id}/memory/${tripMemories[nextIndex]._id}`}> */}
               <Link href={`/trips/${trip._id}/memory/${tripMemories[nextIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} /> 
               </Link>
