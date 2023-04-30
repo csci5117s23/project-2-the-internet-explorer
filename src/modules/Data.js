@@ -25,6 +25,72 @@ export async function getAllTrips(authToken) {
   return allTripsData;
 }
 
+export async function getIndividualTrip(authToken, tripId) {
+  if (allTripsData) {
+    let curTrip = allTripsData.find(trip => trip._id === tripId);
+    if (curTrip) {
+      currentTrip = curTrip;
+      return currentTrip;
+    }
+  }
+  // If the above if statement does not successfully retrieve the data, then perform a database request.
+  const result = await fetch(backend_base + `/tripFolders/${tripId}`, {
+    'method': 'GET',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken
+    }
+  });
+  currentTrip = await result.json();
+  return currentTrip;
+}
+
+export async function addTrip(authToken, data) {
+  const response = await fetch(backend_base + '/tripFolders', {
+    'method': 'POST',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken,
+      'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify(data)
+  });
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  return result;
+}
+
+export async function deleteDesiredTrip(authToken, tripID) {
+  const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken
+    }
+  });
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  return result;
+}
+
+export async function deleteTripMemories(authToken, tripID) {
+  const response = await fetch(backend_base + `/deleteMemories?trip=${tripID}`, {
+    'method': 'DELETE',
+    'headers': {
+      'Authorization': 'Bearer ' + authToken
+    }
+  });
+  if (!response.ok) {
+    return null;
+  }
+
+  const result = await response.json();
+  return result;
+}
+
 export async function getAllMemories(authToken, tripId) {
   const result = await fetch(backend_base + `/tripMemories?parentTripId=${tripId}&sort=category,date`, {
     'method': 'GET',
@@ -43,25 +109,6 @@ export async function getAllMemories(authToken, tripId) {
   //   }
   // });
   return currentTripMemories;
-}
-
-export async function getIndividualTrip(authToken, tripId) {
-  if (allTripsData) {
-    let curTrip = allTripsData.find(trip => trip._id === tripId);
-    if (curTrip) {
-      currentTrip = curTrip;
-      return currentTrip;
-    }
-  }
-  // If the above if statement does not successfully retrieve the data, then perform a database request.
-  const result = await fetch(backend_base + `/tripFolders/${tripId}`, {
-    'method': 'GET',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
-    }
-  });
-  currentTrip = await result.json();
-  return currentTrip;
 }
 
 export async function getIndividualMemory(authToken, memoryId) {

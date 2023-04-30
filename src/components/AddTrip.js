@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styles from '../styles/AddTrip.module.css';
 
-// const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 export default function AddTrip({ addTrip, closeModal }) {
     function handleSubmit(e) {
         e.preventDefault();
@@ -12,15 +10,8 @@ export default function AddTrip({ addTrip, closeModal }) {
 
         const formJson = Object.fromEntries(formData.entries());
 
-        console.log('form json: ', formJson);
-
         // Separate the month and the year from the form month input.
         let startData = formJson.startMonth.split('-');
-        // let monthIdx = parseInt(startData[1]) - 1;
-        // console.log(months[monthIdx]);
-
-        // let newStart = new Date(formJson.startDate.replace(/-/g, '\/'));
-        // let newEnd = new Date(formJson.endDate.replace(/-/g, '\/'));
 
         let newTrip = {
             tripName: formJson.tripName,
@@ -35,16 +26,6 @@ export default function AddTrip({ addTrip, closeModal }) {
         e.target.reset();
         closeModal(); // Close the pop-up after submitting.
     }
-
-    // let today = new Date();
-    // let year = today.getFullYear();
-    // let month = today.getMonth() + 1;
-    // let yearStr = year.toString();
-    // let monthStr = '';
-    // if (month < 10) {
-    //     monthStr = `0${month}`;
-    // }
-    // let todayStr = `${yearStr}-${monthStr}`;
 
     return (
         <>
@@ -69,20 +50,9 @@ export default function AddTrip({ addTrip, closeModal }) {
                         title="yyyy-mm"
                         className="bg-gray-200 p-2 rounded-md w-full"
                         name="startMonth"
-                        maxLength={20}
                         required
                     ></input>
                 </div>
-                {/* <div className="p-4 end-date-container">
-                    <h4 className="text-l font-bold" id="createTripHeader">End Date</h4>
-                    <input 
-                        type="date"
-                        className="border-2 border-slate-600 w-full"
-                        placeholder="End Date"
-                        name="endDate"
-                        required
-                    ></input>
-                </div> */}
                 <div className="p-4">
                     <h4 className="text-l font-bold" id="createTripHeader">Brief Description</h4>
                     <textarea 

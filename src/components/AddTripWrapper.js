@@ -6,13 +6,15 @@ import AddTrip from "./AddTrip";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
+import { addTrip } from "@/modules/Data";
+import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
 
 export default function AddTripWrapper({ setUploadedTrip }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newTrip, setNewTrip] = useState(null);
-  // const [uploadedTrip, setUploadedTrip] = useState(null);
+  const router = useRouter();
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -31,19 +33,12 @@ export default function AddTripWrapper({ setUploadedTrip }) {
           try {
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + '/tripFolders', {
-              'method': 'POST',
-              'headers': {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-              },
-              'body': JSON.stringify(newTrip)
-            });
+            const result = await addTrip(token, newTrip);
+            if (!result) {
+              router.push('/404');
+              return;
+            }
 
-            const result = await response.json();
-            console.log('Success: ', result);
-
-            // Set a state variable so we can update the trip folders in real time.
             setUploadedTrip(result);
           } catch (error) {
             console.error('Error: ', error);
@@ -69,7 +64,6 @@ export default function AddTripWrapper({ setUploadedTrip }) {
         onRequestClose={closeModal}
         contentLabel="Add Trip Modal"
       >
-
         <AddTrip 
           addTrip={setNewTrip}
           closeModal={closeModal}
