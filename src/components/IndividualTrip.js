@@ -96,8 +96,8 @@ export default function IndividualTrip({ tripID, router }) {
         <Header 
           title={trip.tripName}
           back={true}
-          prevUrl='/newTrips'
-          // prevUrl='/trips'
+          // prevUrl='/newTrips'
+          prevUrl='/trips'
         />
         {loadingMemories ? (
           <LoadingCircle></LoadingCircle>

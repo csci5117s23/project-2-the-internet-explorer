@@ -2,18 +2,18 @@ import Link from "next/link";
 
 const CategoryButton = ({name, tripId, date, pressed}) => {
     console.log('date in category button: ', date);
-    let link = `/newTrips/${tripId}/category?category=${name}`;
-    // let link = `/trips/${tripId}/category?category=${name}`;
+    // let link = `/newTrips/${tripId}/category?category=${name}`;
+    let link = `/trips/${tripId}/category?category=${name}`;
     if (date && date !== "All Days") {
-        link = `/newTrips/${tripId}/day?day=${date}&category=${name}`;
-        // link = `/trips/${tripId}/day?day=${date}&category=${name}`;
+        // link = `/newTrips/${tripId}/day?day=${date}&category=${name}`;
+        link = `/trips/${tripId}/day?day=${date}&category=${name}`;
         if (name === "All Categories") {
-            link = `/newTrips/${tripId}/day?day=${date}`;
-            // link = `/trips/${tripId}/day?day=${date}`;
+            // link = `/newTrips/${tripId}/day?day=${date}`;
+            link = `/trips/${tripId}/day?day=${date}`;
         }
     } else if (name === "All Categories") {
-        link = `/newTrips/${tripId}`;
-        // link = `/trips/${tripId}`;
+        // link = `/newTrips/${tripId}`;
+        link = `/trips/${tripId}`;
     }
     // console.log('link: ', link);
 

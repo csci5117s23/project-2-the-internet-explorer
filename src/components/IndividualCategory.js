@@ -150,8 +150,8 @@ export default function IndividualCategory({ tripID, date, category, router }) {
   // }, [tripMemories, trip, router]);
 
   if (trip && categoryMemories) {
-    let prevUrl = `/newTrips/${trip._id}`;
-    // let prevUrl = `/trips/${trip._id}`;
+    // let prevUrl = `/newTrips/${trip._id}`;
+    let prevUrl = `/trips/${trip._id}`;
     let curDateStr = 'All Days';
     if (date && date !== "All Days") {
       // prevUrl = `/trips/${trip._id}/category?category=${category}`;

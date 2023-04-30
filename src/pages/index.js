@@ -5,8 +5,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 // import Trips from './trips';
-import TripData from './trips/[[...tripData]]';
-import TripsPage from './newTrips';
+import TripData from './oldTrips/[[...tripData]]';
+import TripsPage from './trips';
 
 const inter = Inter({ subsets: ['latin'] })
 

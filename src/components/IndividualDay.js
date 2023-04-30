@@ -158,8 +158,8 @@ export default function IndividualDay({ tripID, date, category, router }) {
     let day = curDate.getDate();
     let curDateStr = `${months[month]} ${day}`;
 
-    let prevUrl = `/newTrips/${trip._id}`;
-    // let prevUrl = `/trips/${trip._id}`;
+    // let prevUrl = `/newTrips/${trip._id}`;
+    let prevUrl = `/trips/${trip._id}`;
     if (category && category !== "All Categories") {
       // prevUrl = `/trips/${trip._id}/day?day=${date}`;
     }

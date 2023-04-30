@@ -36,8 +36,8 @@ export default function MemoryDeleteButton({
         console.log(result);
         removeMemory(result._id);
         alert("Successfully deleted");
-        router.push(`/newTrips/${tripid}`);
-        // router.push(`/trips/${tripid}`);
+        // router.push(`/newTrips/${tripid}`);
+        router.push(`/trips/${tripid}`);
       }
     } catch (error) {
       console.error("Error: ", error);

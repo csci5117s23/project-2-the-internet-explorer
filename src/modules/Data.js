@@ -87,6 +87,10 @@ export function updateTripsData(newTripsData) {
   allTripsData = newTripsData;
 }
 
+export function updateCurrentTrip(newTrip) {
+  currentTrip = newTrip;
+}
+
 export function removeTrip(tripId) {
   const index = allTripsData.findIndex(trip => trip._id === tripId);
   allTripsData.splice(index, 1);
@@ -96,11 +100,11 @@ export function updateMemories(newMemories) {
   currentTripMemories = newMemories;
 }
 
+export function updateCurrentMemory(newMemory) {
+  currentMemory = newMemory;
+}
+
 export function removeMemory(memoryId) {
   const index = currentTripMemories.findIndex(memory => memory._id === memoryId);
   currentTripMemories.splice(index, 1);
-}
-
-export function updateCurrentMemory(newMemory) {
-  currentMemory = newMemory;
 }

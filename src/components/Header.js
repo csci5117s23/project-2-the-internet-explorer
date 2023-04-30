@@ -12,8 +12,8 @@ export default function Header({title, back, prevUrl, day}) {
         {back ? <BackButton prevUrl={prevUrl} /> : <div></div>}
       </div>
       <div className="flex items-center ml-4">
-        <Link href='/newTrips'>
-        {/* <Link href="/trips"> */}
+        {/* <Link href='/newTrips'> */}
+        <Link href="/trips">
           <FontAwesomeIcon
             icon={faHouse}
             style={{ color: "#f5f5f5", height: "2em" }}
