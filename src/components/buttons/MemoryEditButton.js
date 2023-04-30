@@ -6,16 +6,16 @@ import Resizer from "react-image-file-resizer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function MemoryEditButton({
-  editMemory,
-  closeModal,
-  parentId,
-  setDataUrl,
-  startDate,
-  category,
-  date,
-  curMemory
-}) {
+export default function MemoryEditButton(
+  { editMemory,
+    closeModal,
+    parentId,
+    setDataUrl,
+    startDate,
+    category,
+    date,
+    curMemory }
+) {
   const [showWebCamera, setShowWebCamera] = useState(false);
   const [camera, setCamera] = useState(false); // front is false. back is true.
   const [image, setImage] = useState(curMemory.image);
@@ -26,7 +26,6 @@ export default function MemoryEditButton({
     lng: curMemory.longitude,
   });
   const webcamRef = useRef(null);
-  // console.log(coordinates);
 
   const frontCamera = useCallback(() => {
     setCamera(false);
@@ -114,11 +113,7 @@ export default function MemoryEditButton({
       return;
     }
 
-    if (
-      location === "Loading..." ||
-      location === "Current Location" ||
-      !coordinates
-    ) {
+    if (!location || !coordinates) {
       alert("Please select a location");
       return;
     }
@@ -141,12 +136,10 @@ export default function MemoryEditButton({
     closeModal();
   }
 
-  // TODO: Deconstruct and reconstruct the passed in startDate to be accepted as a default value in
-  // TODO: the html form for the date.
-  let curDate = new Date(startDate);
-  let year = curDate.getFullYear();
-  let month = curDate.getMonth() + 1;
-  let day = curDate.getDate();
+  let newDate = new Date(curMemory.date);
+  let year = newDate.getFullYear();
+  let month = newDate.getMonth() + 1;
+  let day = newDate.getDate();
 
   let yearStr = year.toString();
   let monthStr = "";
@@ -162,36 +155,7 @@ export default function MemoryEditButton({
     dayStr = day.toString();
   }
 
-  let dateStr = `${yearStr}-${monthStr}-${dayStr}`;
-
-  let defaultCategory = "none";
-  if (category) {
-    defaultCategory = category;
-  }
-
-  let defaultDate = "";
-  if (date) {
-    let newDate = new Date(date);
-    let year = newDate.getFullYear();
-    let month = newDate.getMonth() + 1;
-    let day = newDate.getDate();
-
-    let yearStr = year.toString();
-    let monthStr = "";
-    if (month < 10) {
-      monthStr = `0${month.toString()}`;
-    } else {
-      monthStr = month.toString();
-    }
-    let dayStr = "";
-    if (day < 10) {
-      dayStr = `0${day.toString()}`;
-    } else {
-      dayStr = day.toString();
-    }
-
-    defaultDate = `${yearStr}-${monthStr}-${dayStr}`;
-  }
+  let defaultDate = `${yearStr}-${monthStr}-${dayStr}`;
 
   let options = (
     <>
@@ -205,10 +169,6 @@ export default function MemoryEditButton({
       <option value="people">People</option>
     </>
   );
-  // console.log("this is optons");
-  // console.log(options);
-
-  // console.log("category: ", category);
 
   return (
     <>
@@ -230,25 +190,13 @@ export default function MemoryEditButton({
           </div>
           <div className="p-4">
             <h4 className="text-l font-bold">Date</h4>
-            {date ? (
-              <input
-                type="date"
-                className="border-2 border-slate-600 w-full"
-                id="date"
-                name="date"
-                defaultValue={defaultDate}
-              ></input>
-            ) : (
-              <input
-                type="date"
-                className="border-2 border-slate-600 w-full"
-                placeholder="Date"
-                id="date"
-                name="date"
-                required
-                min={dateStr}
-              ></input>
-            )}
+            <input 
+              type='date'
+              className='border-2 border-slate-600 w-full'
+              id='date'
+              name='date'
+              defaultValue={defaultDate}
+            />
           </div>
           <Map
             location={location}
@@ -258,26 +206,14 @@ export default function MemoryEditButton({
           ></Map>
           <div className="p-4">
             <h4 className="text-l font-bold">What type of memory is this?</h4>
-            {category ? (
-              <select
-                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                name="folders"
-                id="folders"
-                defaultValue={category.toLowerCase()}
-              >
-                {options}
-              </select>
-            ) : (
-              <select
-                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                name="folders"
-                id="folders"
-                required
-                defaultValue={category.toLowerCase()}
-              >
-                {options}
-              </select>
-            )}
+            <select 
+              className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              name='folders'
+              id='folders'
+              defaultValue={curMemory.category}
+            >
+              {options}
+            </select>
           </div>
           <div className={styles.photoButtons}>
             {showWebCamera ? (
