@@ -3,6 +3,7 @@ import IndividualTrip from "@/components/IndividualTrip";
 import { useRouter } from "next/router";
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 import Splash from "@/pages";
+import Head from "next/head";
 export default function TripId() {
   const router = useRouter();
   const { tripID } = router.query;
@@ -13,6 +14,10 @@ export default function TripId() {
     return (
       <>
         <SignedIn>
+          {/* <Head>
+            <title>{tripID.tripName}</title>
+            <link rel="icon" href="/favicon.png" />
+          </Head> */}
           <IndividualTrip tripID={tripID} router={router}></IndividualTrip>
         </SignedIn>
         <SignedOut>
