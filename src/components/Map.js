@@ -30,26 +30,34 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       }
     }, [isLoaded, geocoder]);
     
+    useEffect(() => {
+      if (coordinates && mapInstance) {
+        const pos = new google.maps.LatLng(coordinates.lat, coordinates.lng);
+        mapInstance.setCenter(pos);
+      }
+    }, [coordinates, mapInstance]);
 
     useEffect(() => {
-      if (!userPosition) {
+      if (!userPosition & !coordinates) {
         // Get the user's current location
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
             const pos = { lat: latitude, lng: longitude }
             setUserPosition(pos);
+            setCoordinates(pos);
+            reverseGeocode(pos);
           },
           (error) => {
             console.error("Error getting user location:", error);
           },
           { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
         );
-      } else {
+      } else if (userPosition){
         setCoordinates(userPosition);
         reverseGeocode(userPosition);
       }
-    }, [userPosition]);
+    }, [userPosition, coordinates]);
 
     const reverseGeocode = (pos) => {
       if (geocoder) {
