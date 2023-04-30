@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/AddTrip.module.css';
 import { useAuth } from "@clerk/nextjs";
 import Modal from "react-modal";
+import { removeTrip, updateTripsData } from "@/modules/Data";
 
-export default function DeleteTrip({ tripID, tripName, closeModal }) {
+export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, setAllTrips }) {
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
     const [deleteModal, setDeleteModal] = useState(false);
@@ -23,13 +24,20 @@ export default function DeleteTrip({ tripID, tripName, closeModal }) {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
+                if (!response.ok) {
+                    console.log('Error, 404 most likely')
+                    return;
+                }
+                const result = await response.json();
+                console.log(result);
+                let mutableTrips = [...allTrips];
+                const index = mutableTrips.findIndex(trip => trip._id === result._id);
+                mutableTrips.splice(index, 1);
+                updateTripsData(mutableTrips);
+                setAllTrips(mutableTrips);
+                alert("Successfully deleted main trip");
             }
-            if (!response.ok) {
-                console.log('Error, 404 most likely')
-                return;
-            }
-            console.log(await response.json());
-            alert("Successfully deleted main trip");
+            
         }
         catch (error) {
             console.error('Error: ', error);
@@ -39,19 +47,20 @@ export default function DeleteTrip({ tripID, tripName, closeModal }) {
         try {
             if (userId) {
                 const token = await getToken({template: "codehooks"});
-                const responseMemory = await fetch(backend_base + `/getTripMemories?trip=${tripID}`, {
+                const responseMemory = await fetch(backend_base + `/deleteMemories?trip=${tripID}`, {
                     'method': 'DELETE',
                     'headers': {
                         'Authorization': 'Bearer ' + token,
                     }
                 });
+                if (!responseMemory.ok) {
+                    console.log('Error deleting memory, 404 most likely')
+                    return;
+                }
+                console.log(await responseMemory.json());
+                alert("Successfully deleted trip memories");
             }
-            if (!responseMemory.ok) {
-                console.log('Error, 404 most likely')
-                return;
-            }
-            console.log(await responseMemory.json());
-            alert("Successfully deleted trip memories");
+            
         }
         catch (error) {
             console.error('Error: ', error);

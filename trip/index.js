@@ -99,6 +99,19 @@ async function addMemory(req, res) {
 }
 app.post('/addMemory', addMemory);
 
+async function deleteTripMemories(req, res) {
+  const conn = await Datastore.open();
+  const query = {$and: [{"user": req.query.user}, {"parentTripId": req.query.trip}]};
+
+  const options = {
+    filter: query
+  }
+
+  const data = await conn.removeMany('tripMemories', options);
+  res.json(data);
+}
+app.delete('/deleteMemories', deleteTripMemories);
+
 // async function deleteAllMemories(req, res) {
 //   const conn = await Datastore.open();
 //   const query = {"_id": {$exists: true}};
@@ -153,6 +166,8 @@ app.use('/tripFolders', (req, res, next) => {
     req.body.user = req.user_token.sub;
   } else if (req.method === "GET") {
     req.query.user = req.user_token.sub;
+  } else if (req.method === "DELETE") {
+    req.query.user = req.user_token.sub;
   }
   next();
 })
@@ -186,9 +201,18 @@ app.use('/tripMemories', (req, res, next) => {
     req.body.user = req.user_token.sub;
   } else if (req.method === "GET") {
     req.query.user = req.user_token.sub;
+  } else if (req.method === "DELETE") {
+    req.query.user = req.user_token.sub;
   }
   next();
 });
+
+app.use('/deleteMemories', async(req, res, next) => {
+  if (req.method === "DELETE") {
+    req.query.user = req.user_token.sub;
+  }
+  next();
+})
 
 app.use('/tripFolders/:id', async (req, res, next) => {
   const id = req.params.ID;

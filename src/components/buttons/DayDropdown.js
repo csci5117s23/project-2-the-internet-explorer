@@ -49,6 +49,10 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
           daysList.splice(curDayIdx, 1); 
         }
 
+        daysList.sort((a, b) => {
+          return a.iso < b.iso ? -1 : 1
+        });
+
         setTripDays(daysList);
       }
     }
@@ -75,18 +79,17 @@ const DayDropdown = ({day, curCategory, tripMemories, tripID, router}) => {
       >
         <Menu.Items className='absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
-            {day != "All Days" ? (
-              <Menu.Item key={"All Days"}>
-                <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
-                  All Days
-                </Link>
-              </Menu.Item>
-            ) : (
-              <></>
-            )}
+            <Menu.Item key={'All Days'}>
+              {/* <Link href={curCategory && curCategory !== "All Categories" ? `/newTrips/${tripID}/category?category=${curCategory}` : `/newTrips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'> */}
+              <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+                All Days
+              </Link>
+            </Menu.Item>
             {tripDays.map((object, i) => {
+              // let link = `/newTrips/${tripID}/day?day=${object.iso}`;
               let link = `/trips/${tripID}/day?day=${object.iso}`;
               if (curCategory && curCategory != "All Categories") {
+                // link = `/newTrips/${tripID}/category?day=${object.iso}&category=${curCategory}`;
                 link = `/trips/${tripID}/category?day=${object.iso}&category=${curCategory}`;
               }
               return (

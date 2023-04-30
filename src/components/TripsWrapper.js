@@ -5,6 +5,8 @@ import TripsList from "./TripsList";
 import { useAuth } from "@clerk/clerk-react";
 import LoadingCircle from "./LoadingCircle";
 
+import { updateTripsData } from "@/modules/Data";
+
 
 export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
   // This is the wrapper for the trips list.
@@ -53,6 +55,7 @@ export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
             return a.startYear < b.startYear ? -1 : 1;
           }
         });
+        updateTripsData(mutableTrips);
         setAllTrips(mutableTrips);
       }
     }

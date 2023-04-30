@@ -9,13 +9,64 @@ import TripMemoryWrapper from "./TripMemoryWrapper";
 import MemoryViewButton from "./buttons/MemoryViewButton";
 import styles from '../styles/TripView.module.css';
 
-export default function IndividualCategory({ trip, date, category, loadingMemories, tripMemories, setTripMemories, router }) {
+import { currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } from "@/modules/Data";
+
+export default function IndividualCategory({ tripID, date, category, router }) {
   const [categoryMemories, setCategoryMemories] = useState(null);
+
+  const [trip, setTrip] = useState(null);
+  const [loadingTrip, setLoadingTrip] = useState(true);
+  const [tripMemories, setTripMemories] = useState(null);
+  const [loadingMemories, setLoadingMemories] = useState(true);
   // const [loadingCategoryMemories, setLoadingCategoryMemories] = useState(true);
   // const [tripMemories, setTripMemories] = useState(null);
   // const [loadingMemories, setLoadingMemories] = useState(true);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+  useEffect(() => {
+    async function findTrip() {
+      if (userId) {
+        if (currentTrip && currentTrip._id === tripID) {
+          setTrip(currentTrip);
+          setLoadingTrip(false);
+        } else {
+          const token = await getToken({ template: 'codehooks' });
+
+          let curTrip = await getIndividualTrip(token, tripID);
+          if (!curTrip) {
+            router.push('/404');
+            return;
+          }
+          setTrip(curTrip);
+          setLoadingTrip(false);
+        }
+      }
+    }
+    findTrip();
+  }, [isLoaded, tripID]);
+
+  useEffect(() => {
+    async function retrieveMemories() {
+      if (userId) {
+        if (currentTripMemories.length > 0 && currentTripMemories[0].parentTripId === tripID) {
+          setTripMemories(currentTripMemories);
+          setLoadingMemories(false);
+        } else {
+          const token = await getToken({ template: 'codehooks' });
+
+          let curMemories = await getAllMemories(token, tripID);
+          if (!curMemories) {
+            router.push('/404');
+            return;
+          }
+          setTripMemories(curMemories);
+          setLoadingMemories(false);
+        }
+      }
+    }
+    retrieveMemories();
+  }, [isLoaded, tripID]);
 
   let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -33,41 +84,73 @@ export default function IndividualCategory({ trip, date, category, loadingMemori
     );
   }
 
-  // TODO: Add a useEffect that relies on the router to search through the passed in memories to grab all the ones for the specified category.
   useEffect(() => {
-    const findCategoryMemories = async () => {
-      if (tripMemories) {
+    function findCategoryMemories() {
+      if (!loadingMemories && !loadingTrip) { // Only run when both the memories and trip are loaded.
         let params = {
           'category': category
         };
 
-        let validDate = (date && date !== "All Days");
+        let validDate = (date && date !== 'All Days');
         if (validDate) {
           params['day'] = date;
         }
         let memoryList = [];
-        if (trip) {
-          for (let memory of tripMemories) {
-            if (validDate) {
-              if (memory.category === category.toLowerCase() && memory.date === date) {
-                let curMemory = createMemoryButton(memory, params);
-                memoryList = memoryList.concat(curMemory);
-              }
-            } else {
-              if (memory.category === category.toLowerCase()) {
-                let curMemory = createMemoryButton(memory, params);
-                memoryList = memoryList.concat(curMemory);
-              }
+        for (let memory of tripMemories) {
+          if (validDate) {
+            if (memory.category === category.toLowerCase() && memory.date === date) {
+              let curMemory = createMemoryButton(memory, params);
+              memoryList = memoryList.concat(curMemory);
+            }
+          } else {
+            if (memory.category === category.toLowerCase()) {
+              let curMemory = createMemoryButton(memory, params);
+              memoryList = memoryList.concat(curMemory);
             }
           }
-          setCategoryMemories(memoryList);
         }
+        setCategoryMemories(memoryList);
       }
     }
     findCategoryMemories();
-  }, [tripMemories, trip, router]);
+  }, [loadingMemories, loadingTrip, tripMemories, router]);
+
+  // TODO: Add a useEffect that relies on the router to search through the passed in memories to grab all the ones for the specified category.
+  // useEffect(() => {
+  //   const findCategoryMemories = async () => {
+  //     if (tripMemories) {
+  //       let params = {
+  //         'category': category
+  //       };
+
+  //       let validDate = (date && date !== "All Days");
+  //       if (validDate) {
+  //         params['day'] = date;
+  //       }
+  //       let memoryList = [];
+  //       if (trip) {
+  //         for (let memory of tripMemories) {
+  //           if (validDate) {
+  //             if (memory.category === category.toLowerCase() && memory.date === date) {
+  //               let curMemory = createMemoryButton(memory, params);
+  //               memoryList = memoryList.concat(curMemory);
+  //             }
+  //           } else {
+  //             if (memory.category === category.toLowerCase()) {
+  //               let curMemory = createMemoryButton(memory, params);
+  //               memoryList = memoryList.concat(curMemory);
+  //             }
+  //           }
+  //         }
+  //         setCategoryMemories(memoryList);
+  //       }
+  //     }
+  //   }
+  //   findCategoryMemories();
+  // }, [tripMemories, trip, router]);
 
   if (trip && categoryMemories) {
+    // let prevUrl = `/newTrips/${trip._id}`;
     let prevUrl = `/trips/${trip._id}`;
     let curDateStr = 'All Days';
     if (date && date !== "All Days") {

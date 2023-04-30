@@ -29,49 +29,181 @@ const imageScales = [
   "90vw",
 ];
 
+import { currentTrip, currentMemory, currentTripMemories, getIndividualTrip, getAllMemories, getIndividualMemory } from '@/modules/Data';
+
 export default function IndividualMemory({
-  trip,
+  tripID,
   memoryID,
   filter,
-  params,
+  day,
+  category,
   router,
-  tripMemories,
-  setTripMemories,
 }) {
+
+  const [trip, setTrip] = useState(null);
+  const [loadingTrip, setLoadingTrip] = useState(true);
+  const [tripMemories, setTripMemories] = useState(null);
+  const [loadingMemories, setLoadingMemories] = useState(true);
+  const [memory, setMemory] = useState(null);
+  const [loadingMemory, setLoadingMemory] = useState(true);
 
   // const [memory, setMemory] = useState(null);
   // const [loadingMemory, setLoadingMemory] = useState(true);
   const [scaleIndex, setScaleIndex] = useState(0);
-  const [curMemory, setCurMemory] = useState(null);
+  // const [curMemory, setCurMemory] = useState(null);
   const [curIndex, setCurIndex] = useState(null);
   const [prevIndex, setPrevIndex] = useState(null);
   const [nextIndex, setNextIndex] = useState(null);
+  const [loadingIndices, setLoadingIndices] = useState(true);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
-    if (tripMemories) {
-      // let memory = tripMemories.find(memory => memory._id === memoryID);
-      let memoryIndex = tripMemories.findIndex(memory => memory._id === memoryID);
-      setCurIndex(memoryIndex);
-      
-      // Set the index for the previous trip in the list.
-      if (memoryIndex <= 0) {
-        setPrevIndex(tripMemories.length - 1);
-      } else {
-        setPrevIndex(memoryIndex - 1);
+    async function findTrip() {
+      if (userId) {
+        // console.log('current trip from data: ', currentTrip._id === tripID);
+        if (currentTrip && currentTrip._id === tripID) {
+          console.log('current trip exists');
+          setTrip(currentTrip);
+          setLoadingTrip(false);
+        } else {
+          const token = await getToken({ template: 'codehooks' });
+          
+          let curTrip = await getIndividualTrip(token, tripID);
+          if (!curTrip) {
+            router.push('/404');
+            return;
+          }
+          setTrip(curTrip);
+          setLoadingTrip(false);
+          // }
+        }
       }
-
-      // Set the index for the next trip in the list.
-      if (memoryIndex >= tripMemories.length - 1) {
-        setNextIndex(0);
-      } else {
-        setNextIndex(memoryIndex + 1);
-      }
-
-      setCurMemory(tripMemories[memoryIndex]);
     }
-  }, [tripMemories, router]);
+    findTrip();
+  }, [isLoaded, tripID]);
+
+  useEffect(() => {
+    async function retrieveMemories() {
+      if (userId) {
+        if (currentTripMemories.length > 0 && currentTripMemories[0].parentTripId === tripID) {
+          setTripMemories(currentTripMemories);
+          setLoadingMemories(false);
+        } else {
+          const token = await getToken({ template: 'codehooks' });
+
+          let curMemories = await getAllMemories(token, tripID);
+          if (!curMemories) {
+            router.push('/404');
+            return;
+          }
+          setTripMemories(curMemories);
+          setLoadingMemories(false);
+        }
+      }
+    }
+    retrieveMemories();
+  }, [isLoaded, tripID]);
+
+  useEffect(() => {
+    async function findMemory() {
+      console.log('trip memories state: ', tripMemories);
+      console.log('trip memories cache: ', currentTripMemories);
+      if (userId) {
+        if (!loadingMemories) {
+          if (currentMemory && currentMemory._id === memoryID) {
+            console.log('memory is cached: ', currentMemory);
+            let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
+            console.log('cur index: ', curIndex);
+            if (curIndex <= 0) {
+              setPrevIndex(tripMemories.length-1);
+            } else {
+              setPrevIndex(curIndex - 1);
+            }
+
+            if (curIndex >= tripMemories.length-1) {
+              setNextIndex(0);
+            } else {
+              setNextIndex(curIndex + 1);
+            }
+
+            setMemory(currentMemory);
+            setLoadingMemory(false);
+          } else {
+            const token = await getToken({ template: 'codehooks' });
+
+            let curMemory = await getIndividualMemory(token, memoryID);
+            if (!curMemory) {
+              router.push('/404');
+              return;
+            }
+
+            let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
+            console.log('cur index: ', curIndex);
+            if (curIndex <= 0) {
+              setPrevIndex(tripMemories.length-1);
+            } else {
+              setPrevIndex(curIndex - 1);
+            }
+
+            if (curIndex >= tripMemories.length-1) {
+              setNextIndex(0);
+            } else {
+              setNextIndex(curIndex + 1);
+            }
+
+            setMemory(curMemory);
+            setLoadingMemory(false);
+          }
+        }
+      }
+    }
+    findMemory();
+  }, [isLoaded, memoryID, loadingMemories]);
+
+  // useEffect(() => {
+  //   function findNextPrev() {
+  //     if (!loadingMemories && !loadingMemory) {
+  //       let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
+  //       if (curIndex <= 0) {
+  //         setPrevIndex(tripMemories.length - 1);
+  //       } else {
+  //         setPrevIndex(curIndex - 1);
+  //       }
+
+  //       if (curIndex >= tripMemories.length -1) {
+  //         setNextIndex(0);
+  //       } else {
+  //         setNextIndex(curIndex + 1);
+  //       }
+  //     }
+  //   }
+  //   findNextPrev();
+  // }, [loadingMemories, loadingMemory, router]);
+
+  // useEffect(() => {
+  //   if (tripMemories) {
+  //     // let memory = tripMemories.find(memory => memory._id === memoryID);
+  //     let memoryIndex = tripMemories.findIndex(memory => memory._id === memoryID);
+  //     setCurIndex(memoryIndex);
+      
+  //     // Set the index for the previous trip in the list.
+  //     if (memoryIndex <= 0) {
+  //       setPrevIndex(tripMemories.length - 1);
+  //     } else {
+  //       setPrevIndex(memoryIndex - 1);
+  //     }
+
+  //     // Set the index for the next trip in the list.
+  //     if (memoryIndex >= tripMemories.length - 1) {
+  //       setNextIndex(0);
+  //     } else {
+  //       setNextIndex(memoryIndex + 1);
+  //     }
+
+  //     setCurMemory(tripMemories[memoryIndex]);
+  //   }
+  // }, [tripMemories, router]);
 
   // useEffect(() => {
   //   if (curIndex !== null) {
@@ -81,58 +213,64 @@ export default function IndividualMemory({
 
   // console.log('cur index: ', curIndex);
 
-  function constructCycleUrl(memoryID, tripID) {
-    let url = '';
-    if (filter === 'category') {
-      // No need for error checking here since it gets error checked before, which 
-      // would occur prior to this function running.
-      let category = params.get('category');
-      url = `/trips/${tripID}/category/${memoryID}?category=${category}`;
-      if (params.has('day')) {
-        url += `&day=${params.get('day')}`;
-      }
-    } else if (filter === 'day') {
-      let day = params.get('day');
-      url = `/trips/${tripID}/day/${memoryID}?category=${category}`;
-      if (params.has('category')) {
-        url += `&category=${params.get('category')}`;
-      }
-    } else if (filter === 'memory') {
-      url = `/trips/${tripID}/memory/${memoryID}`;
-    }
+  // function constructCycleUrl(memoryID, tripID) {
+  //   let url = '';
+  //   if (filter === 'category') {
+  //     // No need for error checking here since it gets error checked before, which 
+  //     // would occur prior to this function running.
+  //     let category = params.get('category');
+  //     url = `/trips/${tripID}/category/${memoryID}?category=${category}`;
+  //     if (params.has('day')) {
+  //       url += `&day=${params.get('day')}`;
+  //     }
+  //   } else if (filter === 'day') {
+  //     let day = params.get('day');
+  //     url = `/trips/${tripID}/day/${memoryID}?category=${category}`;
+  //     if (params.has('category')) {
+  //       url += `&category=${params.get('category')}`;
+  //     }
+  //   } else if (filter === 'memory') {
+  //     url = `/trips/${tripID}/memory/${memoryID}`;
+  //   }
 
-    return url;
-  }
+  //   return url;
+  // }
   
 
-  if (curMemory && trip) {
+  if (!loadingMemories && !loadingMemory && !loadingTrip) {
+    console.log('prev index: ', prevIndex);
+    console.log('next index: ', nextIndex);
+    console.log('memories: ', tripMemories);
     // console.log('cur index: ', curIndex);
     // console.log('memory id: ', curMemory._id);
     // console.log('previous memory: ', tripMemories[curIndex - 1]._id);
     // console.log('next memory: ', tripMemories[curIndex + 1]._id);
     let prevUrl = "";
     if (filter === "category") {
-      if (!params.has("category")) {
+      if (!category) {
         router.push("/404"); // Search query missing.
         return;
       }
-      let category = params.get("category");
+      // let category = params.get("category");
+      // prevUrl = `/newTrips/${trip._id}/category?category=${category}`;
       prevUrl = `/trips/${trip._id}/category?category=${category}`;
-      if (params.has('day')) {
-        prevUrl += `&day=${params.get('day')}`;
+      if (day) {
+        prevUrl += `&day=${day}`;
       }
     } else if (filter === "day") {
-      if (!params.has("day")) {
+      if (!day) {
         router.push("/404"); // Search query missing.
         return;
       }
-      let day = params.get("day");
+      // let day = params.get("day");
+      // prevUrl = `/newTrips/${trip._id}/day?day=${day}`;
       prevUrl = `/trips/${trip._id}/day?day=${day}`;
-      if (params.has("category")) {
+      if (category) {
         console.log("has category param");
-        prevUrl += `&category=${params.get("category")}`;
+        prevUrl += `&category=${category}`;
       }
     } else if (filter === "memory") {
+      // prevUrl = `/newTrips/${trip._id}`;
       prevUrl = `/trips/${trip._id}`;
     } else {
       // Handles any unaccepted filters.
@@ -154,11 +292,13 @@ export default function IndividualMemory({
             
             <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
               {/* <Link href={constructCycleUrl(tripMemories[curIndex - 1]._id, trip._id)}>  */}
+              {/* <Link href={`/newTrips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}> */}
               <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
               </Link>
-              {curMemory.title}
+              {memory.title}
               {/* <Link href={constructCycleUrl(tripMemories[curIndex + 1]._id, trip._id)}>  */}
+              {/* <Link href={`/newTrips/${trip._id}/memory/${tripMemories[nextIndex]._id}`}> */}
               <Link href={`/trips/${trip._id}/memory/${tripMemories[nextIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} /> 
               </Link>
@@ -168,10 +308,10 @@ export default function IndividualMemory({
 
           <div className="flex p-2">
             <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
-              {moment(curMemory.date).format("YYYY-MM-DD")}
+              {moment(memory.date).format("YYYY-MM-DD")}
             </div>
             <div className="rounded-lg bg-sky-300 text-white p-2 mr-2">
-              {curMemory.category.charAt(0).toUpperCase() + curMemory.category.slice(1)}
+              {memory.category.charAt(0).toUpperCase() + memory.category.slice(1)}
             </div>
           </div>
 
@@ -180,13 +320,13 @@ export default function IndividualMemory({
               <img
                 // style={{ width: imageScales[scaleIndex] }}
                 className={`${styles.imgContainer} rounded-md`}
-                src={curMemory.image}
-                alt={curMemory.title}
+                src={memory.image}
+                alt={memory.title}
                 style={{ width: "90vw", height: "auto" }}
               />
             </div>
           </div>
-          {curMemory.description ? (
+          {memory.description ? (
             <div
               className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
               style={{ width: "90vw" }}
@@ -194,7 +334,7 @@ export default function IndividualMemory({
               <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">
                 Description
               </h1>
-              <span className="mt-2 bg-gray-300 p-3 m-1">{curMemory.description}</span>
+              <span className="mt-2 bg-gray-300 p-3 m-1">{memory.description}</span>
             </div>
           ) : (
             <></>
@@ -211,11 +351,11 @@ export default function IndividualMemory({
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 bg-blue-300 p-5 m-5 rounded-md">
               <div className="text-white text-lg font-bold bg-sky-400 p-2 rounded-md">
-                {curMemory.location}
+                {memory.location}
               </div>
               <MemoryMap
-                lat={curMemory.latitude}
-                lng={curMemory.longitude}
+                lat={memory.latitude}
+                lng={memory.longitude}
               ></MemoryMap>
             </div>
           </div>
@@ -224,14 +364,14 @@ export default function IndividualMemory({
             <EditMemoryWrapper
               parentId={trip._id}
               startDate={trip.startDate}
-              category={curMemory.category}
-              date={curMemory.date}
+              category={memory.category}
+              date={memory.date}
               memoryID={memoryID}
-              title={curMemory.title}
+              title={memory.title}
               router={router}
               tripid={trip._id}
-              curMemory={curMemory}
-              setCurMemory={setCurMemory}
+              curMemory={memory}
+              setCurMemory={setMemory}
               tripMemories={tripMemories}
               setTripMemories={setTripMemories}
             ></EditMemoryWrapper>

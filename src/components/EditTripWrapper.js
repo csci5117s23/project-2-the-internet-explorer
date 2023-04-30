@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
 import EditTrip from "./EditTrip";
 import DeleteTrip from "./DeleteTrip";
+import { updateCurrentTrip, updateTripsData } from "@/modules/Data";
 
 Modal.setAppElement("body");
 
@@ -41,6 +42,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
             });
             const result = await response.json();
             console.log('Success after update: ', result);
+            updateCurrentTrip(result);
 
             // Update the allTrips state variable in somewhat real time. Has to wait for the
             // patch request to complete.
@@ -64,6 +66,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
                 }
               });
             }
+            updateTripsData(mutableAllTrips);
             setAllTrips(mutableAllTrips);
 
             setEditedTrip(null);
@@ -103,7 +106,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           onClick={closeModal}
           className="px-4 py-2 font-semibold text-m bg-gray-400 border-black text-white rounded-full shadow-sm"
         >Close</button>
-        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal}/>
+        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal} allTrips={allTrips} setAllTrips={setAllTrips}/>
       </Modal>
     </>
     );

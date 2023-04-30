@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/TripMemory.module.css';
 import { useAuth } from "@clerk/nextjs";
 import { LoadScript } from "@react-google-maps/api";
+import { updateMemories } from "@/modules/Data";
 // const libraries = ["places"];
 
 Modal.setAppElement("body");
@@ -52,7 +53,16 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
 
             const result = await response.json();
             console.log('Success: ', result);
-            setTripMemories(tripMemories.concat(result));
+            const updatedMemories = tripMemories.concat(result);
+            updatedMemories.sort((a, b) => {
+              if (a.category === b.category) {
+                return a.date < b.date ? -1 : 1;
+              } else {
+                return a.category < b.category ? -1 : 1;
+              }
+            });
+            updateMemories(updatedMemories); // Update the cached memories.
+            setTripMemories(updatedMemories);
             setNewMemory(null);
             setDataUrl("");
 
