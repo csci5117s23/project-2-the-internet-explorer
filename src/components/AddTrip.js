@@ -61,7 +61,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                     ></input>
                 </div>
                 <div className="p-4 start-date-container">
-                    <h4 className="text-l font-bold" id="createTripHeader">What month did you go?</h4>
+                    <h4 className="text-l font-bold" id="createTripHeader">When did you go?</h4>
                     <input
                         type="month"
                         pattern="(20[0-9]{2})-(0[1-9]|1[012])"
