@@ -1,5 +1,4 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-// const backend_base = 'http://localhost:3002'; // Use for codehooks localserver dev.
 
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
@@ -11,24 +10,21 @@ import MemoryEditButton from "./MemoryEditButton";
 import MemoryDeleteButton from "./MemoryDeleteButton";
 Modal.setAppElement("body");
 
-import { updateCurrentMemory, updateMemories } from "@/modules/Data";
+import { updateCurrentMemory, updateMemories, updateMemory } from "@/modules/Data";
 
-export default function EditMemoryWrapper({
-  parentId,
-  startDate,
-  category,
-  date,
-  memoryID,
-  title,
-  router,
-  tripid,
-  curMemory,
-  setCurMemory,
-  tripMemories,
-  setTripMemories
-}) {
-  // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
-
+export default function EditMemoryWrapper(
+  { parentId,
+    startDate,
+    category,
+    date,
+    memoryID,
+    title,
+    router,
+    tripid,
+    curMemory,
+    setCurMemory,
+    tripMemories,
+    setTripMemories }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newMemory, setNewMemory] = useState(null);
   const [dataUrl, setDataUrl] = useState("");
@@ -51,27 +47,17 @@ export default function EditMemoryWrapper({
           try {
             let updatedMemory = newMemory;
             updatedMemory["image"] = dataUrl;
-            // setCurMemory(updatedMemory);
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(
-              backend_base + `/tripMemories/${memoryID}`,
-              {
-                method: "PATCH",
-                headers: {
-                  Authorization: "Bearer " + token,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(updatedMemory),
-              }
-            );
-
-            const result = await response.json();
-            console.log("Success: ", result);
-            updateCurrentMemory(result);
+            const result = await updateMemory(token, memoryID, updatedMemory);
+            if (!result) {
+              router.push('/404');
+              return;
+            }
             setCurMemory(result);
 
-            let tripMemoriesCopy = tripMemories;
+            // Re-sort the memories list in case the category or date got updated.
+            let tripMemoriesCopy = [...tripMemories];
             let memory = tripMemoriesCopy.find(memory => memory._id === memoryID);
             let memIndex = tripMemoriesCopy.indexOf(memory);
             // Update the list of trip memories in real time.
@@ -83,10 +69,10 @@ export default function EditMemoryWrapper({
                 return a.category < b.category ? -1 : 1;
               }
             });
-            updateMemories(tripMemoriesCopy);
-            setTripMemories(tripMemoriesCopy);
-            // console.log('mem index: ', memIndex);
+            updateMemories(tripMemoriesCopy); // Update the memories list cache.
+            setTripMemories(tripMemoriesCopy); // Update the state variable.
 
+            // Reset the state variables for the next update.
             setNewMemory(null);
             setDataUrl("");
           } catch (error) {
@@ -97,8 +83,6 @@ export default function EditMemoryWrapper({
     };
     editMemory();
   }, [isLoaded, newMemory, dataUrl]);
-
-  // console.log('cur memory: ', curMemory);
 
   return (
     <>

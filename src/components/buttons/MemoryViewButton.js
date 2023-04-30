@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const MemoryViewButton = ({tripID, memoryID, filter, params, title, color, image}) => {
+export default function MemoryViewButton({ tripID, memoryID, filter, params, title, image }) {
   let keys = [];
   if (params) {
     keys = Object.keys(params);
@@ -21,7 +21,6 @@ const MemoryViewButton = ({tripID, memoryID, filter, params, title, color, image
 
   return (
     <div className="mr-2 ml-2">
-      {/* <Link href={`/newTrips/${tripID}/${filter}/${memoryID}${query}`} className="relative inline-block overflow-hidden"> */}
       <Link href={`/trips/${tripID}/${filter}/${memoryID}${query}`} className="relative inline-block overflow-hidden">
       <img
         src={image}
@@ -35,5 +34,3 @@ const MemoryViewButton = ({tripID, memoryID, filter, params, title, color, image
     </div>
   );
 }
-
-export default MemoryViewButton;

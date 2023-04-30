@@ -1,5 +1,4 @@
 const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-// const backend_base = 'http://localhost:3002'; // Use for codehooks localserver dev.
 
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
