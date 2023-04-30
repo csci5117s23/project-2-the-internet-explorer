@@ -6,58 +6,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/AddTrip.module.css';
 import { useAuth } from "@clerk/nextjs";
 import Modal from "react-modal";
-import { removeTrip, updateTripsData } from "@/modules/Data";
+import { deleteDesiredTrip, deleteTripMemories, removeTrip, updateTripsData } from "@/modules/Data";
+import { useRouter } from "next/router";
 
 export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, setAllTrips }) {
 
     const { isLoaded, userId, sessionId, getToken } = useAuth();
     const [deleteModal, setDeleteModal] = useState(false);
+    const router = useRouter();
     
     const deleteTrip = async () => {
         try {
             if (userId) {
-                const token = await getToken({template: "codehooks"});
-                const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
-                    'method': 'DELETE',
-                    'headers': {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-                if (!response.ok) {
-                    console.log('Error, 404 most likely')
+                const token = await getToken({ template: "codehooks" });
+
+                // Delete the trip.
+                const tripResult = await deleteDesiredTrip(token, tripID);
+                if (!tripResult) {
+                    router.push('/404');
                     return;
                 }
-                const result = await response.json();
-                console.log(result);
+                console.log('deleted trip: ', tripResult);
+
+                // Remove the deleted trip from the cache and the state.
                 let mutableTrips = [...allTrips];
-                const index = mutableTrips.findIndex(trip => trip._id === result._id);
+                const index = mutableTrips.findIndex(trip => trip._id === tripResult._id);
                 mutableTrips.splice(index, 1);
                 updateTripsData(mutableTrips);
                 setAllTrips(mutableTrips);
-                alert("Successfully deleted main trip");
-            }
-            
-        }
-        catch (error) {
-            console.error('Error: ', error);
-        }
 
-        // to delete trip emmories
-        try {
-            if (userId) {
-                const token = await getToken({template: "codehooks"});
-                const responseMemory = await fetch(backend_base + `/deleteMemories?trip=${tripID}`, {
-                    'method': 'DELETE',
-                    'headers': {
-                        'Authorization': 'Bearer ' + token,
-                    }
-                });
-                if (!responseMemory.ok) {
-                    console.log('Error deleting memory, 404 most likely')
+                // Delete the memories in that trip.
+                const memoryResult = await deleteTripMemories(token, tripID);
+                if (!memoryResult) {
+                    router.push('/404');
                     return;
                 }
-                console.log(await responseMemory.json());
-                alert("Successfully deleted trip memories");
+                console.log('num memories deleted: ', memoryResult);
+                alert("Successfully deleted trip");
             }
             
         }
