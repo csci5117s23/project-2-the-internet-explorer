@@ -18,6 +18,8 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
 
     const onLoad = (ref) => setSearchBox(ref);
 
+    console.log("this is mem coordinates: " + JSON.stringify(coordinates));
+
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
       googleMapsApiKey: MAP_API,
@@ -29,11 +31,11 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
         setGeocoder(new window.google.maps.Geocoder());
       }
     }, [isLoaded, geocoder]);
-    
 
     useEffect(() => {
-      if (!userPosition) {
+      if (!userPosition && !coordinates) {
         // Get the user's current location
+        console.log("getting user's location")
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
@@ -45,7 +47,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
           },
           { enableHighAccuracy: false, timeout: 20000, maximumAge: 1000 }
         );
-      } else {
+      } else if (userPosition){
         setCoordinates(userPosition);
         reverseGeocode(userPosition);
       }
@@ -103,7 +105,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
-            center={userPosition}
+            center={coordinates || userPosition}
             onLoad={setMapInstance}
           >
             {coordinates && <MarkerF position={coordinates} />}
