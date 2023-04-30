@@ -1,7 +1,8 @@
 import LoadingCircle from "@/components/LoadingCircle";
 import IndividualTrip from "@/components/IndividualTrip";
 import { useRouter } from "next/router";
-
+import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import Splash from "@/pages";
 export default function TripId() {
   const router = useRouter();
   const { tripID } = router.query;
@@ -9,8 +10,24 @@ export default function TripId() {
   console.log('tripID: ', tripID);
 
   if (tripID) {
-    return <IndividualTrip tripID={tripID} router={router}></IndividualTrip>
+    return (
+      <>
+        <SignedIn>
+          <IndividualTrip tripID={tripID} router={router}></IndividualTrip>
+        </SignedIn>
+        <SignedOut>
+          <Splash></Splash>
+        </SignedOut>
+      </>
+    );     
   } else {
-    return <LoadingCircle></LoadingCircle>
+    return <>
+      <SignedIn>
+        <LoadingCircle></LoadingCircle>
+      </SignedIn>
+      <SignedOut>
+        <Splash></Splash>
+      </SignedOut>
+    </>;
   }
 }
