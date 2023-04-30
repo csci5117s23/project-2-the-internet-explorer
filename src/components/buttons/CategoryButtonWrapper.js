@@ -6,7 +6,7 @@ import DayDropdown from './DayDropdown.js';
 
 
 
-const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
+const buttons = ["Events", "Food", "People", "Places", "Souvenirs"];
 
 export default function CategoryButtonWrapper({ trip, date, curr_category, tripMemories, day, router }) {
   function isSelected(name) {
