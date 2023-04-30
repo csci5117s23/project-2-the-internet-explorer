@@ -92,8 +92,8 @@ export default function AddTrip({ addTrip, closeModal }) {
                     ></textarea>
                 </div>
 
-                <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
-                <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
+                <button type='submit' className="ml-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
+                <button className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
             </div>
         </form>
         </>

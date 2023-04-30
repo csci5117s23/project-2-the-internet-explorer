@@ -286,7 +286,7 @@ export default function IndividualMemory({
 
         <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
           <div
-            className="flex flex-col bg-blue-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
+            className="flex flex-col bg-blue-200 rounded-lg shadow-sm p-4 mt-2 mb-4 text-white"
             style={{ width: "90vw" }}
           >
             
@@ -324,13 +324,13 @@ export default function IndividualMemory({
           </div>
           {memory.description ? (
             <div
-              className="flex flex-col bg-gray-200 rounded-lg shadow-sm p-4 mt-2 mb-4"
+              className="flex flex-col bg-emerald-200 text-white rounded-lg shadow-sm p-4 mt-2 mb-4"
               style={{ width: "90vw" }}
             >
-              <h1 className="text-lg font-bold mb-2 bg-gray-300 p-3 m-1 rounded-md">
+              <h1 className="text-lg font-bold mb-2 bg-emerald-300 p-3 m-1 rounded-md">
                 Description
               </h1>
-              <span className="mt-2 bg-gray-300 p-3 m-1">{memory.description}</span>
+              <span className="mt-2 bg-emerald-300 p-3 m-1">{memory.description}</span>
             </div>
           ) : (
             <></>
