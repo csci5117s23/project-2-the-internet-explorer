@@ -8,7 +8,7 @@ import DayDropdown from './DayDropdown.js';
 
 const buttons = ["Places", "Souvenirs", "Food", "Events", "People"];
 
-export default function CategoryButtonWrapper({ tripID, trip, date, curr_category, tripMemories, setTripMemories, day, router }) {
+export default function CategoryButtonWrapper({ trip, date, curr_category, tripMemories, day, router }) {
   // console.log('date in category wrapper: ', date);
   // console.log('day in category wrapper: ', day);
 
@@ -28,7 +28,7 @@ export default function CategoryButtonWrapper({ tripID, trip, date, curr_categor
         <CategoryButton
           key="All Categories"
           name="All Categories"
-          tripId={tripID}
+          tripId={trip._id}
           date={date}
           pressed={isSelected("All Categories")}
         />
@@ -36,7 +36,7 @@ export default function CategoryButtonWrapper({ tripID, trip, date, curr_categor
         <CategoryButton
         key={str}
         name={str}
-        tripId={tripID}
+        tripId={trip._id}
         date={date}
         pressed={isSelected(str)}
         />
@@ -44,9 +44,9 @@ export default function CategoryButtonWrapper({ tripID, trip, date, curr_categor
       </div>
 
       <div className="flex justify-between">
-      <DayDropdown day={day} curCategory={curr_category} tripMemories={tripMemories} tripID={tripID} router={router} />
+      <DayDropdown day={day} curCategory={curr_category} tripMemories={tripMemories} tripID={trip._id} router={router} />
       <TripSummaryWrapper
-      parentId={tripID} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories}/>
+      parentId={trip._id} trip={trip} tripMemories={tripMemories} />
       </div>
 
     </div>

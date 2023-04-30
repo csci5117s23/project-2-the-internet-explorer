@@ -103,7 +103,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           onClick={closeModal}
           className="px-4 py-2 font-semibold text-m bg-gray-400 border-black text-white rounded-full shadow-sm"
         >Close</button>
-        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal}/>
+        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal} allTrips={allTrips} setAllTrips={setAllTrips}/>
       </Modal>
     </>
     );

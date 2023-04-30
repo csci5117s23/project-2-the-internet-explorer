@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { removeMemory } from "@/modules/Data";
 export default function MemoryDeleteButton({
   memoryID,
   title,
@@ -31,9 +32,12 @@ export default function MemoryDeleteButton({
           router.push("/404");
           return;
         }
-        console.log(await response.json());
+        const result = await response.json();
+        console.log(result);
+        removeMemory(result._id);
         alert("Successfully deleted");
-        router.push(`/trips/${tripid}`);
+        router.push(`/newTrips/${tripid}`);
+        // router.push(`/trips/${tripid}`);
       }
     } catch (error) {
       console.error("Error: ", error);

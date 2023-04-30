@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 // import Trips from './trips';
 import TripData from './trips/[[...tripData]]';
+import TripsPage from './newTrips';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -57,7 +58,7 @@ export default function Splash() {
         </div> */}
       </SignedOut>
       <SignedIn>
-        <TripData></TripData>
+        <TripsPage></TripsPage>
       </SignedIn>
     </>
     // <h1>This is The Internet Explorers' app</h1>

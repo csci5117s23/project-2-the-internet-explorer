@@ -11,6 +11,8 @@ import MemoryEditButton from "./MemoryEditButton";
 import MemoryDeleteButton from "./MemoryDeleteButton";
 Modal.setAppElement("body");
 
+import { updateCurrentMemory } from "@/modules/Data";
+
 export default function EditMemoryWrapper({
   parentId,
   startDate,
@@ -66,6 +68,7 @@ export default function EditMemoryWrapper({
 
             const result = await response.json();
             console.log("Success: ", result);
+            updateCurrentMemory(result);
             setCurMemory(result);
 
             let tripMemoriesCopy = tripMemories;
