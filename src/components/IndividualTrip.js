@@ -10,7 +10,7 @@ import { useAuth } from "@clerk/nextjs";
 import LoadingCircle from "@/components/LoadingCircle";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import MemoryViewButtonWrapper from "./buttons/MemoryViewButtonWrapper";
-
+import Head from "next/head";
 import { allTripsData, currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } from "@/modules/Data";
 
 export default function IndividualTrip({ tripID, router }) {
@@ -91,6 +91,10 @@ export default function IndividualTrip({ tripID, router }) {
   if (!loadingTrip) {
     return (
       <>
+        <Head>
+          <title>{trip.tripName}</title>
+          <link rel="icon" href="/favicon.png" />
+        </Head>
         <Header 
           title={trip.tripName}
           back={true}

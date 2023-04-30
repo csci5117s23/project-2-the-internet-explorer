@@ -8,7 +8,7 @@ import LoadingCircle from "./LoadingCircle";
 import TripMemoryWrapper from "./TripMemoryWrapper";
 import MemoryViewButton from "./buttons/MemoryViewButton";
 import styles from '../styles/TripView.module.css';
-
+import Head from "next/head";
 import { currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } from "@/modules/Data";
 
 export default function IndividualCategory({ tripID, date, category, router }) {
@@ -163,6 +163,10 @@ export default function IndividualCategory({ tripID, date, category, router }) {
 
     return (
       <>
+        <Head>
+          <title>{trip.tripName}</title>
+          <link rel="icon" href="/favicon.png" />
+        </Head>
         <Header 
           title={trip.tripName}
           back={true}
