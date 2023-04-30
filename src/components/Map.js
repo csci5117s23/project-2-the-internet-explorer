@@ -18,6 +18,8 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
 
     const onLoad = (ref) => setSearchBox(ref);
 
+    console.log("this is mem coordinates: " + JSON.stringify(coordinates));
+
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
       googleMapsApiKey: MAP_API,
@@ -29,24 +31,16 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
         setGeocoder(new window.google.maps.Geocoder());
       }
     }, [isLoaded, geocoder]);
-    
-    useEffect(() => {
-      if (coordinates && mapInstance) {
-        const pos = new google.maps.LatLng(coordinates.lat, coordinates.lng);
-        mapInstance.setCenter(pos);
-      }
-    }, [coordinates, mapInstance]);
 
     useEffect(() => {
-      if (!userPosition & !coordinates) {
+      if (!userPosition && !coordinates) {
         // Get the user's current location
+        console.log("getting user's location")
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
             const pos = { lat: latitude, lng: longitude }
             setUserPosition(pos);
-            setCoordinates(pos);
-            reverseGeocode(pos);
           },
           (error) => {
             console.error("Error getting user location:", error);
@@ -57,7 +51,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
         setCoordinates(userPosition);
         reverseGeocode(userPosition);
       }
-    }, [userPosition, coordinates]);
+    }, [userPosition]);
 
     const reverseGeocode = (pos) => {
       if (geocoder) {
@@ -111,7 +105,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
-            center={userPosition}
+            center={coordinates || userPosition}
             onLoad={setMapInstance}
           >
             {coordinates && <MarkerF position={coordinates} />}
