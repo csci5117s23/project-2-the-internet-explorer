@@ -9,6 +9,7 @@ import MemoryMap from "./MemoryMap";
 import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
+import Head from "next/head";
 // import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -280,6 +281,10 @@ export default function IndividualMemory({
 
     return (
       <>
+        <Head>
+          <title>{trip.tripName}</title>
+          <link rel="icon" href="/favicon.png" />
+        </Head>
         <Header title={trip.tripName} back={true} prevUrl={prevUrl} />
 
         
