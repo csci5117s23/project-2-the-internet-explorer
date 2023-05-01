@@ -28,24 +28,6 @@ export default function MemoryDeleteButton(
         }
         alert('Successfully deleted');
         router.push(`/trips/${tripid}`);
-        // const response = await fetch(
-        //   backend_base + `/tripMemories/${memoryID}`,
-        //   {
-        //     method: "DELETE",
-        //     headers: {
-        //       Authorization: "Bearer " + token,
-        //     },
-        //   }
-        // );
-        // if (!response.ok) {
-        //   router.push("/404");
-        //   return;
-        // }
-        // const result = await response.json();
-        // console.log(result);
-        // removeMemory(result._id);
-        // alert("Successfully deleted");
-        // router.push(`/trips/${tripid}`);
       }
     } catch (error) {
       console.error("Error: ", error);
