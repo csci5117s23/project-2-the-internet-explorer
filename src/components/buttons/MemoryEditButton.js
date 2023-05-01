@@ -22,8 +22,8 @@ export default function MemoryEditButton(
   const [resizedImage, setResizedImage] = useState(null);
   const [location, setLocation] = useState(curMemory.location);
   const [coordinates, setCoordinates] = useState({
-    lat: curMemory.latitude,
-    lng: curMemory.longitude,
+    lat: parseFloat(curMemory.latitude),
+    lng: parseFloat(curMemory.longitude),
   });
   const webcamRef = useRef(null);
 

@@ -21,7 +21,6 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const onLoad = (ref) => setSearchBox(ref);
 
     console.log("this is mem coordinates: " + JSON.stringify(coordinates));
-    console.log("this is locationIsLoading state: " + locationIsLoading)
 
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
