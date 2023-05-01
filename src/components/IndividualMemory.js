@@ -116,17 +116,7 @@ export default function IndividualMemory({
             console.log('memory is cached: ', currentMemory);
             let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
             console.log('cur index: ', curIndex);
-            if (curIndex <= 0) {
-              setPrevIndex(tripMemories.length-1);
-            } else {
-              setPrevIndex(curIndex - 1);
-            }
-
-            if (curIndex >= tripMemories.length-1) {
-              setNextIndex(0);
-            } else {
-              setNextIndex(curIndex + 1);
-            }
+            calculateIndices(curIndex);
 
             setMemory(currentMemory);
             setLoadingMemory(false);
@@ -141,17 +131,7 @@ export default function IndividualMemory({
 
             let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
             console.log('cur index: ', curIndex);
-            if (curIndex <= 0) {
-              setPrevIndex(tripMemories.length-1);
-            } else {
-              setPrevIndex(curIndex - 1);
-            }
-
-            if (curIndex >= tripMemories.length-1) {
-              setNextIndex(0);
-            } else {
-              setNextIndex(curIndex + 1);
-            }
+            calculateIndices(curIndex);
 
             setMemory(curMemory);
             setLoadingMemory(false);
@@ -161,6 +141,20 @@ export default function IndividualMemory({
     }
     findMemory();
   }, [isLoaded, memoryID, loadingMemories]);
+
+  function calculateIndices(curIndex) {
+    if (curIndex <= 0) {
+      setPrevIndex(tripMemories.length-1);
+    } else {
+      setPrevIndex(curIndex - 1);
+    }
+
+    if (curIndex >= tripMemories.length-1) {
+      setNextIndex(0);
+    } else {
+      setNextIndex(curIndex + 1);
+    }
+  }
 
   // useEffect(() => {
   //   function findNextPrev() {
@@ -242,42 +236,34 @@ export default function IndividualMemory({
     console.log('prev index: ', prevIndex);
     console.log('next index: ', nextIndex);
     console.log('memories: ', tripMemories);
-    // console.log('cur index: ', curIndex);
-    // console.log('memory id: ', curMemory._id);
-    // console.log('previous memory: ', tripMemories[curIndex - 1]._id);
-    // console.log('next memory: ', tripMemories[curIndex + 1]._id);
-    let prevUrl = "";
-    if (filter === "category") {
-      if (!category) {
-        router.push("/404"); // Search query missing.
-        return;
-      }
-      // let category = params.get("category");
-      // prevUrl = `/newTrips/${trip._id}/category?category=${category}`;
-      prevUrl = `/trips/${trip._id}/category?category=${category}`;
-      if (day) {
-        prevUrl += `&day=${day}`;
-      }
-    } else if (filter === "day") {
-      if (!day) {
-        router.push("/404"); // Search query missing.
-        return;
-      }
-      // let day = params.get("day");
-      // prevUrl = `/newTrips/${trip._id}/day?day=${day}`;
-      prevUrl = `/trips/${trip._id}/day?day=${day}`;
-      if (category) {
-        console.log("has category param");
-        prevUrl += `&category=${category}`;
-      }
-    } else if (filter === "memory") {
-      // prevUrl = `/newTrips/${trip._id}`;
-      prevUrl = `/trips/${trip._id}`;
-    } else {
-      // Handles any unaccepted filters.
-      router.push('/404');
-      return;
-    }
+
+    let prevUrl = `/trips/${trip._id}`;
+    // if (filter === "category") {
+    //   if (!category) {
+    //     router.push("/404"); // Search query missing.
+    //     return;
+    //   }
+    //   prevUrl = `/trips/${trip._id}/category?category=${category}`;
+    //   if (day) {
+    //     prevUrl += `&day=${day}`;
+    //   }
+    // } else if (filter === "day") {
+    //   if (!day) {
+    //     router.push("/404"); // Search query missing.
+    //     return;
+    //   }
+    //   prevUrl = `/trips/${trip._id}/day?day=${day}`;
+    //   if (category) {
+    //     console.log("has category param");
+    //     prevUrl += `&category=${category}`;
+    //   }
+    // } else if (filter === "memory") {
+    //   prevUrl = `/trips/${trip._id}`;
+    // } else {
+    //   // Handles any unaccepted filters.
+    //   router.push('/404');
+    //   return;
+    // }
 
     return (
       <>
@@ -291,11 +277,11 @@ export default function IndividualMemory({
 
         <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
           <div
-            className="flex flex-col bg-blue-200 rounded-lg shadow-sm p-4 mt-2 mb-4 text-white"
+            className="flex flex-col bg-blue-300 rounded-lg shadow-sm p-4 mt-2 mb-4 text-white"
             style={{ width: "90vw" }}
           >
             
-            <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-300 p-3 m-1 rounded-md text-center">
+            <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-400 p-3 m-1 rounded-md text-center">
               <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
               </Link>
@@ -329,13 +315,13 @@ export default function IndividualMemory({
           </div>
           {memory.description ? (
             <div
-              className="flex flex-col bg-emerald-200 text-white rounded-lg shadow-sm p-4 mt-2 mb-4"
+              className="flex flex-col bg-emerald-300 text-white rounded-lg shadow-sm p-4 mt-2 mb-4"
               style={{ width: "90vw" }}
             >
-              <h1 className="text-lg font-bold mb-2 bg-emerald-300 p-3 m-1 rounded-md">
+              <h1 className="text-lg font-bold mb-2 bg-emerald-400 p-3 m-1 rounded-md">
                 Description
               </h1>
-              <span className="mt-2 bg-emerald-300 p-3 m-1">{memory.description}</span>
+              <span className="mt-2 bg-emerald-400 p-3 m-1">{memory.description}</span>
             </div>
           ) : (
             <></>
@@ -345,12 +331,12 @@ export default function IndividualMemory({
           <div></div>
           <div
             style={{ width: "90vw" }}
-            className="flex-col bg-blue-200 flex justify-center rounded-md"
+            className="flex-col bg-blue-300 flex justify-center rounded-md"
           >
-            <h1 className="bg-blue-300 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">
+            <h1 className="bg-blue-400 text-white text-lg font-bold m-5 mb-0 p-3 rounded-md">
               Location
             </h1>
-            <div className="flex flex-col items-center justify-center gap-4 bg-blue-300 p-5 m-5 rounded-md">
+            <div className="flex flex-col items-center justify-center gap-4 bg-blue-400 p-5 m-5 rounded-md">
               <div className="text-white text-lg font-bold bg-sky-400 p-2 rounded-md">
                 {memory.location}
               </div>
