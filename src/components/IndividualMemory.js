@@ -337,7 +337,7 @@ export default function IndividualMemory({
               Location
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 bg-blue-400 p-5 m-5 rounded-md">
-              <div className="text-white text-lg font-bold bg-blue-400 p-2 rounded-md">
+              <div className="text-white text-lg font-bold bg-blue-500 p-2 rounded-md">
                 {memory.location}
               </div>
               <MemoryMap
