@@ -31,6 +31,7 @@ const tripMemoriesYup = object({
   user: string().required(),          // The user that created the memory.
 });
 
+// A custom endpoint to delete all memories with a specified parent trip.
 async function deleteTripMemories(req, res) {
   const conn = await Datastore.open();
   const query = {$and: [{"user": req.query.user}, {"parentTripId": req.query.trip}]};
@@ -90,9 +91,8 @@ const userAuth = async (req, res, next) => {
 }
 app.use(userAuth);
 
-// Some extra logic for making a POST and GET request from the tripFolders 
-// collection. Retrieve the userId and store it in the body or query, 
-// respectively.
+// Some extra logic for making a POST, GET, DELETE, or PATCH request from the tripFolders 
+// collection. Retrieve the userId and store it in the body or query.
 app.use('/tripFolders', (req, res, next) => {
   if (req.method === "POST") {
     req.body._id = '';
@@ -107,9 +107,8 @@ app.use('/tripFolders', (req, res, next) => {
   next();
 })
 
-// Some extra logic for making a POST and GET request from the tripMemories
+// Some extra logic for making a POST, GET, DELETE, or PATCH request from the tripMemories
 // collection. Retrieve the userId and store it in the body or query,
-// respectively.
 app.use('/tripMemories', (req, res, next) => {
   if (req.method === "POST") {
     req.body._id = '';
@@ -124,6 +123,8 @@ app.use('/tripMemories', (req, res, next) => {
   next();
 });
 
+// Some extra logic for the /deleteMemories endpoint for a DELETE request. Retrieve
+// the userId and store it in the query.
 app.use('/deleteMemories', async(req, res, next) => {
   if (req.method === "DELETE") {
     req.query.user = req.user_token.sub;
@@ -131,6 +132,8 @@ app.use('/deleteMemories', async(req, res, next) => {
   next();
 })
 
+// Some extra logic when requesting a specific trip. Retrieve the requested trip, then
+// check if the requester has access to it.
 app.use('/tripFolders/:id', async (req, res, next) => {
   const id = req.params.ID;
   const userId = req.user_token.sub;
@@ -150,6 +153,8 @@ app.use('/tripFolders/:id', async (req, res, next) => {
   next();
 });
 
+// Some extra logic when requesting a specific memory. Retrieve the requested memory, then
+// check if the requester has access to it.
 app.use('/tripMemories/:id', async (req, res, next) => {
   const id = req.params.ID;
   const userId = req.user_token.sub;
