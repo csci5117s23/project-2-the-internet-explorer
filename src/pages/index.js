@@ -1,11 +1,7 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '../styles/Main.module.css';
 import Head from 'next/head';
 import Link from 'next/link';
-import { RedirectToSignIn, SignedIn, SignedOut } from '@clerk/nextjs';
-// import Trips from './trips';
-// import TripData from './oldTrips/[[...tripData]]';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
 import TripsPage from './trips';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -35,8 +31,8 @@ export default function Splash() {
                   <Link href={`https://grown-locust-7.accounts.dev/sign-in?redirect_url=${window.location.origin}`}>
                     Login
                   </Link>
-                </span>{" "}
-                or{" "}
+                </span>
+                {" "}or{" "}
                 <span className="inline-block mx-2 p-2 rounded-lg bg-blue-500">
                   <Link href={`https://grown-locust-7.accounts.dev/sign-up?redirect_url=${window.location.origin}`}>
                     Sign up

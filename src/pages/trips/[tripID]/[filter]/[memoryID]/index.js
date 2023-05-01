@@ -1,7 +1,8 @@
 import IndividualMemory from "@/components/IndividualMemory";
 import { useRouter } from "next/router";
-import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Splash from "@/pages";
+import LoadingCircle from "@/components/LoadingCircle";
 
 export default function MemoryPage() {
   const router = useRouter();
@@ -25,7 +26,16 @@ export default function MemoryPage() {
         </SignedOut>
       </>
     );
+  } else {
+    return (
+      <>
+        <SignedIn>
+          <LoadingCircle></LoadingCircle>
+        </SignedIn>
+        <SignedOut>
+          <Splash></Splash>
+        </SignedOut>
+      </>
+    );
   }
-
-  return <h1>memory page</h1>;
 }
