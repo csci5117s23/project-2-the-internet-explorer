@@ -124,7 +124,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             center={parsedCoord || userPosition}
             onLoad={setMapInstance}
           >
-            {coordinates && <MarkerF position={parsedCoord} />}
+            {coordinates && <MarkerF position={coordinates} />}
             <StandaloneSearchBox
               onLoad={onLoad}
               onPlacesChanged={onPlacesChanged}
