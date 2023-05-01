@@ -20,19 +20,20 @@ export default function Splash() {
               background-color: aliceblue;
             }
           `}</style>
+
           <div className="bg-gradient-to-b from-blue-400 to-sky-400 text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 drop-shadow-2xl rounded-lg py-20 px-10 w-3/4">
             <main className="flex flex-col items-center justify-center">
               <h1 className="text-4xl sm:text-4xl font-bold text-center text-gray-100 mb-8">
                 Welcome to the Vacation Tracker!
               </h1>
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-gray-200">
-                To track your vacations, please{" "}
+                To track your vacations, please&nbsp;
                 <span className="inline-block mx-2 p-2 rounded-lg bg-blue-500 m-2">
                   <Link href={`https://grown-locust-7.accounts.dev/sign-in?redirect_url=${window.location.origin}`}>
                     Login
                   </Link>
                 </span>
-                {" "}or{" "}
+                &nbsp;or&nbsp;
                 <span className="inline-block mx-2 p-2 rounded-lg bg-blue-500">
                   <Link href={`https://grown-locust-7.accounts.dev/sign-up?redirect_url=${window.location.origin}`}>
                     Sign up

@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -10,61 +8,30 @@ import moment from "moment";
 import Modal from "react-modal";
 import React from "react";
 import Head from "next/head";
-// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import MemoryDeleteButton from "./buttons/MemoryDeleteButton";
-import EditMemoryWrapper from "./buttons/MemoryEditButtonWrapper";
+import MemoryEditButtonWrapper from "./buttons/MemoryEditButtonWrapper";
 import styles from "../styles/TripMemory.module.css";
-Modal.setAppElement("body");
-
-const imageScales = [
-  "50vw",
-  "55vw",
-  "60vw",
-  "65vw",
-  "70vw",
-  "75vw",
-  "80vw",
-  "85vw",
-  "90vw",
-];
-
 import { currentTrip, currentMemory, currentTripMemories, getIndividualTrip, getAllMemories, getIndividualMemory } from '@/modules/Data';
 
-export default function IndividualMemory({
-  tripID,
-  memoryID,
-  filter,
-  day,
-  category,
-  router,
-}) {
+Modal.setAppElement("body");
 
+export default function IndividualMemory({ tripID, memoryID, router }) {
   const [trip, setTrip] = useState(null);
   const [loadingTrip, setLoadingTrip] = useState(true);
   const [tripMemories, setTripMemories] = useState(null);
   const [loadingMemories, setLoadingMemories] = useState(true);
   const [memory, setMemory] = useState(null);
   const [loadingMemory, setLoadingMemory] = useState(true);
-
-  // const [memory, setMemory] = useState(null);
-  // const [loadingMemory, setLoadingMemory] = useState(true);
-  const [scaleIndex, setScaleIndex] = useState(0);
-  // const [curMemory, setCurMemory] = useState(null);
-  const [curIndex, setCurIndex] = useState(null);
   const [prevIndex, setPrevIndex] = useState(null);
   const [nextIndex, setNextIndex] = useState(null);
-  const [loadingIndices, setLoadingIndices] = useState(true);
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   useEffect(() => {
     async function findTrip() {
       if (userId) {
-        // console.log('current trip from data: ', currentTrip._id === tripID);
         if (currentTrip && currentTrip._id === tripID) {
-          console.log('current trip exists');
           setTrip(currentTrip);
           setLoadingTrip(false);
         } else {
@@ -77,7 +44,6 @@ export default function IndividualMemory({
           }
           setTrip(curTrip);
           setLoadingTrip(false);
-          // }
         }
       }
     }
@@ -108,8 +74,6 @@ export default function IndividualMemory({
 
   useEffect(() => {
     async function findMemory() {
-      console.log('trip memories state: ', tripMemories);
-      console.log('trip memories cache: ', currentTripMemories);
       if (userId) {
         if (!loadingMemories) {
           if (currentMemory && currentMemory._id === memoryID) {
@@ -130,7 +94,6 @@ export default function IndividualMemory({
             }
 
             let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
-            console.log('cur index: ', curIndex);
             calculateIndices(curIndex);
 
             setMemory(curMemory);
@@ -160,25 +123,23 @@ export default function IndividualMemory({
   if (!loadingMemories && !loadingMemory && !loadingTrip) {
     let prevUrl = `/trips/${trip._id}`;
 
-    console.log('latitude: ', memory.latitude);
-    console.log('longitude: ', memory.longitude);
-
     return (
       <>
         <Head>
           <title>{trip.tripName}</title>
           <link rel="icon" href="/favicon.png" />
         </Head>
-        <Header title={trip.tripName} back={true} prevUrl={prevUrl} />
-
-        
+        <Header 
+          title={trip.tripName} 
+          back={true} 
+          prevUrl={prevUrl} 
+        />
 
         <div className={`${styles.memoryDiv} grid gap-2 sm:gap-4 place-items-center`}>
           <div
             className="flex flex-col bg-blue-300 rounded-lg shadow-sm p-4 mt-2 mb-4 text-white"
             style={{ width: "90vw" }}
           >
-            
             <h1 className="flex justify-between text-xl sm:text-2xl font-bold mb-2 bg-blue-400 p-3 m-1 rounded-md text-center">
               <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
@@ -188,7 +149,6 @@ export default function IndividualMemory({
                 <FontAwesomeIcon icon={faChevronRight} style={{ float: "right", fontSize: "1.5em" }} /> 
               </Link>
             </h1>
-            
           </div>
 
           <div className="flex p-2 text-md sm:text-lg">
@@ -203,7 +163,6 @@ export default function IndividualMemory({
           <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
             <div className="flex p-2 justify-center">
               <img
-                // style={{ width: imageScales[scaleIndex] }}
                 className={`${styles.imgContainer} rounded-md`}
                 src={memory.image}
                 alt={memory.title}
@@ -219,14 +178,12 @@ export default function IndividualMemory({
               <h1 className="text-lg font-bold mb-2 bg-emerald-400 p-3 m-1 rounded-md">
                 Description
               </h1>
-              <span className="mt-2 bg-emerald-400 p-3 m-1 rounded-md">{memory.description}</span>
+              <span className="mt-2 bg-emerald-400 p-3 m-1 rounded-md" style={{ whiteSpace: "pre-wrap"}}>{memory.description}</span>
             </div>
           ) : (
             <></>
           )}
           
-
-          <div></div>
           <div
             style={{ width: "90vw" }}
             className="flex-col bg-blue-300 flex justify-center rounded-md"
@@ -246,20 +203,14 @@ export default function IndividualMemory({
           </div>
 
           <div>
-            <EditMemoryWrapper
-              parentId={trip._id}
-              startDate={trip.startDate}
-              category={memory.category}
-              date={memory.date}
-              memoryID={memoryID}
-              title={memory.title}
+            <MemoryEditButtonWrapper
               router={router}
-              tripid={trip._id}
               curMemory={memory}
               setCurMemory={setMemory}
               tripMemories={tripMemories}
               setTripMemories={setTripMemories}
-            ></EditMemoryWrapper>
+              calculateIndices={calculateIndices}
+            ></MemoryEditButtonWrapper>
           </div>
         </div>
       </>

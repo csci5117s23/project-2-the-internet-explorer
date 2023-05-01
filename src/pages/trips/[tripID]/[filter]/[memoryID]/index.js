@@ -6,7 +6,7 @@ import LoadingCircle from "@/components/LoadingCircle";
 
 export default function MemoryPage() {
   const router = useRouter();
-  const { memoryID, filter, tripID, category, day } = router.query;
+  const { memoryID, tripID } = router.query;
 
   if (router.isReady) {
     return (
@@ -15,9 +15,6 @@ export default function MemoryPage() {
           <IndividualMemory
             tripID={tripID}
             memoryID={memoryID}
-            filter={filter}
-            day={day}
-            category={category}
             router={router}
           ></IndividualMemory>
         </SignedIn>

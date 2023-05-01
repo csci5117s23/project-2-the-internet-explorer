@@ -1,11 +1,9 @@
 import { UserButton } from "@clerk/nextjs";
-import { faBars, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/Trips.module.css';
 import BackButton from "./buttons/BackButton";
-import DayDropdown from "./buttons/DayDropdown";
 import Link from "next/link";
-
 
 export default function Header({ title, back, prevUrl }) {
   return (

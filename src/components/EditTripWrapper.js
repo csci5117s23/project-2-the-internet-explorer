@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
 import EditTrip from "./EditTrip";
 import DeleteTrip from "./DeleteTrip";
-import { editDesiredTrip, updateCurrentTrip, updateTripsData } from "@/modules/Data";
+import { editDesiredTrip, updateTripsData } from "@/modules/Data";
 import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
@@ -99,8 +97,14 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           description={description}
         />
         
-        <DeleteTrip tripID={tripID} tripName={tripName} closeModal={closeModal} allTrips={allTrips} setAllTrips={setAllTrips}/>
+        <DeleteTrip 
+          tripID={tripID} 
+          tripName={tripName} 
+          closeModal={closeModal} 
+          allTrips={allTrips} 
+          setAllTrips={setAllTrips}
+        />
       </Modal>
     </>
-    );
-  }
+  );
+}

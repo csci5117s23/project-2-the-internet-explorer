@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
@@ -15,7 +13,6 @@ let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 
 export default function IndividualCategory({ tripID, date, category, router }) {
   const [categoryMemories, setCategoryMemories] = useState(null);
-
   const [trip, setTrip] = useState(null);
   const [loadingTrip, setLoadingTrip] = useState(true);
   const [tripMemories, setTripMemories] = useState(null);

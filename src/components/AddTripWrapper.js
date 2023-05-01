@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import AddTrip from "./AddTrip";

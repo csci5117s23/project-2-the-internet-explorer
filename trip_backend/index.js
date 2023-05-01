@@ -45,32 +45,6 @@ async function deleteTripMemories(req, res) {
 }
 app.delete('/deleteMemories', deleteTripMemories);
 
-// async function deleteAllMemories(req, res) {
-//   const conn = await Datastore.open();
-//   const query = {"_id": {$exists: false}};
-
-//   const options = {
-//     filter: query
-//   };
-
-//   const data = await conn.removeMany('tripMemories', options);
-//   res.json(data);
-// }
-// app.delete('/deleteMemory', deleteAllMemories);
-
-// async function deleteAllTrips(req, res) {
-//   const conn = await Datastore.open();
-//   const query = {"_id": {$exists: true}};
-
-//   const options = {
-//     filter: query
-//   };
-
-//   const data = await conn.removeMany('tripFolders', options);
-//   res.json(data);
-// }
-// app.delete('/deleteTrips', deleteAllTrips);
-
 // Retrieves the user token from the request headers and stores it in 
 // the request. This happens prior to any database access.
 const userAuth = async (req, res, next) => {
@@ -86,7 +60,6 @@ const userAuth = async (req, res, next) => {
     console.error(error);
     res.status(400);
     res.json(error).end();
-    // next(error);
   }
 }
 app.use(userAuth);
@@ -172,7 +145,7 @@ app.use('/tripMemories/:id', async (req, res, next) => {
   }
 
   next();
-})
+});
 
 // Use Crudlify to create a REST API for any collection
 crudlify(app, {tripFolders: tripFolderYup, tripMemories: tripMemoriesYup});

@@ -4,6 +4,7 @@ import IndividualDay from "@/components/IndividualDay";
 import LoadingCircle from "@/components/LoadingCircle";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Splash from "@/pages";
+
 export default function FilterPage() {
   const router = useRouter();
   const { filter, tripID, category, day } = router.query;

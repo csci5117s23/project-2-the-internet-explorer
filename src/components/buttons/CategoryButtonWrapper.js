@@ -1,10 +1,7 @@
-import CategoryButton from './CategoryButton.js';
-import styles from '../../styles/TripView.module.css';
-import TripSummaryWrapper from '../TripSummaryWrapper.js';
-import EditTripWrapper from '../EditTripWrapper.js';
-import DayDropdown from './DayDropdown.js';
-
-
+import React from "react";
+import CategoryButton from "./CategoryButton.js";
+import TripSummaryWrapper from "../TripSummaryWrapper.js";
+import DayDropdown from "./DayDropdown.js";
 
 const buttons = ["Events", "Food", "People", "Places", "Souvenirs"];
 
@@ -27,15 +24,15 @@ export default function CategoryButtonWrapper({ trip, date, curr_category, tripM
           date={date}
           pressed={isSelected("All Categories")}
         />
-      {buttons.map(str => (
-        <CategoryButton
-          key={str}
-          name={str}
-          tripId={trip._id}
-          date={date}
-          pressed={isSelected(str)}
-        />
-      ))}
+        {buttons.map(str => (
+          <CategoryButton
+            key={str}
+            name={str}
+            tripId={trip._id}
+            date={date}
+            pressed={isSelected(str)}
+          />
+        ))}
       </div>
 
       <div className="flex justify-between">
@@ -52,5 +49,5 @@ export default function CategoryButtonWrapper({ trip, date, curr_category, tripM
         />
       </div>
     </div>
-  )
+  );
 }

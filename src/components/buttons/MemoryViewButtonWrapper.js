@@ -1,3 +1,4 @@
+import React from "react";
 import MemoryViewButton from "./MemoryViewButton";
 import styles from '../../styles/TripView.module.css';
 
@@ -8,7 +9,6 @@ export default function MemoryViewButtonWrapper({ tripMemories }) {
         key={memory._id}
         tripID={memory.parentTripId}
         memoryID={memory._id}
-        filter='memory'
         title={memory.title}
         image={memory.image}
       />
