@@ -4,7 +4,6 @@ import Header from "./Header";
 import TripsWrapper from "./TripsWrapper";
 import AddTripWrapper from "./AddTripWrapper";
 import LoadingCircle from "./LoadingCircle";
-
 import { allTripsData, getAllTrips } from "@/modules/Data";
 import { useRouter } from "next/router";
 
@@ -19,7 +18,6 @@ export default function HomePage() {
 
   useEffect(() => {
     async function retrieveTrips() {
-      console.log('all trips data: ', allTripsData);
       setLoadingTrips(true);
       if (userId) {
         if (allTripsData.length > 0) {
@@ -67,5 +65,5 @@ export default function HomePage() {
         <RedirectToSignIn></RedirectToSignIn>
       </SignedOut>
     </>
-  )
+  );
 }

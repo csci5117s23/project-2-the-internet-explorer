@@ -1,19 +1,19 @@
-import { faAngleDown, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useEffect, useState, Fragment } from "react";
-import { Menu, Transition } from '@headlessui/react'
+import React, { useEffect, useState, Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react"
 
-let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export default function DayDropdown({ day, curCategory, tripMemories, tripID, router }) {
   const [tripDays, setTripDays] = useState([]);
   
-
   if (day === undefined) {
       return <></>
   }
 
+  // Find the list of unique days in the memories.
   useEffect(() => {
     const findDaysList = async () => {
       if (tripMemories) {
@@ -32,8 +32,8 @@ export default function DayDropdown({ day, curCategory, tripMemories, tripID, ro
           let day = curDate.getDate();
 
           let curDay = {
-            'iso': date,
-            'dateStr': `${months[month]} ${day}`
+            "iso": date,
+            "dateStr": `${months[month]} ${day}`
           };
           daysList.push(curDay);
         }
@@ -55,27 +55,27 @@ export default function DayDropdown({ day, curCategory, tripMemories, tripID, ro
   }, [router, day, tripMemories]);
 
   return (
-    <Menu as='div' className='relative inline-block text-left'>
+    <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className='inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
           {day}
-          <FontAwesomeIcon className='-mr-1 h-5 w-5 text-gray-400' icon={faChevronDown} />
+          <FontAwesomeIcon className="-mr-1 h-5 w-5 text-gray-400" icon={faChevronDown} />
         </Menu.Button>
       </div>
 
       <Transition
         as={Fragment}
-        enter='transition ease-out duration-100'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-75'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className='absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-          <div className='py-1'>
-            <Menu.Item key={'All Days'}>
-              <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+        <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <div className="py-1">
+            <Menu.Item key={"All Days"}>
+              <Link href={curCategory && curCategory !== "All Categories" ? `/trips/${tripID}/category?category=${curCategory}` : `/trips/${tripID}`} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">
                 All Days
               </Link>
             </Menu.Item>
@@ -86,11 +86,11 @@ export default function DayDropdown({ day, curCategory, tripMemories, tripID, ro
               }
               return (
                 <Menu.Item key={i}>
-                  <Link href={link} className='text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100'>
+                  <Link href={link} className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">
                     {object.dateStr}
                   </Link>
                 </Menu.Item>
-              )
+              );
             })}
           </div>
         </Menu.Items>

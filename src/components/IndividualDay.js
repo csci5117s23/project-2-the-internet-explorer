@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import { useAuth } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import Header from './Header';
@@ -15,7 +13,6 @@ let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'A
 
 export default function IndividualDay({ tripID, date, category, router }) {
   const [dayMemories, setDayMemories] = useState(null);
-
   const [trip, setTrip] = useState(null);
   const [loadingTrip, setLoadingTrip] = useState(true);
   const [tripMemories, setTripMemories] = useState(null);

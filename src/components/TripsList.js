@@ -1,5 +1,4 @@
 import Trip from "./Trip";
-import styles from '../styles/Trips.module.css';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -20,12 +19,9 @@ export default function TripsList({ allTrips, setAllTrips }) {
     )
   );
 
-  console.log('trips list: ', tripsList);
-
-
   return (
     <div className="mt-6">
       {tripsList}
     </div>
-  )
+  );
 }

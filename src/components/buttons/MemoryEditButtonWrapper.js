@@ -1,30 +1,13 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "../../styles/TripMemory.module.css";
 import { useAuth } from "@clerk/nextjs";
 import MemoryEditButton from "./MemoryEditButton";
 import MemoryDeleteButton from "./MemoryDeleteButton";
 Modal.setAppElement("body");
 
-import { updateCurrentMemory, updateMemories, updateMemory } from "@/modules/Data";
+import { updateMemories, updateMemory } from "@/modules/Data";
 
-export default function EditMemoryWrapper(
-  { parentId,
-    startDate,
-    category,
-    date,
-    memoryID,
-    title,
-    router,
-    tripid,
-    curMemory,
-    setCurMemory,
-    tripMemories,
-    setTripMemories }) {
+export default function MemoryEditButtonWrapper({ router, curMemory, setCurMemory, tripMemories, setTripMemories, calculateIndices }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newMemory, setNewMemory] = useState(null);
   const [dataUrl, setDataUrl] = useState("");
@@ -49,7 +32,7 @@ export default function EditMemoryWrapper(
             updatedMemory["image"] = dataUrl;
             const token = await getToken({ template: "codehooks" });
 
-            const result = await updateMemory(token, memoryID, updatedMemory);
+            const result = await updateMemory(token, curMemory._id, updatedMemory);
             if (!result) {
               router.push('/404');
               return;
@@ -58,7 +41,7 @@ export default function EditMemoryWrapper(
 
             // Re-sort the memories list in case the category or date got updated.
             let tripMemoriesCopy = [...tripMemories];
-            let memory = tripMemoriesCopy.find(memory => memory._id === memoryID);
+            let memory = tripMemoriesCopy.find(memory => memory._id === curMemory._id);
             let memIndex = tripMemoriesCopy.indexOf(memory);
             // Update the list of trip memories in real time.
             tripMemoriesCopy[memIndex] = result;
@@ -71,6 +54,11 @@ export default function EditMemoryWrapper(
             });
             updateMemories(tripMemoriesCopy); // Update the memories list cache.
             setTripMemories(tripMemoriesCopy); // Update the state variable.
+
+            // Re-find the index after sort so the cycling doesn't get messed up.
+            memory = tripMemoriesCopy.find(memory => memory._id === curMemory._id);
+            memIndex = tripMemoriesCopy.indexOf(memory);
+            calculateIndices(memIndex);
 
             // Reset the state variables for the next update.
             setNewMemory(null);
@@ -100,21 +88,17 @@ export default function EditMemoryWrapper(
         <MemoryEditButton
           editMemory={setNewMemory}
           closeModal={closeModal}
-          parentId={parentId}
           setDataUrl={setDataUrl}
-          startDate={startDate}
-          category={category}
-          date={date}
           curMemory={curMemory}
         />
 
         
         <MemoryDeleteButton
-            memoryID={memoryID}
-            title={title}
-            router={router}
-            tripid={tripid}
-          ></MemoryDeleteButton>
+          memoryID={curMemory._id}
+          title={curMemory.title}
+          router={router}
+          tripid={curMemory.parentTripId}
+        ></MemoryDeleteButton>
       </Modal>
     </>
   );

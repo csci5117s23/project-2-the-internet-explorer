@@ -1,12 +1,6 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TripsList from "./TripsList";
-import { useAuth } from "@clerk/clerk-react";
-import LoadingCircle from "./LoadingCircle";
-
 import { updateTripsData } from "@/modules/Data";
-
 
 export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
   useEffect(() => {

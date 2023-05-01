@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import styles from "../../styles/TripMemory.module.css";
 import Map from "../Map";
 import Webcam from "react-webcam";
@@ -6,16 +6,7 @@ import Resizer from "react-image-file-resizer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function MemoryEditButton(
-  { editMemory,
-    closeModal,
-    parentId,
-    setDataUrl,
-    startDate,
-    category,
-    date,
-    curMemory }
-) {
+export default function MemoryEditButton({ editMemory, closeModal, setDataUrl, curMemory }) {
   const [showWebCamera, setShowWebCamera] = useState(false);
   const [camera, setCamera] = useState(false); // front is false. back is true.
   const [image, setImage] = useState(curMemory.image);
@@ -121,7 +112,6 @@ export default function MemoryEditButton(
     let newDate = new Date(formJson.date.replace(/-/g, "/"));
 
     let newMemory = {
-      parentTripId: parentId,
       title: formJson.title,
       description: formJson.description,
       date: newDate.toISOString(),
@@ -174,10 +164,9 @@ export default function MemoryEditButton(
     <>
       <form method="post" onSubmit={handleSubmit}>
         <div className="p-20 max-md:px-5 pt-36 -mt-16">
-        <h1 className="text-xl font-bold pl-3.5">
-          Edit Memory
-        </h1>
-        
+          <h1 className="text-xl font-bold pl-3.5">
+            Edit Memory
+          </h1>
           <div className="p-4">
             <h4 className="text-l font-bold">Title</h4>
             <input
@@ -193,10 +182,10 @@ export default function MemoryEditButton(
           <div className="p-4">
             <h4 className="text-l font-bold">Date</h4>
             <input 
-              type='date'
-              className='bg-gray-200 p-2 rounded-md w-full'
-              id='date'
-              name='date'
+              type="date"
+              className="bg-gray-200 p-2 rounded-md w-full"
+              id="date"
+              name="date"
               defaultValue={defaultDate}
             />
           </div>
@@ -210,8 +199,8 @@ export default function MemoryEditButton(
             <h4 className="text-l font-bold">What type of memory is this?</h4>
             <select 
               className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              name='folders'
-              id='folders'
+              name="folders"
+              id="folders"
               defaultValue={curMemory.category}
             >
               {options}
@@ -237,18 +226,13 @@ export default function MemoryEditButton(
                 Take Pic
               </button>
             )}
-
             <span> or </span>
             <input
               type="file"
               onChange={handleImageChange}
               id="uploadImage"
               name="uploadImage"
-              className="text-sm text-slate-500
-                        file:mr-4 file:py-2 file:px-4
-                        file:rounded-full file:border-0
-                        file:text-sm file:font-semibold
-                        file:bg-custom-blue file:text-white"
+              className="text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-custom-blue file:text-white"
             />
           </div>
           {showWebCamera ? (
@@ -330,9 +314,11 @@ export default function MemoryEditButton(
             Update Memory
           </button>
           <button 
-          onClick={closeModal}
-          className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm"
-        >Close</button>
+            onClick={closeModal}
+            className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm"
+          >
+            Close
+          </button>
         </div>
       </form>
     </>

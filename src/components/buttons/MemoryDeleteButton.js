@@ -1,32 +1,25 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { deleteMemory, removeMemory } from "@/modules/Data";
+import { deleteMemory } from "@/modules/Data";
 
-
-export default function MemoryDeleteButton(
-  { memoryID, 
-    title, 
-    router, 
-    tripid }
-) {
+export default function MemoryDeleteButton({ memoryID, title, router, tripid }) {
   const [deleteModelOpen, setDeleteOpen] = useState(false);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-  const deleteIndividualMemory = async () => {
+
+  async function deleteIndividualMemory() {
     try {
       if (userId) {
         const token = await getToken({ tempalte: "codehooks" });
 
         const response = await deleteMemory(token, memoryID);
         if (!response) {
-          router.push('/404');
+          router.push("/404");
           return;
         }
-        alert('Successfully deleted');
+        alert("Successfully deleted");
         router.push(`/trips/${tripid}`);
       }
     } catch (error) {
@@ -35,8 +28,6 @@ export default function MemoryDeleteButton(
   };
 
   function handleMemoryDeleteButton() {
-    // setConfirmed(!confirmed);
-    console.log("clicked delete");
     deleteIndividualMemory();
   }
 
@@ -58,7 +49,6 @@ export default function MemoryDeleteButton(
       </button>
       <Modal
         isOpen={deleteModelOpen}
-        // onAfterOpen={afteropenDeleteModal}
         onRequestClose={closeDeleteModal}
         contentLabel="Memory Delete Modal"
       >

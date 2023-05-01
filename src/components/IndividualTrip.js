@@ -1,17 +1,12 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
-import CategoryButton from "@/components/buttons/CategoryButton";
 import Header from "@/components/Header";
 import TripMemoryWrapper from "@/components/TripMemoryWrapper";
-import { useRouter } from "next/router";
-import styles from '../styles/TripView.module.css';
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import LoadingCircle from "@/components/LoadingCircle";
 import CategoryButtonWrapper from "./buttons/CategoryButtonWrapper";
 import MemoryViewButtonWrapper from "./buttons/MemoryViewButtonWrapper";
 import Head from "next/head";
-import { allTripsData, currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } from "@/modules/Data";
+import { currentTrip, currentTripMemories, getIndividualTrip, getAllMemories } from "@/modules/Data";
 
 export default function IndividualTrip({ tripID, router }) {
   const [trip, setTrip] = useState(null);

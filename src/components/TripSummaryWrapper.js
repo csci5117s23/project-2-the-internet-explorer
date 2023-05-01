@@ -1,18 +1,12 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import TripSummary from "./TripSummary";
 import { useAuth } from "@clerk/nextjs";
-import styles from '../styles/TripView.module.css'
 
 Modal.setAppElement("body");
 
 export default function TripSummaryWrapper({ trip, tripMemories }) {
-
   const [modalIsOpen, setIsOpen] = useState(false);
-
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
 
   function openModal() {
     setIsOpen(true);
@@ -25,9 +19,10 @@ export default function TripSummaryWrapper({ trip, tripMemories }) {
   return (
     <>
       <button
-        className={"float-right right-4 sticky bottom-4 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"}
+        className="float-right right-4 sticky bottom-4 ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         onClick={openModal}
-      >Trip Summary
+      >
+        Trip Summary
       </button>
       <Modal
         isOpen={modalIsOpen}
@@ -35,10 +30,10 @@ export default function TripSummaryWrapper({ trip, tripMemories }) {
         contentLabel=" Modal"
       >
         <TripSummary
-            className="mb-20"
-            trip={trip}
-            tripMemories={tripMemories}
-            closeModal={closeModal}
+          className="mb-20"
+          trip={trip}
+          tripMemories={tripMemories}
+          closeModal={closeModal}
         /> 
       </Modal>
     </>

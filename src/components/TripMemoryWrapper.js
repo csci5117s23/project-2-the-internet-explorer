@@ -1,5 +1,3 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
-
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import TripMemory from "./TripMemory";
@@ -7,10 +5,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/TripMemory.module.css';
 import { useAuth } from "@clerk/nextjs";
-import { LoadScript } from "@react-google-maps/api";
 import { addMemory, updateMemories } from "@/modules/Data";
 import { useRouter } from "next/router";
-// const libraries = ["places"];
 
 Modal.setAppElement("body");
 
@@ -80,7 +76,6 @@ export default function TripMemoryWrapper({ parentId, category, date, tripMemori
         onRequestClose={closeModal}
         contentLabel="Add Memory Modal"
       >
-        
         <TripMemory 
           addMemory={setNewMemory}
           closeModal={closeModal}
@@ -89,7 +84,6 @@ export default function TripMemoryWrapper({ parentId, category, date, tripMemori
           category={category}
           date={date}
         />
-        
       </Modal>
     </>
   );
