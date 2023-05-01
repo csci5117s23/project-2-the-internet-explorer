@@ -206,7 +206,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                     <h4 className="text-l font-bold">What type of memory is this?</h4>
                     {category && category !== 'All Categories' ? (
                         <select 
-                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             name="folders"
                             id="folders"
                             disabled
@@ -216,7 +216,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                         </select>
                     ) : (
                         <select 
-                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
+                            className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
                             name="folders" 
                             id="folders"
                             required
