@@ -25,7 +25,6 @@ export default function MemoryMap({ lat, lng }) {
       id="example-map"
       center={center}
       zoom={10}
-      // mapContainerStyle={{ height: "90vw", width: "100%" }}
     >
       {center && <MarkerF position={center} />}
     </GoogleMap>

@@ -8,18 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../styles/TripMemory.module.css';
 import { useAuth } from "@clerk/nextjs";
 import { LoadScript } from "@react-google-maps/api";
-import { updateMemories } from "@/modules/Data";
+import { addMemory, updateMemories } from "@/modules/Data";
+import { useRouter } from "next/router";
 // const libraries = ["places"];
 
 Modal.setAppElement("body");
 
-export default function TripMemoryWrapper({ parentId, startDate, category, date, tripMemories, setTripMemories }) {
-  // const MAP_API = process.env.NEXT_PUBLIC_MAP_API
-  
-  
+export default function TripMemoryWrapper({ parentId, category, date, tripMemories, setTripMemories }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newMemory, setNewMemory] = useState(null);
   const [dataUrl, setDataUrl] = useState("");
+
+  const router = useRouter();
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -38,20 +38,14 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
           try {
             let updatedMemory = newMemory;
             updatedMemory["image"] = dataUrl;
-            console.log('updated memory: ', updatedMemory);
             const token = await getToken({ template: "codehooks" });
 
-            const response = await fetch(backend_base + '/addMemory', {
-              'method': 'POST',
-              'headers': {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-              },
-              'body': JSON.stringify(updatedMemory)
-            });
+            const result = await addMemory(token, updatedMemory);
+            if (!result) {
+              router.push('/404');
+              return;
+            }
 
-            const result = await response.json();
-            console.log('Success: ', result);
             const updatedMemories = tripMemories.concat(result);
             updatedMemories.sort((a, b) => {
               if (a.category === b.category) {
@@ -61,16 +55,9 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
               }
             });
             updateMemories(updatedMemories); // Update the cached memories.
-            setTripMemories(updatedMemories);
+            setTripMemories(updatedMemories); // Update the state memories.
             setNewMemory(null);
             setDataUrl("");
-
-            // Updates the state variable for what memories are displayed on the page when a new 
-            // memories is added.
-            // setTripMemories(tripMemories.concat(result));
-
-            // TODO: Update a state variable to possibly update the day-by-day view
-            // TODO: in real time.
           } catch (error) {
             console.error('Error: ', error);
           }
@@ -99,7 +86,6 @@ export default function TripMemoryWrapper({ parentId, startDate, category, date,
           closeModal={closeModal}
           parentId={parentId}
           setDataUrl={setDataUrl}
-          startDate={startDate}
           category={category}
           date={date}
         />

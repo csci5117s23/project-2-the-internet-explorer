@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
 import EditTrip from "./EditTrip";
 import DeleteTrip from "./DeleteTrip";
-import { updateCurrentTrip, updateTripsData } from "@/modules/Data";
+import { editDesiredTrip, updateCurrentTrip, updateTripsData } from "@/modules/Data";
+import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
 
@@ -15,6 +16,8 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editedTrip, setEditedTrip] = useState(null);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
+
+  const router = useRouter();
 
   function openModal() {
     setIsOpen(true);
@@ -30,18 +33,12 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
         if (userId) {
           try {
             const token = await getToken({template: "codehooks"});
-            
-            const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
-              'method': 'PATCH',
-              'headers': {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-              },
-              'body': JSON.stringify(editedTrip),
-            });
-            const result = await response.json();
-            console.log('Success after update: ', result);
-            updateCurrentTrip(result);
+
+            const result = await editDesiredTrip(token, tripID, editedTrip);
+            if (!result) {
+              router.push('/404');
+              return;
+            }
 
             // Update the allTrips state variable in somewhat real time. Has to wait for the
             // patch request to complete.

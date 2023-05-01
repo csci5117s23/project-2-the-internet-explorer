@@ -6,7 +6,7 @@ import Resizer from 'react-image-file-resizer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
-export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, startDate, category, date }) {
+export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, category, date }) {
     const [showWebCamera, setShowWebCamera] = useState(false);
     const [camera, setCamera] = useState(false); // front is false. back is true.
     const [image, setImage] = useState('');
@@ -121,34 +121,6 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
         closeModal();
     }
 
-    // TODO: Deconstruct and reconstruct the passed in startDate to be accepted as a default value in
-    // TODO: the html form for the date.
-    let curDate = new Date(startDate);
-    let year = curDate.getFullYear();
-    let month = curDate.getMonth() + 1;
-    let day = curDate.getDate();
-
-    let yearStr = year.toString();
-    let monthStr = '';
-    if (month < 10) {
-        monthStr = `0${month.toString()}`;
-    } else {
-        monthStr = month.toString();
-    }
-    let dayStr = '';
-    if (day < 10) {
-        dayStr = `0${day.toString()}`;
-    } else {
-        dayStr = day.toString();
-    }
-
-    let dateStr = `${yearStr}-${monthStr}-${dayStr}`;
-
-    let defaultCategory='';
-    if (category && category !== "All Categories") {
-        defaultCategory = category;
-    }
-
     let defaultDate = '';
     if (date && date !== "All Days") {
         let newDate = new Date(date);
@@ -183,8 +155,6 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
             <option value="people">People</option>
         </>
     );
-
-    console.log('category: ', category);
 
     return (
         <>
@@ -222,7 +192,6 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                             id="date"
                             name="date"
                             required
-                            min={dateStr}
                         ></input>
                     )}
                     
@@ -256,20 +225,6 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                             {options}
                         </select>
                     )}
-                    {/* <select 
-                        className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" 
-                        name="folders" 
-                        id="folders"
-                        required
-                        defaultValue={defaultCategory}
-                    >
-                        <option value="none" disabled hidden>Select an option</option>
-                        <option value="places">Place</option>
-                        <option value="events">Event</option>
-                        <option value="food">Food</option>
-                        <option value="souvenirs">Souvenirs</option>
-                        <option value="people">People</option>
-                    </select> */}
                 </div>
                 <div className={styles.photoButtons}>
                     {showWebCamera ? (

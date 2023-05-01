@@ -29,16 +29,6 @@ export default function HomePage() {
           setAllTrips(trips);
           setLoadingTrips(false);
         }
-        // if (!allTripsData) {
-        //   const token = await getToken({ template: "codehooks" });
-        //   const trips = await getAllTrips(token);
-
-        //   setAllTrips(trips);
-        //   setLoadingTrips(false);
-        // } else {
-        //   setAllTrips(allTripsData);
-        //   setLoadingTrips(false);
-        // }
       }
     }
     retrieveTrips();

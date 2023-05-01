@@ -233,37 +233,7 @@ export default function IndividualMemory({
   
 
   if (!loadingMemories && !loadingMemory && !loadingTrip) {
-    console.log('prev index: ', prevIndex);
-    console.log('next index: ', nextIndex);
-    console.log('memories: ', tripMemories);
-
     let prevUrl = `/trips/${trip._id}`;
-    // if (filter === "category") {
-    //   if (!category) {
-    //     router.push("/404"); // Search query missing.
-    //     return;
-    //   }
-    //   prevUrl = `/trips/${trip._id}/category?category=${category}`;
-    //   if (day) {
-    //     prevUrl += `&day=${day}`;
-    //   }
-    // } else if (filter === "day") {
-    //   if (!day) {
-    //     router.push("/404"); // Search query missing.
-    //     return;
-    //   }
-    //   prevUrl = `/trips/${trip._id}/day?day=${day}`;
-    //   if (category) {
-    //     console.log("has category param");
-    //     prevUrl += `&category=${category}`;
-    //   }
-    // } else if (filter === "memory") {
-    //   prevUrl = `/trips/${trip._id}`;
-    // } else {
-    //   // Handles any unaccepted filters.
-    //   router.push('/404');
-    //   return;
-    // }
 
     return (
       <>

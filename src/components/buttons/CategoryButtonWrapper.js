@@ -47,7 +47,6 @@ export default function CategoryButtonWrapper({ trip, date, curr_category, tripM
           router={router}
         />
         <TripSummaryWrapper
-          parentId={trip._id} 
           trip={trip} 
           tripMemories={tripMemories}
         />
