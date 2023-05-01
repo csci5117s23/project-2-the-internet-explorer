@@ -25,7 +25,7 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 * Circulding the memories
 * add, edit, and delete data, and make sure state variables work well
 * cache data to avoid reload the page
-* get the geo location
+* google maps integration/getting the geo location
 
 
 Which (if any) device integration(s) does your app support?
