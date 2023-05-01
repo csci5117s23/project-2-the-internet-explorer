@@ -9,6 +9,7 @@ const mapContainerStyle = {
 
 export default function TripSummaryMap({ coordinatesDict, currentCoordinate, zoom}) { 
     const [mapInstance, setMapInstance] = useState(null);
+    const [parsedCoord, setParsedCoord] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
       id: 'example-map',
@@ -17,9 +18,14 @@ export default function TripSummaryMap({ coordinatesDict, currentCoordinate, zoo
     });
 
     useEffect(() => {
-        if (mapInstance && currentCoordinate) {
-            mapInstance.panTo(currentCoordinate);
-        }
+      if (mapInstance && currentCoordinate) {
+        const parsedCoord = {
+          lat: parseFloat(currentCoordinate.lat),
+          lng: parseFloat(currentCoordinate.lng),
+        };
+        mapInstance.panTo(parsedCoord);
+        setParsedCoord(parsedCoord);
+      }
     }, [mapInstance, currentCoordinate,isLoaded]);
 
     return (
@@ -32,13 +38,13 @@ export default function TripSummaryMap({ coordinatesDict, currentCoordinate, zoo
                     id="example-map"
                     mapContainerStyle={mapContainerStyle}
                     zoom={zoom}
-                    center={currentCoordinate}
+                    center={parsedCoord}
                     onLoad={setMapInstance}
                  >
                 {coordinatesDict && Object.values(coordinatesDict).map((coordinate, index) => (
                     <MarkerF
                         key={index}
-                        position={{ lat: coordinate.lat, lng: coordinate.lng }}
+                        position={{ lat: parseFloat(coordinate.lat), lng: parseFloat(coordinate.lng) }}
                     />
                 ))}
                 </GoogleMap>
