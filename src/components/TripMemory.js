@@ -39,7 +39,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     }
 
     const capture = useCallback(() => {
-        const imageSrc = webcamRef.current.getScreenshot({width: 600, height: 2400});
+        const imageSrc = webcamRef.current.getScreenshot({width: 600, height: 400});
         setImage(imageSrc);
     }, [webcamRef]);
 
