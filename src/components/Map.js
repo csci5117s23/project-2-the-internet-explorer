@@ -64,11 +64,13 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
         setCoordinates(userPosition);
         reverseGeocode(userPosition);
       }
-    }, [userPosition]);
+    }, [userPosition, geocoder]);
 
     const reverseGeocode = (pos) => {
+      console.log('pos: ', pos);
       if (geocoder) {
         geocoder.geocode({ location: pos }, (results, status) => {
+          console.log('status: ', status);
           if (status === "OK") {
             if (results[0]) {
               console.log("this is results: " + JSON.stringify(results[0]))
