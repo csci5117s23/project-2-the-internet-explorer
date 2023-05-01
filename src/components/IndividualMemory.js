@@ -179,7 +179,7 @@ export default function IndividualMemory({
             style={{ width: "90vw" }}
           >
             
-            <h1 className="flex justify-between text-lg font-bold mb-2 bg-blue-400 p-3 m-1 rounded-md text-center">
+            <h1 className="flex justify-between text-xl sm:text-2xl font-bold mb-2 bg-blue-400 p-3 m-1 rounded-md text-center">
               <Link href={`/trips/${trip._id}/memory/${tripMemories[prevIndex]._id}`}>
                 <FontAwesomeIcon icon={faChevronLeft} style={{ float: "left", fontSize: "1.5em" }} /> 
               </Link>
@@ -191,7 +191,7 @@ export default function IndividualMemory({
             
           </div>
 
-          <div className="flex p-2">
+          <div className="flex p-2 text-md sm:text-lg">
             <div className="rounded-lg bg-blue-400 text-white p-2 mr-2">
               {moment(memory.date).format("YYYY-MM-DD")}
             </div>
