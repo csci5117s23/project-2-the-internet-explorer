@@ -87,7 +87,7 @@ export default function EditMemoryWrapper(
   return (
     <>
       <button
-        className="px-4 py-2 ml-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
+        className="px-4 py-2 sm:px-6 sm:py-3 sm:text-lg ml-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm"
         onClick={openModal}
       >
         Edit

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function MemoryViewButton({ tripID, memoryID, title, image }) {
   return (
-    <div className="mr-7 ml-7">
+    <div className="mr-7 ml-7 sm:mr-2 sm:ml-2">
       <Link href={`/trips/${tripID}/memory/${memoryID}`} className="relative inline-block overflow-hidden">
       <img
         src={image}
