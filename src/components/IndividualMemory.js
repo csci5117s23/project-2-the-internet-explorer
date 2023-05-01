@@ -321,7 +321,7 @@ export default function IndividualMemory({
               <h1 className="text-lg font-bold mb-2 bg-emerald-400 p-3 m-1 rounded-md">
                 Description
               </h1>
-              <span className="mt-2 bg-emerald-400 p-3 m-1">{memory.description}</span>
+              <span className="mt-2 bg-emerald-400 p-3 m-1 rounded-md">{memory.description}</span>
             </div>
           ) : (
             <></>
@@ -337,7 +337,7 @@ export default function IndividualMemory({
               Location
             </h1>
             <div className="flex flex-col items-center justify-center gap-4 bg-blue-400 p-5 m-5 rounded-md">
-              <div className="text-white text-lg font-bold bg-sky-400 p-2 rounded-md">
+              <div className="text-white text-lg font-bold bg-blue-400 p-2 rounded-md">
                 {memory.location}
               </div>
               <MemoryMap

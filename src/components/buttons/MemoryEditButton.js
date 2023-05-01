@@ -173,17 +173,19 @@ export default function MemoryEditButton(
   return (
     <>
       <form method="post" onSubmit={handleSubmit}>
-        <h1 className={`text-xl font-bold ${styles.tripMemoryHeader}`}>
+        <div className="p-20 max-md:px-5 pt-36 -mt-16">
+        <h1 className="text-xl font-bold pl-3.5">
           Edit Memory
         </h1>
-        <div className={styles.tripMemoryContainer}>
+        
           <div className="p-4">
             <h4 className="text-l font-bold">Title</h4>
             <input
-              className="border-2 border-slate-600 w-full"
+              className="bg-gray-200 p-2 rounded-md w-full"
               placeholder="Title"
               id="title"
               name="title"
+              maxLength={30}
               defaultValue={curMemory.title}
               required
             ></input>
@@ -192,7 +194,7 @@ export default function MemoryEditButton(
             <h4 className="text-l font-bold">Date</h4>
             <input 
               type='date'
-              className='border-2 border-slate-600 w-full'
+              className='bg-gray-200 p-2 rounded-md w-full'
               id='date'
               name='date'
               defaultValue={defaultDate}
@@ -313,7 +315,7 @@ export default function MemoryEditButton(
           <div className="p-4">
             <h4 className="text-l font-bold">Brief Description</h4>
             <textarea
-              className="border-2 border-slate-600 w-full h-20"
+              className="bg-gray-200 p-2 rounded-md w-full h-20"
               placeholder="Brief Description"
               id="description"
               name="description"
@@ -327,6 +329,10 @@ export default function MemoryEditButton(
           >
             Update Memory
           </button>
+          <button 
+          onClick={closeModal}
+          className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm"
+        >Close</button>
         </div>
       </form>
     </>

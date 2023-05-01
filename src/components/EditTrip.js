@@ -72,6 +72,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
                         defaultValue={curTripName}
                         id="tripName"
                         name="tripName"
+                        maxLength={30}
                     ></input>
                 </div>
                 <div className="p-4 start-date-container">
