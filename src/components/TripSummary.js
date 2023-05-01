@@ -5,7 +5,7 @@ import styles from '../styles/TripSummary.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faPen, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
-export default function TripSummary({parentId, trip, tripMemories, closeModal}) { 
+export default function TripSummary({ trip, tripMemories, closeModal }) { 
     const [coordinatesDict, setCoordinatesDict] = useState({});
     const [memoriesCategoryCount, setMemoriesCategoryCount] = useState(null);
     const [tripDuration, setTripDuration] = useState();
@@ -88,7 +88,6 @@ export default function TripSummary({parentId, trip, tripMemories, closeModal}) 
         <div className={`p-2 ${styles.tripSummaryContainer}`}>
             <TripSummaryMap 
                 coordinatesDict={coordinatesDict}
-                setCoordinatesDict={setCoordinatesDict}
                 currentCoordinate={ 
                     currentLocationKey === "All locations"
                     ? firstMemoryCoordinates

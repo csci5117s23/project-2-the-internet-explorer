@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Header from "../components/Header";
 
-const Page404 = () => {
+export default function Page404() {
 
     return (
         <>
@@ -27,5 +27,3 @@ const Page404 = () => {
         
     )
 }
-
-export default Page404;

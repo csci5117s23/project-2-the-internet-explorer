@@ -46,15 +46,6 @@ export default function Splash() {
               </h2>
             </main>
           </div>
-          {/* <div className={styles.mainDiv}>
-            <main>
-              <h1 className={styles.welcome}>Welcome to the Vacation Tracker!</h1>
-              <br></br><br></br> */}
-          {/* <h2>To track your vacations, <Link href='/trips'>login</Link></h2> */}
-          {/* <h2>To track your vacations, <Link href='https://grown-locust-7.accounts.dev/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>login</Link> or <Link href='https://grown-locust-7.accounts.dev/sign-up?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Ftrips'>sign up</Link>!</h2>
-            </main>
-          </div> */}
-          {/* <RedirectToSignIn></RedirectToSignIn> */}
         </SignedOut>
         <SignedIn>
           <TripsPage></TripsPage>

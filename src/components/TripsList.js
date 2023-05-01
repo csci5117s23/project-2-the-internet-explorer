@@ -1,11 +1,9 @@
 import Trip from "./Trip";
 import styles from '../styles/Trips.module.css';
-import { tileProps } from "react-calendar/dist/cjs/shared/propTypes";
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 export default function TripsList({ allTrips, setAllTrips }) {
-  // This is the component for the list of trips.
   let tripsList = allTrips.map(
     (trip, i) => (
       <Trip
@@ -27,9 +25,7 @@ export default function TripsList({ allTrips, setAllTrips }) {
 
   return (
     <div className="mt-6">
-
       {tripsList}
-      {/* <BlankTrip></BlankTrip> */}
     </div>
   )
 }

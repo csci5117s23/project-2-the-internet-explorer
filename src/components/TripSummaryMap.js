@@ -7,7 +7,7 @@ const mapContainerStyle = {
     width: "100%"
 };
 
-export default function TripSummaryMap({ coordinatesDict, setCoordinatesDict, currentCoordinate, zoom}) { 
+export default function TripSummaryMap({ coordinatesDict, currentCoordinate, zoom}) { 
     const [mapInstance, setMapInstance] = useState(null);
 
     const { isLoaded } = useJsApiLoader({

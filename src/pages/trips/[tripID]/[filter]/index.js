@@ -10,11 +10,6 @@ export default function FilterPage() {
   const router = useRouter();
   const { filter, tripID, category, day } = router.query;
 
-  console.log('filter: ', filter);
-  console.log('tripID: ', tripID);
-  console.log('category: ', category);
-  console.log('day: ', day);
-
   if (router.isReady) {
 
     if (filter === 'category') {
@@ -74,11 +69,4 @@ export default function FilterPage() {
       </>
     );
   }
-
-  // return <IndividualCategory></IndividualCategory>
-
-  // console.log('router query: ', router.query);
-  // console.log('window: ', window.location);
-
-  // return <h1>category page</h1>
 }

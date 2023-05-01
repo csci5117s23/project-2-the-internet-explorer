@@ -7,12 +7,6 @@ export default function MemoryPage() {
   const router = useRouter();
   const { memoryID, filter, tripID, category, day } = router.query;
 
-  console.log("memory id: ", memoryID);
-  console.log("filter: ", filter);
-  console.log("trip id: ", tripID);
-  console.log("category: ", category);
-  console.log("day: ", day);
-
   if (router.isReady) {
     return (
       <>

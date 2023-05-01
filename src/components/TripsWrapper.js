@@ -9,38 +9,6 @@ import { updateTripsData } from "@/modules/Data";
 
 
 export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
-  // This is the wrapper for the trips list.
-  
-  // const [allTrips, setAllTrips] = useState([]);
-  // const [loadingTrips, setLoadingTrips] = useState(true);
-
-  const { isLoaded, userId, sessionId, getToken } = useAuth();
-
-  // useEffect(() => {
-  //   const getAllTrips = async () => {
-  //     if (userId) {
-  //       try {
-  //         const token = await getToken({ template: "codehooks" });
-
-  //         const response = await fetch(backend_base + '/getAllTrips', {
-  //           'method': 'GET',
-  //           'headers': {
-  //             'Authorization': 'Bearer ' + token
-  //           }
-  //         });
-
-  //         const data = await response.json();
-  //         console.log('all data: ', data);
-  //         setAllTrips(data);
-  //         setLoadingTrips(false);
-  //       } catch (error) {
-  //         console.error('Error: ', error);
-  //       }
-  //     }
-  //   }
-  //   getAllTrips();
-  // }, []);
-
   useEffect(() => {
     // Update allTrips with a new trip, then sort the new list by start date.
     const updateTrips = () => {
@@ -62,15 +30,7 @@ export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
     updateTrips();
   }, [uploadedTrip]);
 
-  // console.log('loading: ', loadingTrips);
-
   return (
     <TripsList allTrips={allTrips} setAllTrips={setAllTrips}></TripsList>
   );
-
-  return (loadingTrips ? (
-    <LoadingCircle></LoadingCircle>
-  ) : (
-    <TripsList trips={allTrips}></TripsList>
-  ));
 }

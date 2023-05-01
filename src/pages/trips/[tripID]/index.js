@@ -8,16 +8,10 @@ export default function TripId() {
   const router = useRouter();
   const { tripID } = router.query;
 
-  console.log('tripID: ', tripID);
-
   if (tripID) {
     return (
       <>
         <SignedIn>
-          {/* <Head>
-            <title>{tripID.tripName}</title>
-            <link rel="icon" href="/favicon.png" />
-          </Head> */}
           <IndividualTrip tripID={tripID} router={router}></IndividualTrip>
         </SignedIn>
         <SignedOut>

@@ -24,31 +24,12 @@ export default function IndividualTrip({ tripID, router }) {
   useEffect(() => {
     async function findTrip() {
       if (userId) {
-        // console.log('current trip from data: ', currentTrip._id === tripID);
         if (currentTrip && currentTrip._id === tripID) {
-          console.log('current trip exists');
           setTrip(currentTrip);
           setLoadingTrip(false);
         } else {
           const token = await getToken({ template: 'codehooks' });
-          // if (allTripsData) {
-            // let curTrip = allTripsData.find(trip => trip._id === tripID);
-            // if (curTrip) {
-            //   console.log('found cur trip by .find');
-            //   setTrip(curTrip);
-            //   setLoadingTrip(false);
-            // } else {
-            //   console.log('have to attempt a database access and all trips data exists');
-            //   let curTrip = await getIndividualTrip(token, tripID);
-            //   if (!curTrip) {
-            //     router.push('/404');
-            //     return;
-            //   }
-            //   setTrip(curTrip);
-            //   setLoadingTrip(false);
-            // }
-          // } else {
-            // console.log('have to attempt a database access when all trips data does not exist');
+          
           let curTrip = await getIndividualTrip(token, tripID);
           if (!curTrip) {
             router.push('/404');
@@ -56,7 +37,6 @@ export default function IndividualTrip({ tripID, router }) {
           }
           setTrip(curTrip);
           setLoadingTrip(false);
-          // }
         }
       }
     }
@@ -66,14 +46,12 @@ export default function IndividualTrip({ tripID, router }) {
   useEffect(() => {
     async function retrieveMemories() {
       if (userId) {
-        console.log('current trip memories: ', currentTripMemories.length);
-        // console.log('current trip id bool: ', currentTrip._id === tripID);
         if (currentTripMemories.length > 0 && currentTripMemories[0].parentTripId === tripID) {
-          console.log('retrieving cached data');
           setTripMemories(currentTripMemories);
           setLoadingMemories(false);
         } else {
           const token = await getToken({ template: 'codehooks' });
+
           let curMemories = await getAllMemories(token, tripID);
           if (!curMemories) {
             router.push('/404');
@@ -104,7 +82,7 @@ export default function IndividualTrip({ tripID, router }) {
           <LoadingCircle></LoadingCircle>
         ) : (
           <>
-            <CategoryButtonWrapper day="All Days" curr_category="All Categories" tripID={trip._id} trip={trip} tripMemories={tripMemories} setTripMemories={setTripMemories} router={router}></CategoryButtonWrapper>
+            <CategoryButtonWrapper day="All Days" curr_category="All Categories" trip={trip} tripMemories={tripMemories} router={router}></CategoryButtonWrapper>
             <MemoryViewButtonWrapper tripMemories={tripMemories}></MemoryViewButtonWrapper>
             <TripMemoryWrapper parentId={trip._id} startDate={trip.startDate} tripMemories={tripMemories} setTripMemories={setTripMemories}></TripMemoryWrapper>
           </>
