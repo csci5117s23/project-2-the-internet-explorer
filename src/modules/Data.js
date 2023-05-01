@@ -161,7 +161,6 @@ export async function getIndividualMemory(authToken, memoryID) {
 }
 
 export async function addMemory(authToken, data) {
-  data._id = '';
   const response = await fetch(backend_base + '/tripMemories', {
     'method': 'POST',
     'headers': {
