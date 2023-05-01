@@ -155,85 +155,13 @@ export default function IndividualMemory({
       setNextIndex(curIndex + 1);
     }
   }
-
-  // useEffect(() => {
-  //   function findNextPrev() {
-  //     if (!loadingMemories && !loadingMemory) {
-  //       let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
-  //       if (curIndex <= 0) {
-  //         setPrevIndex(tripMemories.length - 1);
-  //       } else {
-  //         setPrevIndex(curIndex - 1);
-  //       }
-
-  //       if (curIndex >= tripMemories.length -1) {
-  //         setNextIndex(0);
-  //       } else {
-  //         setNextIndex(curIndex + 1);
-  //       }
-  //     }
-  //   }
-  //   findNextPrev();
-  // }, [loadingMemories, loadingMemory, router]);
-
-  // useEffect(() => {
-  //   if (tripMemories) {
-  //     // let memory = tripMemories.find(memory => memory._id === memoryID);
-  //     let memoryIndex = tripMemories.findIndex(memory => memory._id === memoryID);
-  //     setCurIndex(memoryIndex);
-      
-  //     // Set the index for the previous trip in the list.
-  //     if (memoryIndex <= 0) {
-  //       setPrevIndex(tripMemories.length - 1);
-  //     } else {
-  //       setPrevIndex(memoryIndex - 1);
-  //     }
-
-  //     // Set the index for the next trip in the list.
-  //     if (memoryIndex >= tripMemories.length - 1) {
-  //       setNextIndex(0);
-  //     } else {
-  //       setNextIndex(memoryIndex + 1);
-  //     }
-
-  //     setCurMemory(tripMemories[memoryIndex]);
-  //   }
-  // }, [tripMemories, router]);
-
-  // useEffect(() => {
-  //   if (curIndex !== null) {
-  //     setCurMemory(tripMemories[curIndex]);
-  //   }
-  // }, [curIndex]);
-
-  // console.log('cur index: ', curIndex);
-
-  // function constructCycleUrl(memoryID, tripID) {
-  //   let url = '';
-  //   if (filter === 'category') {
-  //     // No need for error checking here since it gets error checked before, which 
-  //     // would occur prior to this function running.
-  //     let category = params.get('category');
-  //     url = `/trips/${tripID}/category/${memoryID}?category=${category}`;
-  //     if (params.has('day')) {
-  //       url += `&day=${params.get('day')}`;
-  //     }
-  //   } else if (filter === 'day') {
-  //     let day = params.get('day');
-  //     url = `/trips/${tripID}/day/${memoryID}?category=${category}`;
-  //     if (params.has('category')) {
-  //       url += `&category=${params.get('category')}`;
-  //     }
-  //   } else if (filter === 'memory') {
-  //     url = `/trips/${tripID}/memory/${memoryID}`;
-  //   }
-
-  //   return url;
-  // }
   
 
   if (!loadingMemories && !loadingMemory && !loadingTrip) {
     let prevUrl = `/trips/${trip._id}`;
+
+    console.log('latitude: ', memory.latitude);
+    console.log('longitude: ', memory.longitude);
 
     return (
       <>
@@ -311,8 +239,8 @@ export default function IndividualMemory({
                 {memory.location}
               </div>
               <MemoryMap
-                lat={memory.latitude}
-                lng={memory.longitude}
+                lat={parseFloat(memory.latitude)}
+                lng={parseFloat(memory.longitude)}
               ></MemoryMap>
             </div>
           </div>

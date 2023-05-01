@@ -6,11 +6,14 @@ import AddTripWrapper from "./AddTripWrapper";
 import LoadingCircle from "./LoadingCircle";
 
 import { allTripsData, getAllTrips } from "@/modules/Data";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
   const [loadingTrips, setLoadingTrips] = useState(true);
   const [allTrips, setAllTrips]= useState(null);
   const [uploadedTrip, setUploadedTrip] = useState(null);
+
+  const router = useRouter();
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -26,6 +29,10 @@ export default function HomePage() {
           const token = await getToken({ template: 'codehooks' });
 
           const trips = await getAllTrips(token);
+          if (!trips) {
+            router.push('/404');
+            return;
+          }
           setAllTrips(trips);
           setLoadingTrips(false);
         }

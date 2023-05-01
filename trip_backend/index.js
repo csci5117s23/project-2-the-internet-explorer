@@ -8,11 +8,6 @@ import {crudlify} from 'codehooks-crudlify';
 import jwtDecode from "jwt-decode";
 import { object, string, date, number } from "yup";
 
-// test route for https://<PROJECTID>.api.codehooks.io/dev/
-app.get('/', (req, res) => {
-  res.send('CRUD server ready')
-})
-
 //create the trip folder
 const tripFolderYup = object({
   tripName: string().required(),      // The name of the trip.
@@ -37,53 +32,53 @@ const tripMemoriesYup = object({
 });
 
 // Retrieve all of the trips of a user for the main page.
-async function getAllTrips(req, res) {
-  // const userId = req.user_token.sub;
-  const userId = req.query.user;
+// async function getAllTrips(req, res) {
+//   // const userId = req.user_token.sub;
+//   const userId = req.query.user;
 
-  const conn = await Datastore.open();
-  const query = {"user": userId};
+//   const conn = await Datastore.open();
+//   const query = {"user": userId};
 
-  const options = {
-    filter: query,
-    sort: {"startYear": 1, "startMonth": 1}
-  };
-  conn.getMany('tripFolders', options).json(res);
-}
-app.get('/getAllTrips', getAllTrips);
+//   const options = {
+//     filter: query,
+//     sort: {"startYear": 1, "startMonth": 1}
+//   };
+//   conn.getMany('tripFolders', options).json(res);
+// }
+// app.get('/getAllTrips', getAllTrips);
 
-async function getTripMemories(req, res) {
-  const userId = req.query.user;
-  const tripId = req.query.trip;
+// async function getTripMemories(req, res) {
+//   const userId = req.query.user;
+//   const tripId = req.query.trip;
 
-  const conn = await Datastore.open();
-  const query = {$and: [{"user": userId}, {"parentTripId": tripId}]};
+//   const conn = await Datastore.open();
+//   const query = {$and: [{"user": userId}, {"parentTripId": tripId}]};
 
-  const options = {
-    filter: query,
-    sort: {"date": 1},
-    // hints: {$fields: {date: 1, image: 1, _id: 1}}
-  }
-  conn.getMany('tripMemories', options).json(res);
-}
-app.get('/getTripMemories', getTripMemories);
+//   const options = {
+//     filter: query,
+//     sort: {"date": 1},
+//     // hints: {$fields: {date: 1, image: 1, _id: 1}}
+//   }
+//   conn.getMany('tripMemories', options).json(res);
+// }
+// app.get('/getTripMemories', getTripMemories);
 
 // Retrieve the memories of a specified category of a specified trip.
-async function getCategoryMemories(req, res) {
-  const userId = req.user_token.sub;
-  const tripId = req.query.trip;
-  const category = req.query.category;
+// async function getCategoryMemories(req, res) {
+//   const userId = req.user_token.sub;
+//   const tripId = req.query.trip;
+//   const category = req.query.category;
 
-  const conn = await Datastore.open();
-  const query = {$and: [{"user": userId}, {"parentTripId": tripId}, {"category": category.toLowerCase()}]};
+//   const conn = await Datastore.open();
+//   const query = {$and: [{"user": userId}, {"parentTripId": tripId}, {"category": category.toLowerCase()}]};
   
-  const options = {
-    filter: query,
-    sort: {"date": 1}
-  }
-  conn.getMany('tripMemories', options).json(res);
-}
-app.get('/getCategoryMemories', getCategoryMemories);
+//   const options = {
+//     filter: query,
+//     sort: {"date": 1}
+//   }
+//   conn.getMany('tripMemories', options).json(res);
+// }
+// app.get('/getCategoryMemories', getCategoryMemories);
 
 // async function getDateMemories(req, res) {
 //   const userId = req.user_token.sub;
@@ -91,13 +86,13 @@ app.get('/getCategoryMemories', getCategoryMemories);
 //   const date = 
 // }
 
-async function addMemory(req, res) {
-  const conn = await Datastore.open();
-  const doc = await conn.insertOne('tripMemories', req.body);
+// async function addMemory(req, res) {
+//   const conn = await Datastore.open();
+//   const doc = await conn.insertOne('tripMemories', req.body);
 
-  res.status(201).json(doc);
-}
-app.post('/addMemory', addMemory);
+//   res.status(201).json(doc);
+// }
+// app.post('/addMemory', addMemory);
 
 async function deleteTripMemories(req, res) {
   const conn = await Datastore.open();
@@ -114,7 +109,7 @@ app.delete('/deleteMemories', deleteTripMemories);
 
 // async function deleteAllMemories(req, res) {
 //   const conn = await Datastore.open();
-//   const query = {"_id": {$exists: true}};
+//   const query = {"_id": {$exists: false}};
 
 //   const options = {
 //     filter: query
@@ -123,7 +118,7 @@ app.delete('/deleteMemories', deleteTripMemories);
 //   const data = await conn.removeMany('tripMemories', options);
 //   res.json(data);
 // }
-// app.delete('/deleteMemories', deleteAllMemories);
+// app.delete('/deleteMemory', deleteAllMemories);
 
 // async function deleteAllTrips(req, res) {
 //   const conn = await Datastore.open();
@@ -168,30 +163,32 @@ app.use('/tripFolders', (req, res, next) => {
     req.query.user = req.user_token.sub;
   } else if (req.method === "DELETE") {
     req.query.user = req.user_token.sub;
-  }
-  next();
-})
-
-app.use('/getAllTrips', (req, res, next) => {
-  if (req.method === "GET") {
-    req.query.user = req.user_token.sub;
-  }
-  next();
-});
-
-app.use('/addMemory', (req, res, next) => {
-  if (req.method === "POST") {
+  } else if (req.method === "PATCH") {
     req.body.user = req.user_token.sub;
   }
   next();
-});
-
-app.use('/getTripMemories', (req, res, next) => {
-  if (req.method === "GET") {
-    req.query.user = req.user_token.sub;
-  }
-  next();
 })
+
+// app.use('/getAllTrips', (req, res, next) => {
+//   if (req.method === "GET") {
+//     req.query.user = req.user_token.sub;
+//   }
+//   next();
+// });
+
+// app.use('/addMemory', (req, res, next) => {
+//   if (req.method === "POST") {
+//     req.body.user = req.user_token.sub;
+//   }
+//   next();
+// });
+
+// app.use('/getTripMemories', (req, res, next) => {
+//   if (req.method === "GET") {
+//     req.query.user = req.user_token.sub;
+//   }
+//   next();
+// })
 
 // Some extra logic for making a POST and GET request from the tripMemories
 // collection. Retrieve the userId and store it in the body or query,
@@ -203,6 +200,8 @@ app.use('/tripMemories', (req, res, next) => {
     req.query.user = req.user_token.sub;
   } else if (req.method === "DELETE") {
     req.query.user = req.user_token.sub;
+  } else if (req.method === "PATCH") {
+    req.body.user = req.user_token.sub;
   }
   next();
 });
@@ -226,13 +225,31 @@ app.use('/tripFolders/:id', async (req, res, next) => {
       return;
     }
   } catch (e) {
-    console.error('Error: ', e);
     res.status(404).end(e);
     return;
   }
 
   next();
 });
+
+app.use('/tripMemories/:id', async (req, res, next) => {
+  const id = req.params.ID;
+  const userId = req.user_token.sub;
+
+  const conn = await Datastore.open();
+  try {
+    const memory = await conn.getOne('tripMemories', id);
+    if (memory.user != userId) {
+      res.status(403).end();
+      return;
+    }
+  } catch (e) {
+    res.status(404).end(e);
+    return;
+  }
+
+  next();
+})
 
 // Use Crudlify to create a REST API for any collection
 crudlify(app, {tripFolders: tripFolderYup, tripMemories: tripMemoriesYup});

@@ -12,16 +12,19 @@ export async function getAllTrips(authToken) {
       'Authorization': 'Bearer ' + authToken
     }
   });
+  if (!result.ok) {
+    return null;
+  }
   allTripsData = await result.json();
   //* Uncomment this sort for use with coho localserver.
-  allTripsData.sort((a, b) => {
-    // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
-    if (a.startYear === b.startYear) {
-      return a.startMonth < b.startMonth ? -1 : 1;
-    } else {
-      return a.startYear < b.startYear ? -1 : 1;
-    }
-  });
+  // allTripsData.sort((a, b) => {
+  //   // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+  //   if (a.startYear === b.startYear) {
+  //     return a.startMonth < b.startMonth ? -1 : 1;
+  //   } else {
+  //     return a.startYear < b.startYear ? -1 : 1;
+  //   }
+  // });
   return allTripsData;
 }
 
@@ -40,6 +43,9 @@ export async function getIndividualTrip(authToken, tripId) {
       'Authorization': 'Bearer ' + authToken
     }
   });
+  if (!result.ok) {
+    return null;
+  }
   currentTrip = await result.json();
   return currentTrip;
 }
@@ -116,39 +122,46 @@ export async function getAllMemories(authToken, tripId) {
       'Authorization': 'Bearer ' + authToken
     }
   });
+  if (!result.ok) {
+    return null;
+  }
   currentTripMemories = await result.json();
   //* Uncomment this sort for use with coho localserver.
-  currentTripMemories.sort((a, b) => {
-    // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
-    if (a.category === b.category) {
-      return a.date < b.date ? -1 : 1;
-    } else {
-      return a.category < b.category ? -1 : 1;
-    }
-  });
+  // currentTripMemories.sort((a, b) => {
+  //   // https://levelup.gitconnected.com/sort-array-of-objects-by-two-properties-in-javascript-69234fa6f474
+  //   if (a.category === b.category) {
+  //     return a.date < b.date ? -1 : 1;
+  //   } else {
+  //     return a.category < b.category ? -1 : 1;
+  //   }
+  // });
   return currentTripMemories;
 }
 
-export async function getIndividualMemory(authToken, memoryId) {
+export async function getIndividualMemory(authToken, memoryID) {
   if (currentTripMemories) {
-    let curMemory = allTripsData.find(memory => memory._id === memoryId);
+    let curMemory = currentTripMemories.find(memory => memory._id === memoryID);
     if (curMemory) {
       currentMemory = curMemory;
       return currentMemory;
     }
   }
   // If the above if statement does not successfully retrieve the data, then perform a database request.
-  const result = await fetch(backend_base + `/tripMemories/${memoryId}`, {
+  const result = await fetch(backend_base + `/tripMemories/${memoryID}`, {
     'method': 'GET',
     'headers': {
       'Authorization': 'Bearer ' + authToken
     }
   });
+  if (!result.ok) {
+    return null;
+  }
   currentMemory = await result.json();
   return currentMemory;
 }
 
 export async function addMemory(authToken, data) {
+  data._id = '';
   const response = await fetch(backend_base + '/tripMemories', {
     'method': 'POST',
     'headers': {
