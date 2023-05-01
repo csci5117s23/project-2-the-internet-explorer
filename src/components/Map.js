@@ -17,6 +17,8 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const [showCurrentDiv, setShowCurrentDiv] = useState(false);
     const [locationIsLoading, setLocationIsLoading] = useState(false);
 
+    // const []
+
     const onLoad = (ref) => setSearchBox(ref);
 
     console.log("this is mem coordinates: " + JSON.stringify(coordinates));
@@ -79,6 +81,12 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       }
     };
 
+    useEffect(() => {
+      function createLocationInput() {
+        
+      }
+    })
+
     const onPlacesChanged =() => {
       setShowCurrentDiv(false);
       const place = searchBox.getPlaces()[0];
@@ -96,15 +104,19 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       <>
         <div className="p-4">
           <h4 className="text-l font-bold">Location</h4>
-          <div>
-            <input
-              className="bg-gray-200 p-2 rounded-md w-full"
-              placeholder="Loading Current Location..."
-              value={location}
-              readOnly
-            ></input>
-            {showCurrentDiv && <div className="text-sm">(Current Location)</div>}
-          </div>
+          {locationIsLoading ? (
+            <LoadingCircle />
+          ) : (
+            <div>
+              <input
+                className="bg-gray-200 p-2 rounded-md w-full"
+                placeholder="Loading Current Location..."
+                value={location}
+                readOnly
+              ></input>
+              {showCurrentDiv && <div className="text-sm">(Current Location)</div>}
+            </div>
+          )}
           {locationIsLoading ? (
            <LoadingCircle />
           ) : (
