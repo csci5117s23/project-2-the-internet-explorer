@@ -16,6 +16,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     const [geocoder, setGeocoder] = useState(null);
     const [showCurrentDiv, setShowCurrentDiv] = useState(false);
     const [locationIsLoading, setLocationIsLoading] = useState(false);
+    const [parsedCoord, setParsedCoord] = useState(null);
 
     const onLoad = (ref) => setSearchBox(ref);
 
@@ -31,6 +32,14 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     useEffect(() => {
       if (isLoaded && !geocoder) {
         setGeocoder(new window.google.maps.Geocoder());
+      }
+
+      if (isLoaded && coordinates) {
+        const parsedCoord = {
+          lat: parseFloat(coordinates.lat),
+          lng: parseFloat(coordinates.lng),
+        };
+        setParsedCoord(parsedCoord)
       }
     }, [isLoaded, geocoder]);
 
@@ -112,10 +121,10 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
             id="example-map"
             mapContainerStyle={mapContainerStyle}
             zoom={12}
-            center={coordinates || userPosition}
+            center={parsedCoord || userPosition}
             onLoad={setMapInstance}
           >
-            {coordinates && <MarkerF position={coordinates} />}
+            {coordinates && <MarkerF position={parsedCoord} />}
             <StandaloneSearchBox
               onLoad={onLoad}
               onPlacesChanged={onPlacesChanged}
