@@ -42,7 +42,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            const pos = { lat: latitude, lng: longitude }
+            const pos = { lat: parseFloat(latitude), lng: parseFloat(longitude) }
             setUserPosition(pos);
             setLocationIsLoading(false);
           },
@@ -79,19 +79,13 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       }
     };
 
-    useEffect(() => {
-      function createLocationInput() {
-        
-      }
-    })
-
     const onPlacesChanged =() => {
       setShowCurrentDiv(false);
       const place = searchBox.getPlaces()[0];
       setLocation(place.name);
       let coordinates = { 
-          lat: place.geometry.location.lat(), 
-          lng: place.geometry.location.lng() 
+          lat: parseFloat(place.geometry.location.lat()), 
+          lng: parseFloat(place.geometry.location.lng())
       };
       setCoordinates(coordinates);
       mapInstance.panTo(coordinates);
