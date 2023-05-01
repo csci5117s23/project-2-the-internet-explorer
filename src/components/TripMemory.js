@@ -26,20 +26,20 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     let videoConstraints;
     if (camera) {
         videoConstraints = {
-            width: 300,
-            height: 200,
+            width: 600,
+            height: 400,
             facingMode: "environment"
         };
     } else {
         videoConstraints = {
-            width: 300,
-            height: 200,
+            width: 600,
+            height:400,
             facingMode: "user"
         };
     }
 
     const capture = useCallback(() => {
-        const imageSrc = webcamRef.current.getScreenshot({width: 300, height: 200});
+        const imageSrc = webcamRef.current.getScreenshot({width: 600, height: 2400});
         setImage(imageSrc);
     }, [webcamRef]);
 
@@ -57,8 +57,8 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
         Resizer.imageFileResizer(
             file,
-            300, // width
-            200, // height
+            600, // width
+            400, // height
             "JPEG",
             100,
             0,

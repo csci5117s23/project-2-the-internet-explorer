@@ -173,7 +173,7 @@ export default function IndividualMemory({
 
         
 
-        <div className={`${styles.memoryDiv} grid gap-1 place-items-center`}>
+        <div className={`${styles.memoryDiv} grid gap-2 sm:gap-4 place-items-center`}>
           <div
             className="flex flex-col bg-blue-300 rounded-lg shadow-sm p-4 mt-2 mb-4 text-white"
             style={{ width: "90vw" }}

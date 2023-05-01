@@ -5,8 +5,8 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 ## App Info:
 
 * Team Name: The Internet Explorers
-* App Name: The Trip Tracker
-* App Link: <https://TODO.com/>
+* App Name: The Vacation Tracker
+* App Link: <https://taupe-creponne-e4a341.netlify.app>
 
 ### Students
 
@@ -22,15 +22,19 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* ...
+* Circulding the memories
+* add, edit, and delete data, and make sure state variables work well
+* cache data to avoid reload the page
+* get the geo location
+
 
 Which (if any) device integration(s) does your app support?
 
-* ...
+* take a photo, get geo location
 
 Which (if any) progressive web app feature(s) does your app support?
 
-* ...
+* access user's local photo library, responsiveness
 
 
 
@@ -67,7 +71,7 @@ along with a very brief caption:**
 Please do not document required libraries (e.g., Vue, Vuefire, Firebase).**
 
 * Library or service name: description of use
-* ...
+* google map api, tailwind css
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
