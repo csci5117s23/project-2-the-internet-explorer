@@ -38,6 +38,7 @@ export default function AddTrip({ addTrip, closeModal }) {
                         className="bg-gray-200 p-2 rounded-md w-full"
                         placeholder="Trip Name"
                         name="tripName"
+                        maxLength={30}
                         required
                     ></input>
                 </div>

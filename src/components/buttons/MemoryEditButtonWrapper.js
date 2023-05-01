@@ -108,10 +108,7 @@ export default function EditMemoryWrapper(
           curMemory={curMemory}
         />
 
-        <button 
-          onClick={closeModal}
-          className="px-4 py-2 font-semibold text-m bg-gray-400 border-black text-white rounded-full shadow-sm"
-        >Close</button>
+        
         <MemoryDeleteButton
             memoryID={memoryID}
             title={title}

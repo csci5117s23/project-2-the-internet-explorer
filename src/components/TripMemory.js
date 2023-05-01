@@ -199,6 +199,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                         placeholder="Title"
                         id="title"
                         name="title"
+                        maxLength={30}
                         required
                     ></input>
                 </div>
