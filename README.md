@@ -22,7 +22,7 @@ CSCI 5117, Spring 2022, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* Circulding the memories
+* Cycling through the memories
 * add, edit, and delete data, and make sure state variables work well
 * cache data to avoid reload the page
 * google maps integration/getting the geo location
@@ -64,11 +64,20 @@ along with a very brief caption:**
 ![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
 ![image](https://user-images.githubusercontent.com/123017829/235562917-c50cc965-c280-44c6-8d61-cf6e1d8a5488.png)
 The above image is the home page with all your trips.
+
+
 ![image](https://user-images.githubusercontent.com/123017829/235562963-6206c2fa-762e-4e4b-ae5f-dde60f1c4aa5.png)
+The above image is the individual trip page. It contains all of your memories for that trip, as well as the filter options and allows you to add memories.
+
+
 ![image](https://user-images.githubusercontent.com/123017829/235563087-169d24e0-9f8d-463b-aea8-f277d60ab829.png)
+The above image is the trip summary page. It shows you a summary of your trip, including the number of memories in each category, your trip description, and a map showing you all the unique locations you went to.
+
+
 ![image](https://user-images.githubusercontent.com/123017829/235563170-af4210e7-2af0-4928-b9db-5b89569d81ff.png)
 ![image](https://user-images.githubusercontent.com/123017829/235563214-2a755f5b-b060-4151-b691-48f969a19a75.png)
 ![image](https://user-images.githubusercontent.com/123017829/235563253-8c27c04a-9e0e-4c92-b685-b7b2cd71c957.png)
+The above 3 images is the individual memory page. It shows you information about the memory you selected, such as the title, picture, location, date, category, and description. It also gives you the option to edit the memory, as well as cycle between all your memories.
 
 
 
