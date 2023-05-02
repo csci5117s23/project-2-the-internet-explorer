@@ -63,6 +63,7 @@ along with a very brief caption:**
 
 ![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
 ![image](https://user-images.githubusercontent.com/123017829/235562917-c50cc965-c280-44c6-8d61-cf6e1d8a5488.png)
+The above image is the home page with all your trips.
 ![image](https://user-images.githubusercontent.com/123017829/235562963-6206c2fa-762e-4e4b-ae5f-dde60f1c4aa5.png)
 ![image](https://user-images.githubusercontent.com/123017829/235563087-169d24e0-9f8d-463b-aea8-f277d60ab829.png)
 ![image](https://user-images.githubusercontent.com/123017829/235563170-af4210e7-2af0-4928-b9db-5b89569d81ff.png)
