@@ -1,86 +1,29 @@
-.tripMemoryContainer {
-    top: 20%;
-    left: 5%;
-    margin: auto;
-    width: 90%;
-    margin: auto;
-    position: absolute;
-    border:1px solid black;
-    border-radius: 10px;
-}
-
-.tripMemoryHeader {
-    position: absolute;
-    top: 12%;
-    left: 5%;
-}
-
-.calendarDiv {
-    display: inline-block;
-    width: fit-content;
-}
-
 .photoButtons {
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; optional: align items in center vertically */
-    text-align: center;
-    margin-bottom: 0.5em;
-    /* justify-content: center; */
+  text-align: center;
+  margin-bottom: 0.5em;
 }
 
 .plusIcon {
-    font-size: x-large;
+  font-size: x-large;
 }
 
 .cameraButtons {
-    text-align: center;
+  text-align: center;
 }
 
 .captureImage {
-    margin-left: 1em;
+  margin-left: 1em;
 }
 
 .webcam {
-    margin: 0 auto 0.5em auto;
+  margin: 0 auto 0.5em auto;
 }
 
 .memoryDiv {
-    margin: 2rem 0;
+  margin: 2rem 0;
 }
 
 .mapContainer {
-    width: 80vw;
-    height: 50vw;
+  width: 80vw;
+  height: 50vw;
 }
-
-/* .imgContainer {
-    width: 90vw;
-
-} */
-
-.imgScale {
-    margin: 0 0.5em;
-}
-
-/* @media screen and (width < 481px) {
-    .mapContainer {
-        width: 90vw;
-        height: 90vw;
-    }
-
-    .imgContainer {
-        width: 90vw;
-    }
-} */
-
-/* @media screen and ((width >= 481px) and (width < 769px)) {
-    .mapContainer {
-        width: 85vw;
-        height: 47.5vw;
-    }
-
-    .imgContainer {
-        width: 85vw;
-    }
-} */

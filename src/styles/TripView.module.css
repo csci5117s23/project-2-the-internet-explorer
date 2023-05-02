@@ -1,20 +1,3 @@
-.buttonGroup {
-    padding-top: 1em;
-    padding-left: 2.5vh;
-    padding-bottom: 1em;
-    border-bottom: 0.05em solid gray;
-}
-
 .dayButtonGroup {
-    /* padding-top: 2.5vh;
-    padding-left: 2.5vh; */
-    justify-content: center;
+  justify-content: center;
 }
-
-.editButtonGroup {
-    float: right;
-    padding-right: 1em;
-    padding-top: 0.5em;
-    height: 100%;
-    padding-bottom: 0.5em;
-  }

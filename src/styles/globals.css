@@ -4,11 +4,6 @@
 
 .cl-userButton-root {
   float: right;
-  /* padding-right: 1em; */
-  /* position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%); */
   margin: 0.5em;
   height: 100%;
 }
@@ -16,41 +11,3 @@
 .space-x-5 > :not([hidden]) ~ :not([hidden]) {
   margin: 0;
 }
-
-/* @media screen and (max-width: 353px) {
-  .cl-userButton-root {
-    padding-top: 1em;
-  }
-} */
-
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
-/* body {
-  background-color: aliceblue;
-} */
