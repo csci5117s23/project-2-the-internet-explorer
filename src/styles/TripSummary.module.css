@@ -1,17 +1,17 @@
 .tripSummaryContainer {
-    top: 20%;
-    left: 5%;
-    width: 90%;
-    margin: auto;
-    position: absolute;
+  top: 20%;
+  left: 5%;
+  width: 90%;
+  margin: auto;
+  position: absolute;
 }
 
 .tripSummaryHeader {
-    position: absolute;
-    top: 12%;
-    left: 5%;
+  position: absolute;
+  top: 12%;
+  left: 5%;
 }
 
 .tripSummaryPaging {
-    text-align: center;
+  text-align: center;
 }
