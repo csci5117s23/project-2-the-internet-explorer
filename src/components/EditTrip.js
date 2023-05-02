@@ -1,6 +1,6 @@
 import React from "react";
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export default function EditTrip({ editTrip, closeModal, tripName, startMonth, startYear, description }) {
   let monthIdx = months.indexOf(startMonth) + 1;
@@ -19,7 +19,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
 
     const formJson = Object.fromEntries(formData.entries());
 
-    let startData = formJson.startMonth.split('-');
+    let startData = formJson.startMonth.split("-");
 
     let editedTrip = {
       tripName: formJson.tripName,
@@ -35,10 +35,10 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
 
   return (
     <>
-      <form method='post' onSubmit={handleSubmit}>
+      <form method="post" onSubmit={handleSubmit}>
         <div className="p-20 max-md:px-5 pt-36 -mt-16">
           <h1 className="text-xl font-bold pl-3.5">Edit Trip</h1>
-          
+
           <div className="p-4">
             <h4 className="text-l font-bold" id="createTripHeader">Trip Name</h4>
             <input 
@@ -74,7 +74,7 @@ export default function EditTrip({ editTrip, closeModal, tripName, startMonth, s
             ></textarea>
           </div>
 
-          <button type='submit' className="ml-3 mb-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
+          <button type="submit" className="ml-3 mb-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Edit Trip</button>
           <button 
             onClick={closeModal}
             className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm"

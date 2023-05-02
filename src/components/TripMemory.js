@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useRef } from "react";
-import styles from '../styles/TripMemory.module.css';
+import styles from "../styles/TripMemory.module.css";
 import Map from "./Map";
 import Webcam from "react-webcam";
-import Resizer from 'react-image-file-resizer';
+import Resizer from "react-image-file-resizer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faRotate } from "@fortawesome/free-solid-svg-icons";
 
 export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl, category, date }) {
   const [showWebCamera, setShowWebCamera] = useState(false);
   const [camera, setCamera] = useState(false); // front is false. back is true.
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
   const [resizedImage, setResizedImage] = useState(null);
   const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState(null);
@@ -26,20 +26,20 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
   let videoConstraints;
   if (camera) {
     videoConstraints = {
-      width: 600,
-      height: 400,
+      width: 300,
+      height: 200,
       facingMode: "environment"
     };
   } else {
     videoConstraints = {
-      width: 600,
-      height:400,
+      width: 300,
+      height:200,
       facingMode: "user"
     };
   }
 
   const capture = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot({width: 600, height: 400});
+    const imageSrc = webcamRef.current.getScreenshot({width: 300, height: 200});
     setImage(imageSrc);
   }, [webcamRef]);
 
@@ -49,7 +49,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
   const cancelCamera = () => {
     setShowWebCamera(!showWebCamera);
-    setImage('');
+    setImage("");
   }
 
   function handleImageChange(e) {
@@ -57,8 +57,8 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
     Resizer.imageFileResizer(
       file,
-      600, // width
-      400, // height
+      300, // width
+      200, // height
       "JPEG",
       100,
       0,
@@ -81,29 +81,29 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
   function handleSubmit(e) {
     e.preventDefault();
 
-    document.getElementById('date').disabled = false;
-    document.getElementById('folders').disabled = false;
+    document.getElementById("date").disabled = false;
+    document.getElementById("folders").disabled = false;
 
     const form = e.target;
     const formData = new FormData(form);
 
     const formJson = Object.fromEntries(formData.entries());
 
-    if (formJson.uploadImage.name != '') {
+    if (formJson.uploadImage.name != "") {
       base64EncodeImage();
     } else if (image) {
       setDataUrl(image);
     } else {
-      alert('Please upload or take an image');
+      alert("Please upload or take an image");
       return;
     }
 
     if (!location || !coordinates) {
-      alert('Please select a location');
+      alert("Please select a location");
       return;
     }
 
-    let newDate = new Date(formJson.date.replace(/-/g, '\/'));
+    let newDate = new Date(formJson.date.replace(/-/g, "\/"));
 
     let newMemory = {
       parentTripId: parentId,
@@ -121,7 +121,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     closeModal();
   }
 
-  let defaultDate = '';
+  let defaultDate = "";
   if (date && date !== "All Days") {
     let newDate = new Date(date);
     let year = newDate.getFullYear();
@@ -129,13 +129,13 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
     let day = newDate.getDate();
 
     let yearStr = year.toString();
-    let monthStr = '';
+    let monthStr = "";
     if (month < 10) {
       monthStr = `0${month.toString()}`;
     } else {
       monthStr = month.toString();
     }
-    let dayStr = '';
+    let dayStr = "";
     if (day < 10) {
       dayStr = `0${day.toString()}`;
     } else {
@@ -158,7 +158,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
 
   return (
     <>
-      <form method='post' onSubmit={handleSubmit}>
+      <form method="post" onSubmit={handleSubmit}>
         <div className="p-20 max-md:px-5 pt-36 -mt-16">
           <h1 className={`text-xl font-bold pl-3.5`}>Add Memory</h1>
 
@@ -175,12 +175,12 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
           </div>
           <div className="p-4">
             <h4 className="text-l font-bold">Date</h4>
-            {date && date !== 'All Days' ? (
+            {date && date !== "All Days" ? (
               <input 
-                type='date'
-                className='bg-gray-200 p-2 rounded-md w-full'
-                id='date'
-                name='date'
+                type="date"
+                className="bg-gray-200 p-2 rounded-md w-full"
+                id="date"
+                name="date"
                 disabled
                 defaultValue={defaultDate}
               ></input>
@@ -203,7 +203,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
           ></Map>
           <div className="p-4">
             <h4 className="text-l font-bold">What type of memory is this?</h4>
-            {category && category !== 'All Categories' ? (
+            {category && category !== "All Categories" ? (
               <select 
                 className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 name="folders"
@@ -232,7 +232,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 className="w-20 ml-3 px-2 py-1.5 font-semibold text-m bg-gray-300 text-red-500 hover:bg-red-500 hover:text-white border border-red-500 rounded-full shadow-sm"
                 id="takePic"
                 onClick={cancelCamera}
-                type='button'
+                type="button"
               >
                 Cancel
               </button>
@@ -241,7 +241,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 className="w-20 ml-3 px-2 py-1.5 font-semibold text-m bg-custom-blue hover:bg-blue-700 text-white rounded-full shadow-sm" 
                 id="takePic" 
                 onClick={handleButtonClick}
-                type='button'
+                type="button"
               >
                 Take Pic
               </button> 
@@ -261,7 +261,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
               <>
                 <img className={styles.webcam} src={image} alt="Your Image"></img>
                 <div className={styles.cameraButtons}>
-                  <button onClick={() => {setImage('')}} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Retake</button>
+                  <button onClick={() => {setImage("")}} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Retake</button>
                 </div>
               </>
             ) : (
@@ -275,9 +275,9 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
                 />
                 <div className={styles.cameraButtons}>
                   {camera ? (
-                    <button type='button' onClick={frontCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
+                    <button type="button" onClick={frontCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
                   ) : (
-                    <button type='button' onClick={backCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
+                    <button type="button" onClick={backCamera} className="bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"><FontAwesomeIcon icon={faRotate}></FontAwesomeIcon></button>
                   )}
                   <button onClick={(e) =>{e.preventDefault(); capture();}} className={`${styles.captureImage} bg-custom-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full`}><FontAwesomeIcon icon={faCamera}></FontAwesomeIcon></button>
                 </div>
@@ -295,7 +295,7 @@ export default function TripMemory({ addMemory, closeModal, parentId, setDataUrl
               name="description"
             ></textarea>
           </div>
-          <button type='submit' className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
+          <button type="submit" className="ml-3 px-2 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="addMemory">Add Memory</button>
           <button className="ml-3 px-2 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
         </div>
       </form>

@@ -1,3 +1,4 @@
+import React from "react";
 import LoadingCircle from "@/components/LoadingCircle";
 import IndividualTrip from "@/components/IndividualTrip";
 import { useRouter } from "next/router";
@@ -12,7 +13,10 @@ export default function TripId() {
     return (
       <>
         <SignedIn>
-          <IndividualTrip tripID={tripID} router={router}></IndividualTrip>
+          <IndividualTrip 
+            tripID={tripID} 
+            router={router}
+          ></IndividualTrip>
         </SignedIn>
         <SignedOut>
           <Splash></Splash>

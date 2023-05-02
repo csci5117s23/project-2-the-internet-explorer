@@ -3,19 +3,16 @@ import Modal from "react-modal";
 import TripMemory from "./TripMemory";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from '../styles/TripMemory.module.css';
+import styles from "../styles/TripMemory.module.css";
 import { useAuth } from "@clerk/nextjs";
 import { addMemory, updateMemories } from "@/modules/Data";
-import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
 
-export default function TripMemoryWrapper({ parentId, category, date, tripMemories, setTripMemories }) {
+export default function TripMemoryWrapper({ parentId, category, date, tripMemories, setTripMemories, router }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newMemory, setNewMemory] = useState(null);
   const [dataUrl, setDataUrl] = useState("");
-
-  const router = useRouter();
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -38,7 +35,7 @@ export default function TripMemoryWrapper({ parentId, category, date, tripMemori
 
             const result = await addMemory(token, updatedMemory);
             if (!result) {
-              router.push('/404');
+              router.push("/404");
               return;
             }
 
@@ -55,7 +52,7 @@ export default function TripMemoryWrapper({ parentId, category, date, tripMemori
             setNewMemory(null);
             setDataUrl("");
           } catch (error) {
-            console.error('Error: ', error);
+            console.error("Error: ", error);
           }
         }
       }

@@ -1,13 +1,14 @@
-import Link from 'next/link';
-import styles from '../styles/Trips.module.css';
-import EditTripWrapper from './EditTripWrapper';
+import React from "react";
+import Link from "next/link";
+import styles from "../styles/Trips.module.css";
+import EditTripWrapper from "./EditTripWrapper";
 
 const colors = [
   "bg-emerald-400", "bg-sky-400", "bg-fuchsia-400", "bg-indigo-400", "bg-green-400", 
   "bg-yellow-400", "bg-orange-400", "bg-red-400", "bg-slate-400"
 ];
 
-export default function Trip({ id, title, month, year, index, description, allTrips, setAllTrips }) {
+export default function Trip({ id, title, month, year, index, description, allTrips, setAllTrips, router }) {
   index = index % colors.length;
 
   return (
@@ -31,6 +32,7 @@ export default function Trip({ id, title, month, year, index, description, allTr
               description={description}
               allTrips={allTrips}
               setAllTrips={setAllTrips}
+              router={router}
             ></EditTripWrapper>
           </div>
         </div>

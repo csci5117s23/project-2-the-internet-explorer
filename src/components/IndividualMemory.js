@@ -1,18 +1,17 @@
 import { useAuth } from "@clerk/nextjs";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import LoadingCircle from "./LoadingCircle";
 import Header from "./Header";
 import MemoryMap from "./MemoryMap";
 import moment from "moment";
 import Modal from "react-modal";
-import React from "react";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import MemoryEditButtonWrapper from "./buttons/MemoryEditButtonWrapper";
 import styles from "../styles/TripMemory.module.css";
-import { currentTrip, currentMemory, currentTripMemories, getIndividualTrip, getAllMemories, getIndividualMemory } from '@/modules/Data';
+import { currentTrip, currentMemory, currentTripMemories, getIndividualTrip, getAllMemories, getIndividualMemory } from "@/modules/Data";
 
 Modal.setAppElement("body");
 
@@ -35,11 +34,11 @@ export default function IndividualMemory({ tripID, memoryID, router }) {
           setTrip(currentTrip);
           setLoadingTrip(false);
         } else {
-          const token = await getToken({ template: 'codehooks' });
+          const token = await getToken({ template: "codehooks" });
           
           let curTrip = await getIndividualTrip(token, tripID);
           if (!curTrip) {
-            router.push('/404');
+            router.push("/404");
             return;
           }
           setTrip(curTrip);
@@ -57,11 +56,11 @@ export default function IndividualMemory({ tripID, memoryID, router }) {
           setTripMemories(currentTripMemories);
           setLoadingMemories(false);
         } else {
-          const token = await getToken({ template: 'codehooks' });
+          const token = await getToken({ template: "codehooks" });
 
           let curMemories = await getAllMemories(token, tripID);
           if (!curMemories) {
-            router.push('/404');
+            router.push("/404");
             return;
           }
           setTripMemories(curMemories);
@@ -77,19 +76,17 @@ export default function IndividualMemory({ tripID, memoryID, router }) {
       if (userId) {
         if (!loadingMemories) {
           if (currentMemory && currentMemory._id === memoryID) {
-            console.log('memory is cached: ', currentMemory);
             let curIndex = tripMemories.findIndex(memory => memory._id === memoryID);
-            console.log('cur index: ', curIndex);
             calculateIndices(curIndex);
 
             setMemory(currentMemory);
             setLoadingMemory(false);
           } else {
-            const token = await getToken({ template: 'codehooks' });
+            const token = await getToken({ template: "codehooks" });
 
             let curMemory = await getIndividualMemory(token, memoryID);
             if (!curMemory) {
-              router.push('/404');
+              router.push("/404");
               return;
             }
 
@@ -160,15 +157,13 @@ export default function IndividualMemory({ tripID, memoryID, router }) {
             </div>
           </div>
 
-          <div className="p-3 px-4 rounded-md bg-gray-200 mr-7 ml-7">
-            <div className="flex p-2 justify-center">
-              <img
-                className={`${styles.imgContainer} rounded-md`}
-                src={memory.image}
-                alt={memory.title}
-                style={{ width: "90vw", height: "auto" }}
-              />
-            </div>
+          <div className="p-4 sm:p-6 md:p-8 rounded-md bg-gray-200 mx-auto w-10/12 sm:w-9/12 md:w-8/12 lg:w-7/12 xl:w-6/12">
+            <img
+              className={`${styles.imgContainer} rounded-md`}
+              src={memory.image}
+              alt={memory.title}
+              style={{ objectFit: "cover", margin: "auto", width: "100%" }}
+            />
           </div>
           {memory.description ? (
             <div

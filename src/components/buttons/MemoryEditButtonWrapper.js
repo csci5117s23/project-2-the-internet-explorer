@@ -34,7 +34,7 @@ export default function MemoryEditButtonWrapper({ router, curMemory, setCurMemor
 
             const result = await updateMemory(token, curMemory._id, updatedMemory);
             if (!result) {
-              router.push('/404');
+              router.push("/404");
               return;
             }
             setCurMemory(result);

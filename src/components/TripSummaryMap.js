@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { GoogleMap, MarkerF, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -12,7 +12,7 @@ export default function TripSummaryMap({ coordinatesDict, currentCoordinate, zoo
   const [parsedCoord, setParsedCoord] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
-    id: 'example-map',
+    id: "example-map",
     googleMapsApiKey: MAP_API,
     libraries: libraries
   });

@@ -10,7 +10,7 @@ export default function AddTrip({ addTrip, closeModal }) {
     const formJson = Object.fromEntries(formData.entries());
 
     // Separate the month and the year from the form month input.
-    let startData = formJson.startMonth.split('-');
+    let startData = formJson.startMonth.split("-");
 
     let newTrip = {
       tripName: formJson.tripName,
@@ -26,7 +26,7 @@ export default function AddTrip({ addTrip, closeModal }) {
 
   return (
     <>
-      <form method='post' onSubmit={handleSubmit}>
+      <form method="post" onSubmit={handleSubmit}>
         <div className="p-20 max-md:px-5 pt-36 -mt-16">
           <h1 className={"text-xl font-bold pl-3.5"}>Create Trip</h1>
             <div className="p-4">
@@ -60,7 +60,7 @@ export default function AddTrip({ addTrip, closeModal }) {
               ></textarea>
             </div>
 
-            <button type='submit' className="ml-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
+            <button type="submit" className="ml-3 px-4 py-2 font-semibold text-m bg-custom-blue text-white rounded-full shadow-sm" id="add-trip">Add Trip</button>
             <button className="ml-3 px-4 py-2 font-semibold text-m bg-gray-400 text-white rounded-full shadow-sm" onClick={closeModal}>Cancel</button>
         </div>
       </form>

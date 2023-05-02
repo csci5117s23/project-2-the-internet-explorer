@@ -1,3 +1,4 @@
+import React from "react";
 import { useRouter } from "next/router";
 import IndividualCategory from "@/components/IndividualCategory";
 import IndividualDay from "@/components/IndividualDay";
@@ -10,13 +11,13 @@ export default function FilterPage() {
   const { filter, tripID, category, day } = router.query;
 
   if (router.isReady) {
-    if (filter === 'category') {
+    if (filter === "category") {
       if (!category) {
-        router.push('/404'); // Missing the search query.
+        router.push("/404"); // Missing the search query.
         return;
       }
 
-      let curDay = 'All Days';
+      let curDay = "All Days";
       if (day) {
         curDay = day;
       }
@@ -36,13 +37,13 @@ export default function FilterPage() {
           </SignedOut>
         </>
       );
-    } else if (filter === 'day') {
+    } else if (filter === "day") {
       if (!day) {
-        router.push('/404'); // Missing the search query.
+        router.push("/404"); // Missing the search query.
         return;
       }
 
-      let curCategory = 'All Categories';
+      let curCategory = "All Categories";
       if (category) {
         curCategory = category;
       }
@@ -64,7 +65,7 @@ export default function FilterPage() {
       );
     } else {
       // Unaccepted route.
-      router.push('/404');
+      router.push("/404");
       return;
     }
   } else {

@@ -4,12 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/nextjs";
 import Modal from "react-modal";
 import { deleteDesiredTrip, deleteTripMemories, updateTripsData } from "@/modules/Data";
-import { useRouter } from "next/router";
 
-export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, setAllTrips }) {
+export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, setAllTrips, router }) {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const [deleteModal, setDeleteModal] = useState(false);
-  const router = useRouter();
     
   async function deleteTrip() {
     try {
@@ -19,7 +17,7 @@ export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, set
         // Delete the trip.
         const tripResult = await deleteDesiredTrip(token, tripID);
         if (!tripResult) {
-          router.push('/404');
+          router.push("/404");
           return;
         }
 
@@ -33,13 +31,13 @@ export default function DeleteTrip({ tripID, tripName, closeModal, allTrips, set
         // Delete the memories in that trip.
         const memoryResult = await deleteTripMemories(token, tripID);
         if (!memoryResult) {
-          router.push('/404');
+          router.push("/404");
           return;
         }
         alert("Successfully deleted trip");
       }
     } catch (error) {
-      console.error('Error: ', error);
+      console.error("Error: ", error);
     }
   }
 

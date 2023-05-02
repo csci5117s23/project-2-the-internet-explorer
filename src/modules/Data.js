@@ -1,4 +1,4 @@
-const backend_base = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
+const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 // Cached data.
 export let allTripsData = [];
@@ -8,10 +8,10 @@ export let currentMemory = null;
 
 // Retrieves all trips, updates the cached trips, then returns it.
 export async function getAllTrips(authToken) {
-  const result = await fetch(backend_base + '/tripFolders?sort=startYear,startMonth', {
-    'method': 'GET',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const result = await fetch(BACKEND_BASE + "/tripFolders?sort=startYear,startMonth", {
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!result.ok) {
@@ -43,10 +43,10 @@ export async function getIndividualTrip(authToken, tripId) {
     }
   }
   // If the above if statement does not successfully retrieve the data, then perform a database request.
-  const result = await fetch(backend_base + `/tripFolders/${tripId}`, {
-    'method': 'GET',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const result = await fetch(BACKEND_BASE + `/tripFolders/${tripId}`, {
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!result.ok) {
@@ -58,13 +58,13 @@ export async function getIndividualTrip(authToken, tripId) {
 
 // Add a trip to the database.
 export async function addTrip(authToken, data) {
-  const response = await fetch(backend_base + '/tripFolders', {
-    'method': 'POST',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken,
-      'Content-Type': 'application/json'
+  const response = await fetch(BACKEND_BASE + "/tripFolders", {
+    "method": "POST",
+    "headers": {
+      "Authorization": "Bearer " + authToken,
+      "Content-Type": "application/json"
     },
-    'body': JSON.stringify(data)
+    "body": JSON.stringify(data)
   });
   if (!response.ok) {
     return null;
@@ -76,13 +76,13 @@ export async function addTrip(authToken, data) {
 
 // Edit the requested trip, update the cached trip, then return the result.
 export async function editDesiredTrip(authToken, tripID, data) {
-  const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
-    'method': 'PATCH',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken,
-      'Content-Type': 'application/json'
+  const response = await fetch(BACKEND_BASE + `/tripFolders/${tripID}`, {
+    "method": "PATCH",
+    "headers": {
+      "Authorization": "Bearer " + authToken,
+      "Content-Type": "application/json"
     },
-    'body': JSON.stringify(data)
+    "body": JSON.stringify(data)
   });
   if (!response.ok) {
     return null;
@@ -95,10 +95,10 @@ export async function editDesiredTrip(authToken, tripID, data) {
 
 // Delete the requested trip. Then return the _id.
 export async function deleteDesiredTrip(authToken, tripID) {
-  const response = await fetch(backend_base + `/tripFolders/${tripID}`, {
-    'method': 'DELETE',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const response = await fetch(BACKEND_BASE + `/tripFolders/${tripID}`, {
+    "method": "DELETE",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!response.ok) {
@@ -112,10 +112,10 @@ export async function deleteDesiredTrip(authToken, tripID) {
 // Delete all memories associated with a specified trip. This only runs after a 
 // trip has been deleted to delete that trip's memories.
 export async function deleteTripMemories(authToken, tripID) {
-  const response = await fetch(backend_base + `/deleteMemories?trip=${tripID}`, {
-    'method': 'DELETE',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const response = await fetch(BACKEND_BASE + `/deleteMemories?trip=${tripID}`, {
+    "method": "DELETE",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!response.ok) {
@@ -128,10 +128,10 @@ export async function deleteTripMemories(authToken, tripID) {
 
 // Retrieves all memories, updates the cached memories, then returns it.
 export async function getAllMemories(authToken, tripId) {
-  const result = await fetch(backend_base + `/tripMemories?parentTripId=${tripId}&sort=category,date`, {
-    'method': 'GET',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const result = await fetch(BACKEND_BASE + `/tripMemories?parentTripId=${tripId}&sort=category,date`, {
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!result.ok) {
@@ -163,10 +163,10 @@ export async function getIndividualMemory(authToken, memoryID) {
     }
   }
   // If the above if statement does not successfully retrieve the data, then perform a database request.
-  const result = await fetch(backend_base + `/tripMemories/${memoryID}`, {
-    'method': 'GET',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const result = await fetch(BACKEND_BASE + `/tripMemories/${memoryID}`, {
+    "method": "GET",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!result.ok) {
@@ -178,13 +178,13 @@ export async function getIndividualMemory(authToken, memoryID) {
 
 // Add a memory to the database.
 export async function addMemory(authToken, data) {
-  const response = await fetch(backend_base + '/tripMemories', {
-    'method': 'POST',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken,
-      'Content-Type': 'application/json'
+  const response = await fetch(BACKEND_BASE + "/tripMemories", {
+    "method": "POST",
+    "headers": {
+      "Authorization": "Bearer " + authToken,
+      "Content-Type": "application/json"
     },
-    'body': JSON.stringify(data)
+    "body": JSON.stringify(data)
   });
   if (!response.ok) {
     return null;
@@ -196,10 +196,10 @@ export async function addMemory(authToken, data) {
 
 // Delete the requested memory from the database. Then update the currentMemories cache.
 export async function deleteMemory(authToken, memoryID) {
-  const response = await fetch(backend_base + `/tripMemories/${memoryID}`, {
-    'method': 'DELETE',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken
+  const response = await fetch(BACKEND_BASE + `/tripMemories/${memoryID}`, {
+    "method": "DELETE",
+    "headers": {
+      "Authorization": "Bearer " + authToken
     }
   });
   if (!response.ok) {
@@ -212,13 +212,13 @@ export async function deleteMemory(authToken, memoryID) {
 
 // Update the requested memory.
 export async function updateMemory(authToken, memoryID, data) {
-  const response = await fetch (backend_base + `/tripMemories/${memoryID}`, {
-    'method': 'PATCH',
-    'headers': {
-      'Authorization': 'Bearer ' + authToken,
-      'Content-Type': 'application/json'
+  const response = await fetch (BACKEND_BASE + `/tripMemories/${memoryID}`, {
+    "method": "PATCH",
+    "headers": {
+      "Authorization": "Bearer " + authToken,
+      "Content-Type": "application/json"
     },
-    'body': JSON.stringify(data)
+    "body": JSON.stringify(data)
   });
   if (!response.ok) {
     return null;

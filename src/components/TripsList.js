@@ -1,8 +1,9 @@
+import React from "react";
 import Trip from "./Trip";
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-export default function TripsList({ allTrips, setAllTrips }) {
+export default function TripsList({ allTrips, setAllTrips, router }) {
   let tripsList = allTrips.map(
     (trip, i) => (
       <Trip
@@ -15,6 +16,7 @@ export default function TripsList({ allTrips, setAllTrips }) {
         description={trip.description}
         allTrips={allTrips}
         setAllTrips={setAllTrips}
+        router={router}
       />
     )
   );

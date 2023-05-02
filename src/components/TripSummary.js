@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import TripSummaryMap from "./TripSummaryMap";
-import styles from '../styles/TripSummary.module.css'
+import styles from "../styles/TripSummary.module.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCameraRetro, faClock, faPen, faMapLocationDot, faPerson, faCalendarDay, faGifts, faUtensils, faSquareCaretRight, faSquareCaretLeft} from "@fortawesome/free-solid-svg-icons";
 
@@ -61,7 +61,7 @@ export default function TripSummary({ trip, tripMemories, closeModal }) {
         }
       }
       if (minDate && maxDate) {
-        const tripDuration = maxDate.diff(minDate, 'days') + 1;
+        const tripDuration = maxDate.diff(minDate, "days") + 1;
         setTripDuration(tripDuration);
       }
     }
@@ -116,7 +116,8 @@ export default function TripSummary({ trip, tripMemories, closeModal }) {
         )}
         <div className="p-4">
           <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
-            <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip: {trip && trip.description ? trip.description: "No trip description"}</h1>
+            <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md text-center ${styles.tripSummaryData}`}> <FontAwesomeIcon icon={faPen} /> Description of Trip</h1>
+            <h1 className={`text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md ${styles.tripSummaryData}`} style={{ whiteSpace: "pre-wrap"}}>{trip && trip.description ? trip.description: <em>You have not entered a trip description.</em>}</h1>
           </div>
           <div className="bg-gray-200 rounded-lg shadow-sm p-2 mt-2 mb-4">
             <div className="text-lg font-bold mb-2 bg-gray-300 p-2 m-1 rounded-md">
