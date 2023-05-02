@@ -6,16 +6,13 @@ import { useAuth } from "@clerk/clerk-react";
 import EditTrip from "./EditTrip";
 import DeleteTrip from "./DeleteTrip";
 import { editDesiredTrip, updateTripsData } from "@/modules/Data";
-import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
 
-export default function EditTripWrapper({ tripID, tripName, startMonth, startYear, description, allTrips, setAllTrips }) {
+export default function EditTripWrapper({ tripID, tripName, startMonth, startYear, description, allTrips, setAllTrips, router }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editedTrip, setEditedTrip] = useState(null);
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-
-  const router = useRouter();
 
   function openModal() {
     setIsOpen(true);
@@ -34,7 +31,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
 
             const result = await editDesiredTrip(token, tripID, editedTrip);
             if (!result) {
-              router.push('/404');
+              router.push("/404");
               return;
             }
 
@@ -66,7 +63,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
             setEditedTrip(null);
           }
           catch (error) {
-            console.error('Error: ', error);
+            console.error("Error: ", error);
           }
         }
       }
@@ -103,6 +100,7 @@ export default function EditTripWrapper({ tripID, tripName, startMonth, startYea
           closeModal={closeModal} 
           allTrips={allTrips} 
           setAllTrips={setAllTrips}
+          router={router}
         />
       </Modal>
     </>

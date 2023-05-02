@@ -1,3 +1,4 @@
+import React from "react";
 import IndividualMemory from "@/components/IndividualMemory";
 import { useRouter } from "next/router";
 import { SignedIn, SignedOut } from "@clerk/nextjs";

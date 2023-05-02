@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import TripSummary from "./TripSummary";
-import { useAuth } from "@clerk/nextjs";
 
 Modal.setAppElement("body");
 

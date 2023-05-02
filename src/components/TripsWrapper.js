@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import TripsList from "./TripsList";
 import { updateTripsData } from "@/modules/Data";
 
-export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
+export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips, router }) {
   useEffect(() => {
     // Update allTrips with a new trip, then sort the new list by start date.
     const updateTrips = () => {
@@ -25,6 +25,6 @@ export default function TripsWrapper({ uploadedTrip, allTrips, setAllTrips }) {
   }, [uploadedTrip]);
 
   return (
-    <TripsList allTrips={allTrips} setAllTrips={setAllTrips}></TripsList>
+    <TripsList allTrips={allTrips} setAllTrips={setAllTrips} router={router}></TripsList>
   );
 }

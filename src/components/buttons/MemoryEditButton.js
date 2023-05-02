@@ -29,22 +29,22 @@ export default function MemoryEditButton({ editMemory, closeModal, setDataUrl, c
   let videoConstraints;
   if (camera) {
     videoConstraints = {
-      width: 600,
-      height: 400,
+      width: 300,
+      height: 200,
       facingMode: "environment",
     };
   } else {
     videoConstraints = {
-      width: 600,
-      height: 400,
+      width: 300,
+      height: 200,
       facingMode: "user",
     };
   }
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot({
-      width: 600,
-      height: 400,
+      width: 300,
+      height: 200,
     });
     setImage(imageSrc);
   }, [webcamRef]);
@@ -63,8 +63,8 @@ export default function MemoryEditButton({ editMemory, closeModal, setDataUrl, c
 
     Resizer.imageFileResizer(
       file,
-      600, // width
-      400, // height
+      300, // width
+      200, // height
       "JPEG",
       100,
       0,

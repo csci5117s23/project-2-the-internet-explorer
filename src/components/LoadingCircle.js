@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function LoadingCircle() {
   return (
     <div role="status" className="flex flex-wrap justify-center my-20">

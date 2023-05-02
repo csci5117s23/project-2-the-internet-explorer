@@ -5,14 +5,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAuth } from "@clerk/clerk-react";
 import { addTrip } from "@/modules/Data";
-import { useRouter } from "next/router";
 
 Modal.setAppElement("body");
 
-export default function AddTripWrapper({ setUploadedTrip }) {
+export default function AddTripWrapper({ setUploadedTrip, router }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [newTrip, setNewTrip] = useState(null);
-  const router = useRouter();
 
   const { isLoaded, userId, sessionId, getToken } = useAuth();
 
@@ -33,13 +31,13 @@ export default function AddTripWrapper({ setUploadedTrip }) {
 
             const result = await addTrip(token, newTrip);
             if (!result) {
-              router.push('/404');
+              router.push("/404");
               return;
             }
 
             setUploadedTrip(result);
           } catch (error) {
-            console.error('Error: ', error);
+            console.error("Error: ", error);
           } 
         }
       }

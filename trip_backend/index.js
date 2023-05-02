@@ -3,8 +3,8 @@
 * Auto generated Codehooks (c) example
 * Install: npm i codehooks-js codehooks-crudlify
 */
-import {app, Datastore} from 'codehooks-js';
-import {crudlify} from 'codehooks-crudlify';
+import {app, Datastore} from "codehooks-js";
+import {crudlify} from "codehooks-crudlify";
 import jwtDecode from "jwt-decode";
 import { object, string, date, number } from "yup";
 
@@ -40,10 +40,10 @@ async function deleteTripMemories(req, res) {
     filter: query
   }
 
-  const data = await conn.removeMany('tripMemories', options);
+  const data = await conn.removeMany("tripMemories", options);
   res.json(data);
 }
-app.delete('/deleteMemories', deleteTripMemories);
+app.delete("/deleteMemories", deleteTripMemories);
 
 // Retrieves the user token from the request headers and stores it in 
 // the request. This happens prior to any database access.
@@ -51,7 +51,7 @@ const userAuth = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
     if (authorization) {
-      const token = authorization.replace('Bearer ', '');
+      const token = authorization.replace("Bearer ", "");
       const token_parsed = jwtDecode(token);
       req.user_token = token_parsed;
     }
@@ -66,9 +66,9 @@ app.use(userAuth);
 
 // Some extra logic for making a POST, GET, DELETE, or PATCH request from the tripFolders 
 // collection. Retrieve the userId and store it in the body or query.
-app.use('/tripFolders', (req, res, next) => {
+app.use("/tripFolders", (req, res, next) => {
   if (req.method === "POST") {
-    req.body._id = '';
+    req.body._id = "";
     req.body.user = req.user_token.sub;
   } else if (req.method === "GET") {
     req.query.user = req.user_token.sub;
@@ -82,9 +82,9 @@ app.use('/tripFolders', (req, res, next) => {
 
 // Some extra logic for making a POST, GET, DELETE, or PATCH request from the tripMemories
 // collection. Retrieve the userId and store it in the body or query,
-app.use('/tripMemories', (req, res, next) => {
+app.use("/tripMemories", (req, res, next) => {
   if (req.method === "POST") {
-    req.body._id = '';
+    req.body._id = "";
     req.body.user = req.user_token.sub;
   } else if (req.method === "GET") {
     req.query.user = req.user_token.sub;
@@ -98,7 +98,7 @@ app.use('/tripMemories', (req, res, next) => {
 
 // Some extra logic for the /deleteMemories endpoint for a DELETE request. Retrieve
 // the userId and store it in the query.
-app.use('/deleteMemories', async(req, res, next) => {
+app.use("/deleteMemories", async(req, res, next) => {
   if (req.method === "DELETE") {
     req.query.user = req.user_token.sub;
   }
@@ -107,13 +107,13 @@ app.use('/deleteMemories', async(req, res, next) => {
 
 // Some extra logic when requesting a specific trip. Retrieve the requested trip, then
 // check if the requester has access to it.
-app.use('/tripFolders/:id', async (req, res, next) => {
+app.use("/tripFolders/:id", async (req, res, next) => {
   const id = req.params.ID;
   const userId = req.user_token.sub;
 
   const conn = await Datastore.open();
   try {
-    const trip = await conn.getOne('tripFolders', id);
+    const trip = await conn.getOne("tripFolders", id);
     if (trip.user != userId) {
       res.status(403).end();
       return;
@@ -128,13 +128,13 @@ app.use('/tripFolders/:id', async (req, res, next) => {
 
 // Some extra logic when requesting a specific memory. Retrieve the requested memory, then
 // check if the requester has access to it.
-app.use('/tripMemories/:id', async (req, res, next) => {
+app.use("/tripMemories/:id", async (req, res, next) => {
   const id = req.params.ID;
   const userId = req.user_token.sub;
 
   const conn = await Datastore.open();
   try {
-    const memory = await conn.getOne('tripMemories', id);
+    const memory = await conn.getOne("tripMemories", id);
     if (memory.user != userId) {
       res.status(403).end();
       return;

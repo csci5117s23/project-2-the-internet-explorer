@@ -1,7 +1,8 @@
+import React from "react";
 import { UserButton } from "@clerk/nextjs";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from '../styles/Trips.module.css';
+import styles from "../styles/Trips.module.css";
 import BackButton from "./buttons/BackButton";
 import Link from "next/link";
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GoogleMap, StandaloneSearchBox, MarkerF, useJsApiLoader } from '@react-google-maps/api';
-import LoadingCircle from './LoadingCircle'; 
+import { GoogleMap, StandaloneSearchBox, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import LoadingCircle from "./LoadingCircle"; 
 const MAP_API = process.env.NEXT_PUBLIC_MAP_API
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -21,7 +21,7 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
   const onLoad = (ref) => setSearchBox(ref);
 
   const { isLoaded } = useJsApiLoader({
-    id: 'example-map',
+    id: "example-map",
     googleMapsApiKey: MAP_API,
     libraries: libraries
   });
@@ -67,11 +67,10 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
       geocoder.geocode({ location: pos }, (results, status) => {
         if (status === "OK") {
           if (results[0]) {
-            console.log("this is results: " + JSON.stringify(results[0]))
             const locationName = results[0].address_components
-              .filter(addressComponent => addressComponent.types.includes('street_number') || addressComponent.types.includes('route'))
+              .filter(addressComponent => addressComponent.types.includes("street_number") || addressComponent.types.includes("route"))
               .map(addressComponent => addressComponent.long_name)
-              .join(' ');
+              .join(" ");
             setLocation(locationName);
             setShowCurrentDiv(true);
           } else {
@@ -94,7 +93,6 @@ export default function Map({ location, setLocation, coordinates, setCoordinates
     };
     setCoordinates(coordinates);
     mapInstance.panTo(coordinates);
-    console.log(place);
   }
 
   return (

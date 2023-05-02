@@ -1,3 +1,4 @@
+import React from "react";
 import HomePage from "@/components/HomePage";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Splash from "..";
@@ -6,7 +7,7 @@ import { useRouter } from "next/router";
 import LoadingCircle from "@/components/LoadingCircle";
 
 export default function TripsPage() {
-  let router = useRouter();
+  const router = useRouter();
   
   if (router.isReady) {
     return (
@@ -16,7 +17,9 @@ export default function TripsPage() {
             <title>Your Trips!</title>
             <link rel="icon" href="/favicon.png" />
           </Head>
-          <HomePage></HomePage>
+          <HomePage
+            router={router}
+          ></HomePage>
         </SignedIn>
         <SignedOut>
           <Splash></Splash>
