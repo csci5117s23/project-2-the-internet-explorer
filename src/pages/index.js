@@ -2,7 +2,7 @@ import React from "react";
 import { Inter } from "next/font/google"
 import Head from "next/head";
 import Link from "next/link";
-import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, SignUpButton } from "@clerk/nextjs";
 import TripsPage from "./trips";
 
 const inter = Inter({ subsets: ["latin"] })
@@ -29,17 +29,21 @@ export default function Splash() {
               </h1>
               <h2 className="text-lg sm:text-xl font-bold mb-4 text-gray-200">
                 To track your vacations, please&nbsp;
-                <span className="inline-block mx-2 p-2 rounded-lg bg-blue-500 m-2">
-                  <Link href={`https://grown-locust-7.accounts.dev/sign-in?redirect_url=${window.location.origin}`}>
+                <SignInButton>
+                <button className="inline-block mx-2 p-2 rounded-lg bg-blue-500 m-2">
+                  <div>
                     Login
-                  </Link>
-                </span>
+                  </div>
+                </button>
+                </SignInButton>
                 &nbsp;or&nbsp;
-                <span className="inline-block mx-2 p-2 rounded-lg bg-blue-500">
-                  <Link href={`https://grown-locust-7.accounts.dev/sign-up?redirect_url=${window.location.origin}`}>
-                    Sign up
-                  </Link>
-                </span>
+                <SignUpButton>
+                  <button className="inline-block mx-2 p-2 rounded-lg bg-blue-500">
+                    <div>
+                      Sign up
+                    </div>
+                  </button>
+                </SignUpButton>
                 !
               </h2>
             </main>
